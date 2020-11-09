@@ -31,6 +31,21 @@ function getThisBoat()
     return $results;
 }
 
+function addBoat($bid, $bname, $color)
+{
+	global $db;
+	
+	$query = "INSERT INTO boats VALUES(:bid, :bname, :color)";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':bid', $bid);
+	$statement->bindValue(':bname', $bname);
+	$statement->bindValue(':color', $color);
+	$statement->execute();        // run query, if the statement is successfully executed, execute() returns true
+	                              // false otherwise
+	
+	$statement->closeCursor();    // release hold on this connection
+}
+
 
 ?>
 

@@ -28,14 +28,17 @@ $dbname = 'guestbook';
 
 $dsn = "mysql:host=$host;dbname=$dbname";
 $db = "";
+$opt = [
+   PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+   PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+   PDO::ATTR_EMULATE_PREPARES   => false,
+];
 
 /** connect to the database **/
 try 
 {
-   $db = new PDO($dsn, $username, $password);   
+   $db = new PDO($dsn, $username, $password, $opt);   
    //echo "<p>You are connected to the database</p>";
-
-
 
 }
 catch (PDOException $e)     // handle a PDO exception (errors thrown by the PDO library)
