@@ -18,10 +18,10 @@
 /******************************/
 // connecting to DB on XAMPP (local)
 
-$username = 'cs4750user';
-$password = 'password';
+$username = 'ebl9rd';
+$password = 'qj1qlV2y71x5lyhU';
 $host = 'localhost:3306';
-$dbname = 'guestbook';
+$dbname = 'ebl9rd';
 
 
 
