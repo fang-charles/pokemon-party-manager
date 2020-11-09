@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {Boat} from './types/types'
-
-
+import {Boat} from './types/types';
+import {getAllBoats, addBoat} from './axios/api';
+import ExampleBoatView from './ExampleBoatView'
 
 
 
@@ -18,31 +18,22 @@ function Example() {
 
   const apiUrl = 'http://localhost/cs4750/pokemon-party-manager/src/php/getAllBoats.php';
 
-  function getAllBoats(){
-    axios.get<Boat[]>(apiUrl)
-    .then(response => {
-      console.log(response.data);
-      setAllBoats(response.data);
-      setBoatCount(response.data.length);
-      setCount(response.data.length);
-    });
-  }
 
-  function addBoat(boat: Boat){
-    axios.post(`http://localhost/cs4750/pokemon-party-manager/src/php/addBoat.php`, boat)
-    .then(res => {
-      console.log(res);
-      console.log(res.data);
-      getAllBoats();
-    })
-  }
+
         React.useEffect(
           () => {
-            getAllBoats();
+            getAllBoats().then(response => {
+              console.log(response.data);
+              setAllBoats(response.data);
+              setBoatCount(response.data.length);
+
+            });
 
           },
-          [],
+          [count],
         );
+
+
 
   return (
     <div>
@@ -51,10 +42,16 @@ function Example() {
       <button onClick={() => setCount(count + 1)}>
         Click me
       </button>
-      <button onClick={() => addBoat(
-        new Boat(count.toString(),"newBoatName","white"))}>
+      <button onClick={() => {
+      addBoat(new Boat(count.toString(),"newBoatName","white"));
+      setCount(count+1);
+      }
+        
+        }>
         Add Boat
       </button>
+      {allBoats.map((boat)=> <ExampleBoatView myBoat={boat}></ExampleBoatView>)}
+      
     </div>
   );
 }

@@ -27,7 +27,6 @@ function getThisBoat()
     $results = $statement->fetch();
     $statement->closeCursor();
 
-    var_dump($results);
     return $results;
 }
 
