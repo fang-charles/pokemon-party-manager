@@ -3,30 +3,42 @@ import axios from 'axios';
 import {Boat} from './types/types'
 
 
-function addBoat(boat: Boat){
-  axios.post(`http://localhost/cs4750/pokemon-party-manager/src/php/addBoat.php`, boat)
-  .then(res => {
-    console.log(res);
-    console.log(res.data);
-  })
-}
+
+
+
+
+
 
 function Example() {
   // Declare a new state variable, which we'll call "count"
   const [count, setCount] = useState(0);
   const [bid, setBID] = useState("000");
+  const [allBoats, setAllBoats] = useState<Boat[]>([]);
+  const [boatCount, setBoatCount] = useState<number>(0);
 
   const apiUrl = 'http://localhost/cs4750/pokemon-party-manager/src/php/getAllBoats.php';
 
+  function getAllBoats(){
+    axios.get<Boat[]>(apiUrl)
+    .then(response => {
+      console.log(response.data);
+      setAllBoats(response.data);
+      setBoatCount(response.data.length);
+      setCount(response.data.length);
+    });
+  }
 
-
+  function addBoat(boat: Boat){
+    axios.post(`http://localhost/cs4750/pokemon-party-manager/src/php/addBoat.php`, boat)
+    .then(res => {
+      console.log(res);
+      console.log(res.data);
+      getAllBoats();
+    })
+  }
         React.useEffect(
           () => {
-            axios.get<Boat[]>(apiUrl)
-            .then(response => {
-              console.log(response.data);
-              setBID(response.data[0].bname);
-            });
+            getAllBoats();
 
           },
           [],
@@ -34,7 +46,7 @@ function Example() {
 
   return (
     <div>
-      <p>BID: {bid} </p>
+      <p>SELECT: {boatCount} </p>
       <p>You clicked {count} times</p>
       <button onClick={() => setCount(count + 1)}>
         Click me

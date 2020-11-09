@@ -10,4 +10,8 @@ export class Boat {
 		this.bname=bname;
 		this.color=color;
 	  }
+
+	  public toString = () : string => {
+        return `Boat (bid: ${this.bid}, bname: ${this.bname}, color: ${this.color})`;
+    }
   }
