@@ -17,7 +17,7 @@
 
 /******************************/
 // connecting to DB on XAMPP (local)
-require("dbquery.php");
+
 $username = 'cs4750user';
 $password = 'password';
 $host = 'localhost:3306';
@@ -33,9 +33,9 @@ $db = "";
 try 
 {
    $db = new PDO($dsn, $username, $password);   
-   echo "<p>You are connected to the database</p>";
-   $boat = getThisBoat();
-   echo json_encode($boat);
+   //echo "<p>You are connected to the database</p>";
+
+
 
 }
 catch (PDOException $e)     // handle a PDO exception (errors thrown by the PDO library)
