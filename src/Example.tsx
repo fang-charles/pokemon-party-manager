@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {Boat} from './types/types';
-import {getAllBoats, addBoat} from './axios/api';
+import {Boat, Person} from './types/types';
+import {getAllBoats, addBoat, getABoat} from './axios/api';
 import ExampleBoatView from './ExampleBoatView'
 
 
@@ -26,7 +26,13 @@ function Example() {
               console.log(response.data);
               setAllBoats(response.data);
               setBoatCount(response.data.length);
+              let p: Person = {name:"Charles", age:22};
+              console.log(p);
+              p.parent = {name:"Charles", age:22};
+              console.log(p);
 
+              let boat = getABoat();
+              console.log(boat);
             });
 
           },
@@ -43,8 +49,9 @@ function Example() {
         Click me
       </button>
       <button onClick={() => {
+        setCount(count+1);
       addBoat(new Boat(count.toString(),"newBoatName","white"));
-      setCount(count+1);
+      
       }
         
         }>

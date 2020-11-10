@@ -20,7 +20,7 @@ function getThisBoat()
 {
     global $db;
 
-    $query = "SELECT bid FROM boats WHERE bid=101";
+    $query = "SELECT * FROM boats WHERE bid=101";
     $statement = $db->prepare($query);
     $statement->execute();
 
