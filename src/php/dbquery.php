@@ -59,3 +59,18 @@ function getBasePokemon($pokedexNumber)
 
 	return $results;
 }
+
+function getItem($itemName)
+{
+	global $db;
+
+	$query = "SELECT * FROM item WHERE item_name=:itemName";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':itemName', $itemName);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $results;
+}

@@ -51,7 +51,7 @@ export default function ButtonAppBar() {
                     <Link to="/test/jammie">
                         <Button>Jammie</Button>
                     </Link>
-					<Link to="/">
+                    <Link to="/">
                         <Button>Home</Button>
                     </Link>
                 </Toolbar>
