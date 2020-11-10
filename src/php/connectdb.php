@@ -21,7 +21,7 @@
 $username = 'cs4750user';
 $password = 'password';
 $host = 'localhost:3306';
-$dbname = 'guestbook';
+$dbname = 'ebl9rd_c';
 
 
 require_once __DIR__ . '\dbquery.php';

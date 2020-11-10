@@ -9,7 +9,7 @@ export class Boat {
         this.color = color;
     }
 
-    public toString = (): string => {
+    public tostring = (): string => {
         return `Boat (bid: ${this.bid}, bname: ${this.bname}, color: ${this.color})`;
     };
 }
@@ -27,45 +27,43 @@ export type Party = {
 };
 
 export type BasePokemon = {
-    pokedex_number: String;
-    name: String;
-    type1: String;
-    type2?: String;
+    pokedex_number: number;
+    name: string;
+    type1: string;
+    type2?: string;
     hp: number;
     attack: number;
     defense: number;
     special_attack: number;
     special_defense: number;
     speed: number;
-    sprite_data: String;
+    sprite_data: string;
 };
 
 export type Pokemon = {
-    pkID: number,
-    nickname: String,
-    level: number,
-    holding?: Item,
-    moves : Move[],
-    baseInfo: BasePokemon
-
-}
+    pkID: number;
+    nickname: string;
+    level: number;
+    holding?: Item;
+    moves: Move[];
+    baseInfo: BasePokemon;
+};
 
 export type Item = {
-    item_name: String;
-    item_description: String;
+    item_name: string;
+    item_description: string;
 };
 
 export type User = {
     user_id: number;
-    username: String;
+    username: string;
 };
 
 export type Move = {
-    move_name: String;
+    move_name: string;
     power: number;
     accuracy: number;
-    type: String;
+    type: string;
     pp: number;
-    effect: String;
+    effect: string;
 };
-
