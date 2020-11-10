@@ -4,6 +4,6 @@
 	  "react"
 	],
 	"rules": {
-	  "no-undef": [ 1 ],
+	  "no-undef": [ 1 ]
 	}
   }
