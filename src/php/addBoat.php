@@ -10,21 +10,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	
 	$data = json_decode(file_get_contents("php://input"), TRUE);
-	
-  $bid = $data['bid'];
-  $bname = $data['bname'];
-  $color = $data['color'];
+
+	$dataPacket = $data['dataPacket'];
+	$fname = $data['fname'];
+
+	//Specify the fname in api.tsx
+	switch ($fname) {
+	   case "addBoat":
+		$bid = $dataPacket['bid'];
+		$bname = $dataPacket['bname'];
+		$color = $dataPacket['color'];
+		addBoat($bid,$bname,$color);
+		 break;
+	   default:
+		 echo "Your fname does not match";
+	 }
 
 
-	echo $bid;
-	echo $bname;
-	echo $color;
-
-	addBoat($bid,$bname,$color);
-	echo "Complete";
   
 }
 else{
-	echo "NOT POST";
+	echo "---NOT POST---";
 }
 ?>
