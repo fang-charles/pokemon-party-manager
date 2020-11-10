@@ -74,3 +74,18 @@ function getItem($itemName)
 
 	return $results;
 }
+
+function getParty($partyID)
+{
+	global $db;
+
+	$query = "CALL getParty(:partyID)";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':partyID', $partyID);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $results;
+}

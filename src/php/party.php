@@ -15,9 +15,9 @@ $fname = $data['fname'];
 
 //Specify the fname in api.tsx
 switch ($fname) {
-	case "getBasePokemon":
-		$pokedexNumber = $dataPacket['pokedexNumber'];
-		echo json_encode(getBasePokemon($pokedexNumber));
+	case "getParty":
+		$partyID = $dataPacket['id77'];
+		echo json_encode(getItem($partyID));
 		break;
 	default:
 		echo "Your fname does not match";
