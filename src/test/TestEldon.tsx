@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { getParty, getUser } from '../axios/api';
-import { Party, Pokemon, BasePokemon, User } from '../types/types';
+import { getParty, getUser, getMove } from '../axios/api';
+import { Party, Pokemon, BasePokemon, User, Move } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 
 function TestEldon() {
@@ -18,16 +18,23 @@ function TestEldon() {
         speed: 45,
         sprite_data: 'https://img.pokemondb.net/artwork/bulbasaur.jpg',
     };
-
+    let move1: Move = {
+        move_name: "jump",
+        power: 40,
+        accuracy: 100,
+        type: "poison",
+        pp: 3,
+        effect: "jumps on top of jammie",
+    }
     let poki1: Pokemon = {
         pkID: 4,
         nickname: 'Charlie',
         level: 5,
-        moves: [], 
+        moves: [move1], 
         baseInfo: bulbasaur,
     };
     let party1: Party = {
-        party_id: 1,
+        party_id: 12,
         member: [poki1], 
     };
     let user1: User = {
@@ -37,6 +44,7 @@ function TestEldon() {
     const [count, setCount] = useState(1);
     const [base, setBase] = useState<Party>(party1);
     const [user, setUser] = useState<User>(user1);
+    const [move, setMove] = useState<Move>(move1);
 
     React.useEffect(() => {
         getParty(count).then((res) => {
@@ -47,6 +55,13 @@ function TestEldon() {
     React.useEffect(() => {
         getUser(count).then((res) => {
             setUser(res.data);
+        });
+    }, [count]);
+
+    React.useEffect(() => {
+        getMove('after-you').then((res) => {
+            setMove(res.data);
+            console.log(res.data);
         });
     }, [count]);
 
@@ -62,6 +77,7 @@ function TestEldon() {
             <TextField name="name" label="Party Number" onChange={handleInputChange} value={count} />
             <p>{JSON.stringify(base)}</p>
             <p>{JSON.stringify(user)}</p>
+            <p>{JSON.stringify(move)}</p>
         </div>
     );
 }

@@ -104,3 +104,18 @@ function getUser($userID)
 
 	return $results;
 }
+
+function getMove($moveName)
+{
+	global $db;
+
+	$query = "CALL getPokemonmoves(:moveName)";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':moveName', $moveName);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $results;
+}
