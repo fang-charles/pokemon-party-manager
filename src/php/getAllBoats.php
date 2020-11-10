@@ -20,9 +20,5 @@ require_once __DIR__ . '\dbquery.php';
          echo json_encode(getThisBoat());
         break;
       default:
-        echo "Your favorite color is neither red, blue, nor green!";
+        echo "Your fname does not match";
     }
-
-
-
-?>
