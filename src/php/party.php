@@ -17,7 +17,7 @@ $fname = $data['fname'];
 switch ($fname) {
 	case "getParty":
 		$partyID = $dataPacket['id77'];
-		echo json_encode(getItem($partyID));
+		echo json_encode(getParty($partyID));
 		break;
 	default:
 		echo "Your fname does not match";
