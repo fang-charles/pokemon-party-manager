@@ -21,9 +21,6 @@ export type Person = {
 };
 
 //Specific
-export type Pokemon = {
-    name: string;
-};
 
 export type Party = {
     member: Pokemon[];
@@ -42,6 +39,16 @@ export type BasePokemon = {
     speed: number;
     sprite_data: String;
 };
+
+export type Pokemon = {
+    pkID: number,
+    nickname: String,
+    level: number,
+    holding?: Item,
+    moves : Move[],
+    baseInfo: BasePokemon
+
+}
 
 export type Item = {
     item_name: String;
