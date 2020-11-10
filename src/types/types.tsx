@@ -47,3 +47,18 @@ export type Item = {
     item_name: String;
     item_description: String;
 };
+
+export type User = {
+    user_id: number;
+    username: String;
+};
+
+export type Move = {
+    move_name: String;
+    power: number;
+    accuracy: number;
+    type: String;
+    pp: number;
+    effect: String;
+};
+
