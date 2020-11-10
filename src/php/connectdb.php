@@ -21,7 +21,7 @@
 $username = 'cs4750user';
 $password = 'password';
 $host = 'localhost:3306';
-$dbname = 'test';
+$dbname = 'guestbook';
 
 
 require_once __DIR__ . '\dbquery.php';
@@ -39,7 +39,7 @@ $opt = [
 try {
    $db = new PDO($dsn, $username, $password, $opt);
    //echo "<p>You are connected to the database</p>";
-   //echo json_encode(getBasePokemon(1));
+   //echo json_encode(getItem("air-mail"));
 } catch (PDOException $e)     // handle a PDO exception (errors thrown by the PDO library)
 {
    // Call a method from any object, 

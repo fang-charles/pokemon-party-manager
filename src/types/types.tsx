@@ -30,15 +30,20 @@ export type Party = {
 };
 
 export type BasePokemon = {
-	pokedex_number: String,
-	name: String,
-	type1: String,
-	type2?: String,
-	hp: number,
-	attack: number,
-	defense:number,
-	special_attack: number,
-	special_defense: number,
-	speed: number,
-	sprite_data: String
-}
+    pokedex_number: String;
+    name: String;
+    type1: String;
+    type2?: String;
+    hp: number;
+    attack: number;
+    defense: number;
+    special_attack: number;
+    special_defense: number;
+    speed: number;
+    sprite_data: String;
+};
+
+export type Item = {
+    item_name: String;
+    item_description: String;
+};
