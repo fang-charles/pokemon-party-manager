@@ -89,3 +89,18 @@ function getParty($partyID)
 
 	return $results;
 }
+
+function getUser($userID)
+{
+	global $db;
+
+	$query = "CALL getUser(:userID)";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':userID', $userID);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $results;
+}

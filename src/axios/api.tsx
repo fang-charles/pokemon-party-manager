@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Boat, BasePokemon, Item, Party } from '../types/types';
+import { Boat, BasePokemon, Item, Party, User } from '../types/types';
 
 const apiUrl = 'http://localhost/cs4750/pokemon-party-manager/src/php/';
 
@@ -30,4 +30,9 @@ export function getItem(itemName: String) {
 //Party
 export function getParty(partyID: number) {
     return axios.post<Party>(apiUrl + 'party.php', { fname: 'getParty', dataPacket: { id77: partyID } });
+}
+
+//User
+export function getUser(userID: number) {
+    return axios.post<User>(apiUrl + 'user.php', { fname: 'getUser', dataPacket: { id77: userID } });
 }

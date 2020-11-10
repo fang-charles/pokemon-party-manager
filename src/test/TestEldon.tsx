@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { getParty } from '../axios/api';
-import { Party, Pokemon, BasePokemon } from '../types/types';
+import { getParty, getUser } from '../axios/api';
+import { Party, Pokemon, BasePokemon, User } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 
 function TestEldon() {
@@ -30,12 +30,23 @@ function TestEldon() {
         party_id: 1,
         member: [poki1], 
     };
+    let user1: User = {
+        user_id: 5,
+        username: "Darwin",
+    };
     const [count, setCount] = useState(1);
     const [base, setBase] = useState<Party>(party1);
+    const [user, setUser] = useState<User>(user1);
 
     React.useEffect(() => {
         getParty(count).then((res) => {
             setBase(res.data);
+        });
+    }, [count]);
+
+    React.useEffect(() => {
+        getUser(count).then((res) => {
+            setUser(res.data);
         });
     }, [count]);
 
@@ -50,6 +61,7 @@ function TestEldon() {
             <button onClick={() => setCount(count + 1)}>Click me</button>
             <TextField name="name" label="Party Number" onChange={handleInputChange} value={count} />
             <p>{JSON.stringify(base)}</p>
+            <p>{JSON.stringify(user)}</p>
         </div>
     );
 }
