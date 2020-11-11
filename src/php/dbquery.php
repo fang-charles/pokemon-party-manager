@@ -79,7 +79,7 @@ function getParty($partyID)
 {
 	global $db;
 
-	$query = "CALL getParty(:partyID)";
+	$query = "SELECT * FROM party WHERE party_id = :partyID;";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':partyID', $partyID);
 	$statement->execute();
@@ -109,7 +109,7 @@ function getMove($moveName)
 {
 	global $db;
 
-	$query = "CALL getPokemonmoves(:moveName)";
+	$query = "SELECT * FROM move WHERE move_name = :moveName";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':moveName', $moveName);
 	$statement->execute();

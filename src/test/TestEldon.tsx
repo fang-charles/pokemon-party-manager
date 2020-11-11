@@ -19,27 +19,27 @@ function TestEldon() {
         sprite_data: 'https://img.pokemondb.net/artwork/bulbasaur.jpg',
     };
     let move1: Move = {
-        move_name: "jump",
+        move_name: 'jump',
         power: 40,
         accuracy: 100,
-        type: "poison",
+        type: 'poison',
         pp: 3,
-        effect: "jumps on top of jammie",
-    }
+        effect: 'jumps on top of jammie',
+    };
     let poki1: Pokemon = {
         pkID: 4,
         nickname: 'Charlie',
         level: 5,
-        moves: [move1], 
+        moves: [move1],
         baseInfo: bulbasaur,
     };
     let party1: Party = {
         party_id: 12,
-        member: [poki1], 
+        member: [poki1],
     };
     let user1: User = {
         user_id: 5,
-        username: "Darwin",
+        username: 'Darwin',
     };
     const [count, setCount] = useState(1);
     const [base, setBase] = useState<Party>(party1);
