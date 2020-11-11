@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getParty, getUser, getMove } from '../axios/api';
+import { getParty, getUser, getMove, getUserID } from '../axios/api';
 import { Party, Pokemon, BasePokemon, User, Move } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 
@@ -44,6 +44,7 @@ function TestEldon() {
     const [count, setCount] = useState(1);
     const [base, setBase] = useState<Party>(party1);
     const [user, setUser] = useState<User>(user1);
+    const [userName, setUserName] = useState<User>(user1);
     const [move, setMove] = useState<Move>(move1);
 
     React.useEffect(() => {
@@ -55,6 +56,12 @@ function TestEldon() {
     React.useEffect(() => {
         getUser(count).then((res) => {
             setUser(res.data);
+        });
+    }, [count]);
+
+    React.useEffect(() => {
+        getUserID('yiff.li').then((res) => {
+            setUserName(res.data);
         });
     }, [count]);
 
@@ -77,6 +84,7 @@ function TestEldon() {
             <TextField name="name" label="Party Number" onChange={handleInputChange} value={count} />
             <p>{JSON.stringify(base)}</p>
             <p>{JSON.stringify(user)}</p>
+            <p>{JSON.stringify(userName)}</p>
             <p>{JSON.stringify(move)}</p>
         </div>
     );

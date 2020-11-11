@@ -37,6 +37,10 @@ export function getUser(userID: number) {
     return axios.post<User>(apiUrl + 'user.php', { fname: 'getUser', dataPacket: { id77: userID } });
 }
 
+export function getUserID(username: String) {
+    return axios.post<User>(apiUrl + 'user.php', { fname: 'getUserID', dataPacket: { id77: username } });
+}
+
 //Move
 export function getMove(moveName: String) {
     return axios.post<Move>(apiUrl + 'move.php', { fname: 'getMove', dataPacket: { name77: moveName } });

@@ -19,6 +19,10 @@ switch ($fname) {
 		$userID = $dataPacket['id77'];
 		echo json_encode(getUser($userID));
 		break;
+	case "getUserID":
+		$username = $dataPacket['id77'];
+		echo json_encode(getUserID($username));
+		break;
 	default:
 		echo "Your fname does not match";
 }

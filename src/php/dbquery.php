@@ -105,6 +105,21 @@ function getUser($userID)
 	return $results;
 }
 
+function getUserID($username)
+{
+	global $db;
+
+	$query = "SELECT * FROM user WHERE username = :username;";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':username', $username);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $results;
+}
+
 function getMove($moveName)
 {
 	global $db;
