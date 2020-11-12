@@ -74,3 +74,36 @@ function getItem($itemName)
 
 	return $results;
 }
+
+function getSpecificPokemon($pkid)
+{
+	global $db;
+
+	$query = "SELECT * FROM specific_pokemon WHERE pk_id=:pkid";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':pkid', $pkid);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $results;
+}
+
+#$holding, $moves, $baseInfo
+#other info to add includes the party id
+#level is a key word
+function addBoat($pkid, $lev, $nickname)
+{
+	global $db;
+
+	$query = "INSERT INTO boats VALUES(:pkid, :lev, :nickname)";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':pkid', $pkid);
+	$statement->bindValue(':level', $lev);
+	$statement->bindValue(':nickname', $nickname);
+	$statement->execute();        // run query, if the statement is successfully executed, execute() returns true
+	// false otherwise
+
+	$statement->closeCursor();    // release hold on this connection
+}

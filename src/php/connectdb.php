@@ -18,13 +18,13 @@
 /******************************/
 // connecting to DB on XAMPP (local)
 
-$username = 'cs4750user';
-$password = 'password';
+$username = 'larry';
+$password = 'Row2k6449';
 $host = 'localhost:3306';
 $dbname = 'ebl9rd_c';
 
 
-require_once __DIR__ . '\dbquery.php';
+require_once __DIR__ . '/dbquery.php';
 
 
 $dsn = "mysql:host=$host;dbname=$dbname";
