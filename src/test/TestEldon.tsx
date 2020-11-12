@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getParty, getUser, getMove, getUserID } from '../axios/api';
+import { getParty, getUser, getMove, getUserID, deleteParty } from '../axios/api';
 import { Party, Pokemon, BasePokemon, User, Move } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 
@@ -43,6 +43,7 @@ function TestEldon() {
     };
     const [count, setCount] = useState(1);
     const [base, setBase] = useState<Party>(party1);
+    const [partyDel, setPartyDel] = useState<Party>(party1);
     const [user, setUser] = useState<User>(user1);
     const [userName, setUserName] = useState<User>(user1);
     const [move, setMove] = useState<Move>(move1);
@@ -50,6 +51,12 @@ function TestEldon() {
     React.useEffect(() => {
         getParty(count).then((res) => {
             setBase(res.data);
+        });
+    }, [count]);
+
+    React.useEffect(() => {
+        deleteParty(count).then((res) => {
+            setPartyDel(res.data);
         });
     }, [count]);
 
@@ -86,6 +93,7 @@ function TestEldon() {
             <p>{JSON.stringify(user)}</p>
             <p>{JSON.stringify(userName)}</p>
             <p>{JSON.stringify(move)}</p>
+            <p>{JSON.stringify(partyDel)}</p>
         </div>
     );
 }

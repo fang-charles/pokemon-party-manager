@@ -75,6 +75,27 @@ function getItem($itemName)
 	return $results;
 }
 
+function deleteParty($partyID)
+{
+	global $db;
+
+	$q1 = "SELECT * FROM party WHERE party_id = :partyID;";
+	$statement1 = $db->prepare($q1);
+	$statement1->bindValue(':partyID', $partyID);
+	$statement1->execute();
+	$ret = $statement1->fetch();
+	$statement1->closeCursor();
+	$query = "CALL clearParty(:partyID);";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':partyID', $partyID);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $ret;
+}
+
 function getParty($partyID)
 {
 	global $db;

@@ -32,6 +32,10 @@ export function getParty(partyID: number) {
     return axios.post<Party>(apiUrl + 'party.php', { fname: 'getParty', dataPacket: { id77: partyID } });
 }
 
+export function deleteParty(partyID: number) {
+    return axios.post<Party>(apiUrl + 'party.php', { fname: 'deleteParty', dataPacket: { id77: partyID } });
+}
+
 //User
 export function getUser(userID: number) {
     return axios.post<User>(apiUrl + 'user.php', { fname: 'getUser', dataPacket: { id77: userID } });

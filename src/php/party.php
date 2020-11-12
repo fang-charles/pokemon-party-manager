@@ -19,6 +19,10 @@ switch ($fname) {
 		$partyID = $dataPacket['id77'];
 		echo json_encode(getParty($partyID));
 		break;
+	case "deleteParty":
+		$partyID = $dataPacket['id77'];
+		echo json_encode(deleteParty($partyID));
+		break;
 	default:
 		echo "Your fname does not match";
 }
