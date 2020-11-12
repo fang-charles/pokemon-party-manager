@@ -76,7 +76,7 @@ function getItem($itemName)
 	return $results;
 }
 
-function loseItem($itemName)
+function loseItem($pk_id, $itemName)
 {
 	global $db;
 
@@ -86,9 +86,10 @@ function loseItem($itemName)
 	$statement1->execute();
 	$ret = $statement1->fetch();
 	$statement1->closeCursor();
-	$query = "CALL clearParty(:itemName);";
+	$query = "CALL loseItem(:pk_id, :itemName);";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':itemName', $itemName);
+	$statement->bindValue(':pk_id', $pk_id);
 	$statement->execute();
 
 	$results = $statement->fetch();

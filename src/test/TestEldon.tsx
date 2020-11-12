@@ -42,9 +42,9 @@ function TestEldon() {
         username: 'Darwin',
     };
     let item1: Item = {
-        item_name: "string",
-        item_description: "string",
-    }
+        item_name: 'string',
+        item_description: 'string',
+    };
 
     const [count, setCount] = useState(1);
     const [base, setBase] = useState<Party>(party1);
@@ -68,7 +68,7 @@ function TestEldon() {
     }, [count]);
 
     React.useEffect(() => {
-        loseItem("count").then((res) => {
+        loseItem(count, "absolite").then((res) => {
             setItemDel(res.data);
         });
     }, [count]);
@@ -113,6 +113,7 @@ function TestEldon() {
             <p>{JSON.stringify(move)}</p>
             <p>{JSON.stringify(partyDel)}</p>
             <p>{JSON.stringify(pokeDel)}</p>
+            <p>{JSON.stringify(itemDel)}</p>
         </div>
     );
 }
