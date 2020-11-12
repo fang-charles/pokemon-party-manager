@@ -24,7 +24,7 @@ $host = 'localhost:3306';
 $dbname = 'ebl9rd_c';
 
 
-require_once __DIR__ . '\dbquery.php';
+require_once __DIR__ . '/dbquery.php';
 
 
 $dsn = "mysql:host=$host;dbname=$dbname";

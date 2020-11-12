@@ -74,3 +74,105 @@ function getItem($itemName)
 
 	return $results;
 }
+
+function deleteParty($partyID)
+{
+	global $db;
+
+	$q1 = "SELECT * FROM party WHERE party_id = :partyID;";
+	$statement1 = $db->prepare($q1);
+	$statement1->bindValue(':partyID', $partyID);
+	$statement1->execute();
+	$ret = $statement1->fetch();
+	$statement1->closeCursor();
+	$query = "CALL clearParty(:partyID);";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':partyID', $partyID);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $ret;
+}
+
+function getParty($partyID)
+{
+	global $db;
+
+	$query = "SELECT * FROM party WHERE party_id = :partyID;";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':partyID', $partyID);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $results;
+}
+
+function getUser($userID)
+{
+	global $db;
+
+	$query = "CALL getUser(:userID)";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':userID', $userID);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $results;
+}
+
+function getUserID($username)
+{
+	global $db;
+
+	$query = "SELECT * FROM user WHERE username = :username;";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':username', $username);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $results;
+}
+
+function getMove($moveName)
+{
+	global $db;
+
+	$query = "SELECT * FROM move WHERE move_name = :moveName";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':moveName', $moveName);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $results;
+}
+
+function deletePokemon($pokeID)
+{
+	global $db;
+
+	$q1 = "SELECT * FROM specific_pokemon WHERE pk_id = :pokeID;";
+	$statement1 = $db->prepare($q1);
+	$statement1->bindValue(':pokeID', $pokeID);
+	$statement1->execute();
+	$ret = $statement1->fetch();
+	$statement1->closeCursor();
+	$query = "CALL removePokemon(:pokeID);";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':pokeID', $pokeID);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $ret;
+}

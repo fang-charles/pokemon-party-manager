@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Boat, BasePokemon, Item } from '../types/types';
+import { Boat, BasePokemon, Item, Party, User, Move, Pokemon } from '../types/types';
 
 const apiUrl = 'http://localhost/cs4750/pokemon-party-manager/src/php/';
 
@@ -22,7 +22,34 @@ export function getBasePokemon(myPokedexNumber: number) {
     });
 }
 
+export function deletePokemon(pokeID: number) {
+    return axios.post<Pokemon>(apiUrl + 'pokemon.php', { fname: 'deletePokemon', dataPacket: { id77: pokeID } });
+}
+
 //Items
 export function getItem(itemName: String) {
     return axios.post<Item>(apiUrl + 'item.php', { fname: 'getItem', dataPacket: { name77: itemName } });
+}
+
+//Party
+export function getParty(partyID: number) {
+    return axios.post<Party>(apiUrl + 'party.php', { fname: 'getParty', dataPacket: { id77: partyID } });
+}
+
+export function deleteParty(partyID: number) {
+    return axios.post<Party>(apiUrl + 'party.php', { fname: 'deleteParty', dataPacket: { id77: partyID } });
+}
+
+//User
+export function getUser(userID: number) {
+    return axios.post<User>(apiUrl + 'user.php', { fname: 'getUser', dataPacket: { id77: userID } });
+}
+
+export function getUserID(username: String) {
+    return axios.post<User>(apiUrl + 'user.php', { fname: 'getUserID', dataPacket: { id77: username } });
+}
+
+//Move
+export function getMove(moveName: String) {
+    return axios.post<Move>(apiUrl + 'move.php', { fname: 'getMove', dataPacket: { name77: moveName } });
 }

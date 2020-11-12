@@ -41,8 +41,6 @@ function TestCharles() {
         setCount(e.target.value);
     };
 
-
-
     let tackle: Move = {
         move_name: 'Tackle',
         power: 40,
@@ -61,10 +59,10 @@ function TestCharles() {
         effect: "Has a chance to lower the target's Special Defense",
     };
 
-    let airMail: Item ={
-        item_name: "air-mail",
-        item_description: "placeholder desc"
-    }
+    let airMail: Item = {
+        item_name: 'air-mail',
+        item_description: 'placeholder desc',
+    };
 
     let myBulbasaur: Pokemon = {
         pkID: 9,
@@ -72,7 +70,7 @@ function TestCharles() {
         level: 100,
         moves: [tackle, acid],
         baseInfo: base,
-        holding: airMail
+        holding: airMail,
     };
 
     return (

@@ -15,9 +15,13 @@ $fname = $data['fname'];
 
 //Specify the fname in api.tsx
 switch ($fname) {
-	case "getItem":
-		$itemName = $dataPacket['name77'];
-		echo json_encode(getItem($itemName));
+	case "getParty":
+		$partyID = $dataPacket['id77'];
+		echo json_encode(getParty($partyID));
+		break;
+	case "deleteParty":
+		$partyID = $dataPacket['id77'];
+		echo json_encode(deleteParty($partyID));
 		break;
 	default:
 		echo "Your fname does not match";

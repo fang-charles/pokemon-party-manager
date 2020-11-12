@@ -23,6 +23,7 @@ export type Person = {
 //Specific
 
 export type Party = {
+    party_id: number;
     member: Pokemon[];
 };
 
