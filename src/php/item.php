@@ -19,10 +19,6 @@ switch ($fname) {
 		$itemName = $dataPacket['name77'];
 		echo json_encode(getItem($itemName));
 		break;
-	case "loseItem":
-		$itemName = $dataPacket['name77'];
-		echo json_encode(loseItem($itemName));
-		break;
 	default:
 		echo "Your fname does not match";
 }

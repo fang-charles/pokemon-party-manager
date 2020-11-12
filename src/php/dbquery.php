@@ -60,7 +60,6 @@ function getBasePokemon($pokedexNumber)
 	return $results;
 }
 
-//Item
 function getItem($itemName)
 {
 	global $db;
@@ -74,27 +73,6 @@ function getItem($itemName)
 	$statement->closeCursor();
 
 	return $results;
-}
-
-function loseItem($itemName)
-{
-	global $db;
-
-	$q1 = "SELECT * FROM item WHERE item_name = :itemName;";
-	$statement1 = $db->prepare($q1);
-	$statement1->bindValue(':itemName', $itemName);
-	$statement1->execute();
-	$ret = $statement1->fetch();
-	$statement1->closeCursor();
-	$query = "CALL clearParty(:itemName);";
-	$statement = $db->prepare($query);
-	$statement->bindValue(':itemName', $itemName);
-	$statement->execute();
-
-	$results = $statement->fetch();
-	$statement->closeCursor();
-
-	return $ret;
 }
 
 function deleteParty($partyID)
