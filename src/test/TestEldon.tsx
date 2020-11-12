@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { getParty, getUser, getMove, getUserID, deleteParty, deletePokemon } from '../axios/api';
-import { Party, Pokemon, BasePokemon, User, Move } from '../types/types';
+import { getParty, getUser, getMove, getUserID, deleteParty, deletePokemon, loseItem } from '../axios/api';
+import { Party, Pokemon, BasePokemon, User, Move, Item } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 
 function TestEldon() {
@@ -41,6 +41,11 @@ function TestEldon() {
         user_id: 5,
         username: 'Darwin',
     };
+    let item1: Item = {
+        item_name: "string",
+        item_description: "string",
+    }
+
     const [count, setCount] = useState(1);
     const [base, setBase] = useState<Party>(party1);
     const [partyDel, setPartyDel] = useState<Party>(party1);
@@ -48,6 +53,7 @@ function TestEldon() {
     const [userName, setUserName] = useState<User>(user1);
     const [move, setMove] = useState<Move>(move1);
     const [pokeDel, setPokeDel] = useState<Pokemon>(poki1);
+    const [itemDel, setItemDel] = useState<Item>(item1);
 
     React.useEffect(() => {
         getParty(count).then((res) => {
@@ -58,6 +64,12 @@ function TestEldon() {
     React.useEffect(() => {
         deleteParty(count).then((res) => {
             setPartyDel(res.data);
+        });
+    }, [count]);
+
+    React.useEffect(() => {
+        loseItem("count").then((res) => {
+            setItemDel(res.data);
         });
     }, [count]);
 
@@ -82,7 +94,6 @@ function TestEldon() {
     React.useEffect(() => {
         getMove('after-you').then((res) => {
             setMove(res.data);
-            console.log(res.data);
         });
     }, [count]);
 
