@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Boat, BasePokemon, Item, Party, User, Move } from '../types/types';
+import { Boat, BasePokemon, Item, Party, User, Move, Pokemon } from '../types/types';
 
 const apiUrl = 'http://localhost/cs4750/pokemon-party-manager/src/php/';
 
@@ -20,6 +20,10 @@ export function getBasePokemon(myPokedexNumber: number) {
         fname: 'getBasePokemon',
         dataPacket: { pokedexNumber: myPokedexNumber },
     });
+}
+
+export function deletePokemon(pokeID: number) {
+    return axios.post<Pokemon>(apiUrl + 'pokemon.php', { fname: 'deletePokemon', dataPacket: { id77: pokeID } });
 }
 
 //Items

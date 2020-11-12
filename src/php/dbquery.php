@@ -155,3 +155,24 @@ function getMove($moveName)
 
 	return $results;
 }
+
+function deletePokemon($pokeID)
+{
+	global $db;
+
+	$q1 = "SELECT * FROM specific_pokemon WHERE pk_id = :pokeID;";
+	$statement1 = $db->prepare($q1);
+	$statement1->bindValue(':pokeID', $pokeID);
+	$statement1->execute();
+	$ret = $statement1->fetch();
+	$statement1->closeCursor();
+	$query = "CALL removePokemon(:pokeID);";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':pokeID', $pokeID);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $ret;
+}

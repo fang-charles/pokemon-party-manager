@@ -19,6 +19,10 @@ switch ($fname) {
 		$pokedexNumber = $dataPacket['pokedexNumber'];
 		echo json_encode(getBasePokemon($pokedexNumber));
 		break;
+	case "deletePokemon":
+			$pokeID = $dataPacket['id77'];
+			echo json_encode(deletePokemon($pokeID));
+			break;
 	default:
 		echo "Your fname does not match";
 }
