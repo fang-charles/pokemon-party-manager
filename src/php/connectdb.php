@@ -38,7 +38,7 @@ $opt = [
 /** connect to the database **/
 try {
    $db = new PDO($dsn, $username, $password, $opt);
-   //echo "<p>You are connected to the database</p>";
+   echo "<p>You are connected to the database</p>";
    //echo json_encode(getItem("air-mail"));
 } catch (PDOException $e)     // handle a PDO exception (errors thrown by the PDO library)
 {

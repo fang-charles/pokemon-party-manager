@@ -37,22 +37,7 @@ function TestJammie() {
         pp: 3,
         effect: 'jumps',
     };
-    let move3: Move = {
-        move_name: 'jump3',
-        power: 40,
-        accuracy: 100,
-        type: 'poison',
-        pp: 3,
-        effect: 'jumps',
-    };
-    let move4: Move = {
-        move_name: 'jump4',
-        power: 40,
-        accuracy: 100,
-        type: 'poison',
-        pp: 3,
-        effect: 'jumps',
-    };
+
     let poki1: Pokemon = {
         pkID: 4,
         nickname: 'Charlie',
@@ -69,6 +54,24 @@ function TestJammie() {
         username: 'Charles',
     };
     
+    let tackle: Move = {
+        move_name: 'Tackle',
+        power: 40,
+        accuracy: 100,
+        type: 'Normal',
+        pp: 35,
+        effect: 'Charges the foe with a full-body tackle.',
+    };
+
+    let acid: Move = {
+        move_name: 'Acid',
+        power: 40,
+        accuracy: 100,
+        type: 'Poison',
+        pp: 30,
+        effect: "Has a chance to lower the target's Special Defense",
+    };
+
     const [count, setCount] = useState(1);
     const [base, setBase] = useState<Party>(party1);
     const [partyDel, setPartyDel] = useState<Party>(party1);
@@ -80,13 +83,10 @@ function TestJammie() {
     // Only recognizing the most passed to ------------- here
     const [moveLearned, setMoveLearned] = useState<Move>(move);
     React.useEffect(() => {
-        learnMove(4, 'move1', 'move2', 'move3', 'move4').then((res) => {
-            setMoveLearned(res.data);
-        });
+        learnMove(4, 'tackle', 'tackle', 'acid', 'acid')
     }, [count]);
 
     
-
     // not working!!!
     const [addingParty, setAddParty] = useState<Party>(party1);
     React.useEffect(() => {
