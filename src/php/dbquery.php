@@ -97,15 +97,20 @@ function addPokemon($pokedex_number, $lev, $nickname, $party_id)
 {
 	global $db;
 
-	$query = "EXEC addPokemon @pokedex_number = :pokedex_number, @level = :level, @nickname = :nickname, @party_id = :party_id";
-	$query = "INSERT INTO boats VALUES(:pkid, :lev, :nickname)";
+	$query = "CALL addPokemon(:pokedex_number, :level, :nickname, :party_id, @return_value)";
+
+	$phpOutParam   = $results['phpOutParam'];
+	#$query = "INSERT INTO boats VALUES(:pkid, :lev, :nickname)";
 	$statement = $db->prepare($query);
-	$statement->bindValue(':pokedex_number,', $pkid);
+	$statement->bindValue(':pokedex_number,', $pokedex_number);
 	$statement->bindValue(':level', $lev);
 	$statement->bindValue(':nickname', $nickname);
 	$statement->bindValue(':party_id', $party_id);
+	$statement->bindParam(1, $return_value, PDO::PARAM_INT, 4000);
 	$statement->execute();        // run query, if the statement is successfully executed, execute() returns true
 	// false otherwise
-
+	$sql = "SELECT @varOutParam   AS phpOutParam FROM dual";
+	$results = current($db->query($sql)->fetchAll());
 	$statement->closeCursor();    // release hold on this connection
+	return $return_value;
 }

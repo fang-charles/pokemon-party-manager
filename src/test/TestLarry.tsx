@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { getBasePokemon, getItem, getSpecificPokemon } from '../axios/api';
+import { getBasePokemon, getItem, getSpecificPokemon, addPokemon } from '../axios/api';
 import { BasePokemon, Item, Pokemon, Move } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 import PokemonCard from '../components/pokemonCard/PokemonCard';
 
-function TestCharles() {
+function TestLarry() {
     // Declare a new state variable, which we'll call "count"
     let bulbasaur: BasePokemon = {
         pokedex_number: 1,
@@ -35,6 +35,9 @@ function TestCharles() {
     };
 
     const [count, setCount] = useState<number>(1);
+    const [level, setLevel] = useState<number>(90);
+    const [nickname, setNickname] = useState<String>('KI MI NO NA WA');
+    const [partyid, setPartyID] = useState<number>(1);
     const [base, setBase] = useState<BasePokemon>(bulbasaur);
     const [base2, setBase2] = useState<BasePokemon>(ivysaur);
     const [item, setItem] = useState<Item>();
@@ -56,8 +59,6 @@ function TestCharles() {
         setCount(e.target.value);
     };
 
-
-
     let tackle: Move = {
         move_name: 'Tackle',
         power: 40,
@@ -76,10 +77,10 @@ function TestCharles() {
         effect: "Has a chance to lower the target's Special Defense",
     };
 
-    let airMail: Item ={
-        item_name: "air-mail",
-        item_description: "placeholder desc"
-    }
+    let airMail: Item = {
+        item_name: 'air-mail',
+        item_description: 'placeholder desc',
+    };
 
     let myBulbasaur: Pokemon = {
         pkID: 9,
@@ -87,7 +88,7 @@ function TestCharles() {
         level: 100,
         moves: [tackle, acid],
         baseInfo: base,
-        holding: airMail
+        holding: airMail,
     };
 
     let myIvysaur: Pokemon = {
@@ -96,17 +97,16 @@ function TestCharles() {
         level: 99,
         moves: [tackle],
         baseInfo: base2,
-        holding: airMail
+        holding: airMail,
     };
 
-    const [spokemon, getPokemon] = useState<Pokemon>();
+    const [pokemon, setPokemon] = useState<Pokemon>();
     React.useEffect(() => {
-        getSpecificPokemon(count).then((res) => {
-            getPokemon(res.data);
+        addPokemon(count, level, nickname, partyid).then((res) => {
+            setPokemon(res.data);
             console.log(res.data);
         });
     }, [count]);
-
 
     return (
         <div>
@@ -115,11 +115,14 @@ function TestCharles() {
             <button onClick={() => setCount(count + 1)}>Click me</button>
             <br></br>
             <TextField name="name" label="Pokedex Number" onChange={handleInputChange} value={count} />
+            <TextField name="level" label="Level" onChange={handleInputChange} value={level} />
+            <TextField name="nickname" label="Nickname" onChange={handleInputChange} value={nickname} />
+            <TextField name="party id" label="Party id" onChange={handleInputChange} value={partyid} />
             <p>{JSON.stringify(base)}</p>
-            <p>{JSON.stringify(spokemon)}</p>
+            <p>{JSON.stringify(pokemon)}</p>
             <PokemonCard pkmn={myBulbasaur}> </PokemonCard>
             <PokemonCard pkmn={myIvysaur}> </PokemonCard>
         </div>
     );
 }
-export default TestCharles;
+export default TestLarry;

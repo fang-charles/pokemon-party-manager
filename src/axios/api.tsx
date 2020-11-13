@@ -29,14 +29,15 @@ export function getItem(itemName: String) {
 
 //Something for specific pokemon
 export function getSpecificPokemon(pkid: number) {
-    return axios.post<Pokemon>(apiUrl + 'pokemon.php', { fname: 'getSpecificPokemon', dataPacket: { pokemonid: pkid } });
+    return axios.post<Pokemon>(apiUrl + 'pokemon.php', {
+        fname: 'getSpecificPokemon',
+        dataPacket: { pokemonid: pkid },
+    });
 }
 
-export function addPokemon(pkid: number) {
-    return axios.post<Pokemon>(apiUrl + 'addPokemon.php', { fname: 'addPokemon', dataPacket: { name77: pkid } });
+export function addPokemon(pokedexNumber: number, lev: number, nickname: String, party_id: number) {
+    return axios.post<Pokemon>(apiUrl + 'pokemon.php', {
+        fname: 'addPokemon',
+        dataPacket: { pokedex_number: pokedexNumber, level: lev, nickname: nickname, party_id: party_id },
+    });
 }
-/*
-export function addParty(partyid: number) {
-    return axios.post<Party>(apiUrl + 'addParty.php', { fname: 'addParty', dataPacket: { name77: partyid } });
-}
-*/

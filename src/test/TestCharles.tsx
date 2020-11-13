@@ -20,23 +20,8 @@ function TestCharles() {
         sprite_data: 'https://img.pokemondb.net/artwork/bulbasaur.jpg',
     };
 
-    let ivysaur: BasePokemon = {
-        pokedex_number: 1,
-        name: 'Bulbasaur',
-        type1: 'Grass',
-        type2: 'Poison',
-        hp: 60,
-        attack: 62,
-        defense: 63,
-        special_attack: 80,
-        special_defense: 80,
-        speed: 60,
-        sprite_data: 'https://img.pokemondb.net/artwork/ivysaur.jpg',
-    };
-
     const [count, setCount] = useState<number>(1);
     const [base, setBase] = useState<BasePokemon>(bulbasaur);
-    const [base2, setBase2] = useState<BasePokemon>(ivysaur);
     const [item, setItem] = useState<Item>();
 
     React.useEffect(() => {
@@ -56,8 +41,6 @@ function TestCharles() {
         setCount(e.target.value);
     };
 
-
-
     let tackle: Move = {
         move_name: 'Tackle',
         power: 40,
@@ -76,18 +59,18 @@ function TestCharles() {
         effect: "Has a chance to lower the target's Special Defense",
     };
 
-    let airMail: Item ={
-        item_name: "air-mail",
-        item_description: "placeholder desc"
-    }
+    let airMail: Item = {
+        item_name: 'air-mail',
+        item_description: 'placeholder desc',
+    };
 
     let myBulbasaur: Pokemon = {
         pkID: 9,
         nickname: 'Whipper',
         level: 100,
         moves: [tackle, acid],
-        baseInfo: base2,
-        holding: airMail
+        baseInfo: base,
+        holding: airMail,
     };
 
     return (
