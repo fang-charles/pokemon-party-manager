@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { getBasePokemon, getItem } from '../axios/api';
+import { getBasePokemon, getItem, getParty, getUser, getMove, getUserID, deleteParty, deletePokemon, gainItem, addParty, learnMove, forgetMove } from '../axios/api';
 import { BasePokemon, Item, Pokemon, Move, Party, User } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 import PokemonCard from '../components/pokemonCard/PokemonCard';
-import { getParty, getUser, getMove, getUserID, deleteParty, deletePokemon } from '../axios/api';
 
 function TestJammie() {
     // Declare a new state variable, which we'll call "count"
@@ -24,6 +23,30 @@ function TestJammie() {
     };
     let move1: Move = {
         move_name: 'jump',
+        power: 40,
+        accuracy: 100,
+        type: 'poison',
+        pp: 3,
+        effect: 'jumps',
+    };
+    let move2: Move = {
+        move_name: 'jump2',
+        power: 40,
+        accuracy: 100,
+        type: 'poison',
+        pp: 3,
+        effect: 'jumps',
+    };
+    let move3: Move = {
+        move_name: 'jump3',
+        power: 40,
+        accuracy: 100,
+        type: 'poison',
+        pp: 3,
+        effect: 'jumps',
+    };
+    let move4: Move = {
+        move_name: 'jump4',
         power: 40,
         accuracy: 100,
         type: 'poison',
@@ -53,6 +76,25 @@ function TestJammie() {
     const [userName, setUserName] = useState<User>(user1);
     const [move, setMove] = useState<Move>(move1);
     const [pokeDel, setPokeDel] = useState<Pokemon>(poki1);
+
+    // Only recognizing the most passed to ------------- here
+    const [moveLearned, setMoveLearned] = useState<Move>(move);
+    React.useEffect(() => {
+        learnMove(4, 'move1', 'move2', 'move3', 'move4').then((res) => {
+            setMoveLearned(res.data);
+        });
+    }, [count]);
+
+    
+
+    // not working!!!
+    const [addingParty, setAddParty] = useState<Party>(party1);
+    React.useEffect(() => {
+        addParty(count).then((res) => {
+            setAddParty(res.data);
+        });
+    }, [count]);
+
 
     React.useEffect(() => {
         getParty(count).then((res) => {
@@ -102,6 +144,7 @@ function TestJammie() {
             <button onClick={() => setCount(count + 1)}>Click me</button>
             <TextField name="name" label="Party Number" onChange={handleInputChange} value={count} />
             <p>{JSON.stringify(user)}</p>
+            <p>{JSON.stringify(moveLearned)}</p>
         </div>
     );
 }

@@ -31,6 +31,10 @@ export function getItem(itemName: String) {
     return axios.post<Item>(apiUrl + 'item.php', { fname: 'getItem', dataPacket: { name77: itemName } });
 }
 
+export function gainItem(pokemonID: number, itemName: String) {
+    return axios.post<Item>(apiUrl + 'item.php', { fname: 'gainItem', dataPacket: { pk_id: pokemonID, name77: itemName } });
+}
+
 //Party
 export function getParty(partyID: number) {
     return axios.post<Party>(apiUrl + 'party.php', { fname: 'getParty', dataPacket: { id77: partyID } });
@@ -38,6 +42,10 @@ export function getParty(partyID: number) {
 
 export function deleteParty(partyID: number) {
     return axios.post<Party>(apiUrl + 'party.php', { fname: 'deleteParty', dataPacket: { id77: partyID } });
+}
+
+export function addParty(userID: number) {
+    return axios.post<Party>(apiUrl + 'party.php', { fname: 'addParty', dataPacket: { id77: userID } });
 }
 
 //User
@@ -52,4 +60,12 @@ export function getUserID(username: String) {
 //Move
 export function getMove(moveName: String) {
     return axios.post<Move>(apiUrl + 'move.php', { fname: 'getMove', dataPacket: { name77: moveName } });
+}
+
+export function learnMove(pokemonID: number, moveA: String, moveB: String, moveC: String, moveD: String) {
+    return axios.post<Move>(apiUrl + 'move.php', { fname: 'learnMove', dataPacket: { pk_id: pokemonID, move1: moveA, move2:moveB, move3:moveC, move4:moveD} });
+}
+
+export function forgetMove(pokemonID: number, moveName:String) {
+    return axios.post<Move>(apiUrl + 'move.php', { fname: 'forgetMove', dataPacket: { pk_id: pokemonID, name77: moveName } });
 }

@@ -19,6 +19,19 @@ switch ($fname) {
 		$moveName = $dataPacket['name77'];
 		echo json_encode(getMove($moveName));
 		break;
+	case "learnMove":
+		$pk_id = $dataPacket['pk_id'];
+		$move1 = $dataPacket['move1'];
+		$move2 = $dataPacket['move2'];
+		$move3 = $dataPacket['move3'];
+		$move4 = $dataPacket['move4'];
+        echo json_encode(learnMove($pk_id, $move1, $move2, $move3, $move4));
+        break;
+	case "forgetMove":
+		$pk_id = $dataPacket['pk_id'];
+		$itemName = $dataPacket['name77'];
+        echo json_encode(forgetMove($pk_id, $itemName));
+        break;
 	default:
 		echo "Your fname does not match";
 }
