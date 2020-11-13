@@ -20,8 +20,8 @@
 
 $username = 'cs4750user';
 $password = 'password';
-$host = 'localhost:3306';
-$dbname = 'ebl9rd_c';
+$host = 'localhost:3306'
+$dbname = 'cs4750user';
 
 
 require_once __DIR__ . '/dbquery.php';

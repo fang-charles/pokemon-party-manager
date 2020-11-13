@@ -45,6 +45,61 @@ function addBoat($bid, $bname, $color)
 	$statement->closeCursor();    // release hold on this connection
 }
 
+function forgetMove($pokemonID, $moveName)
+{
+	global $db;
+	$query = "DELETE FROM learned WHERE pk_id = :pokemon_ID AND move_name = :move_Name";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':pokemon_ID', $pokemonID);
+	$statement->bindValue(':move_Name', $moveName);
+	$statement->execute(); 
+	$statement->closeCursor();
+}
+
+function learnMove($pokemonID, $moveA, $moveB, $moveC, $moveD)
+{
+	global $db;
+	$query = "CALL setMoves(:pk_id, :move1, :move2, :move3, :move4)";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':pk_id', $pokemonID);
+	$statement->bindValue(':move1', $moveA);
+	$statement->bindValue(':move2', $moveB);
+	$statement->bindValue(':move3', $moveC);
+	$statement->bindValue(':move4', $moveD);
+
+	$statement->execute(); 
+	$statement->closeCursor();
+}
+
+function gainItem($pokemonID, $itemName)
+{
+	global $db;
+
+	$query = "CALL setItem(:pk_id, :item_name)";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':pk_id', $pokemonID);
+	$statement->bindValue(':item_name', $itemName);
+
+	$statement->execute(); 
+	$statement->closeCursor();
+}
+
+function addParty($userID)
+{
+	global $db;
+
+	$query = "CALL generateParty(:userID);";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':userID', $userID);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	// results is partyID
+	return $results;
+}
+
 function getBasePokemon($pokedexNumber)
 {
 	global $db;
