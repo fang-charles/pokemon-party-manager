@@ -103,7 +103,6 @@ function TestLarry() {
     const [pokemon, setPokemon] = useState<Pokemon>();
     React.useEffect(() => {
         addPokemon(count, level, nickname, partyid).then((res) => {
-            setPokemon(res.data);
             console.log(res.data);
         });
     }, [count]);

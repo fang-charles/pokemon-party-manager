@@ -108,11 +108,17 @@ function addPokemon($pokedex_number, $lev, $nickname, $party_id)
 	$statement->execute();        // run query, if the statement is successfully executed, execute() returns true
 	$results = $statement->fetch();
 
-	$results2 = $db->query("SELECT @pk_id");
-
-
-
 	$statement->closeCursor();
 
-	return $results2;
+	return $results;
 }
+
+/**
+ * $query = "CALL countBoats(@p0)";
+         	echo ": prepare ";
+         	$statement = $db->prepare($query);
+         	echo ": execute"; 
+         	$statement->execute();
+         	$counter = $statement->setFetchMode(PDO::FETCH_ASSOC);
+
+ */

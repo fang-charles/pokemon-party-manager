@@ -36,7 +36,7 @@ export function getSpecificPokemon(pkid: number) {
 }
 
 export function addPokemon(pokedexNumber: number, lev: number, nickname: String, party_id: number) {
-    return axios.post<Pokemon>(apiUrl + 'pokemon.php', {
+    return axios.post<string>(apiUrl + 'pokemon.php', {
         fname: 'addPokemon',
         dataPacket: { pokedex_number: pokedexNumber, level: lev, nickname: nickname, party_id: party_id },
     });
