@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { getBasePokemon, getItem } from '../axios/api';
+import { getBasePokemon, getItem, getSpecificPokemon } from '../axios/api';
 import { BasePokemon, Item, Pokemon, Move } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 import PokemonCard from '../components/pokemonCard/PokemonCard';
 
-function TestLarry() {
+function TestCharles() {
     // Declare a new state variable, which we'll call "count"
     let bulbasaur: BasePokemon = {
         pokedex_number: 1,
@@ -20,8 +20,23 @@ function TestLarry() {
         sprite_data: 'https://img.pokemondb.net/artwork/bulbasaur.jpg',
     };
 
+    let ivysaur: BasePokemon = {
+        pokedex_number: 1,
+        name: 'Bulbasaur',
+        type1: 'Grass',
+        type2: 'Poison',
+        hp: 60,
+        attack: 62,
+        defense: 63,
+        special_attack: 80,
+        special_defense: 80,
+        speed: 60,
+        sprite_data: 'https://img.pokemondb.net/artwork/ivysaur.jpg',
+    };
+
     const [count, setCount] = useState<number>(1);
     const [base, setBase] = useState<BasePokemon>(bulbasaur);
+    const [base2, setBase2] = useState<BasePokemon>(ivysaur);
     const [item, setItem] = useState<Item>();
 
     React.useEffect(() => {
@@ -75,6 +90,23 @@ function TestLarry() {
         holding: airMail
     };
 
+    let myIvysaur: Pokemon = {
+        pkID: 7,
+        nickname: 'bubble-sort',
+        level: 99,
+        moves: [tackle],
+        baseInfo: base2,
+        holding: airMail
+    };
+
+    const [spokemon, getPokemon] = useState<Pokemon>();
+    React.useEffect(() => {
+        getSpecificPokemon(count).then((res) => {
+            getPokemon(res.data);
+            console.log(res.data);
+        });
+    }, [count]);
+
 
     return (
         <div>
@@ -84,8 +116,10 @@ function TestLarry() {
             <br></br>
             <TextField name="name" label="Pokedex Number" onChange={handleInputChange} value={count} />
             <p>{JSON.stringify(base)}</p>
+            <p>{JSON.stringify(spokemon)}</p>
             <PokemonCard pkmn={myBulbasaur}> </PokemonCard>
+            <PokemonCard pkmn={myIvysaur}> </PokemonCard>
         </div>
     );
 }
-export default TestLarry;
+export default TestCharles;

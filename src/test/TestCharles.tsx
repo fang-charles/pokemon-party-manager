@@ -20,8 +20,23 @@ function TestCharles() {
         sprite_data: 'https://img.pokemondb.net/artwork/bulbasaur.jpg',
     };
 
+    let ivysaur: BasePokemon = {
+        pokedex_number: 1,
+        name: 'Bulbasaur',
+        type1: 'Grass',
+        type2: 'Poison',
+        hp: 60,
+        attack: 62,
+        defense: 63,
+        special_attack: 80,
+        special_defense: 80,
+        speed: 60,
+        sprite_data: 'https://img.pokemondb.net/artwork/ivysaur.jpg',
+    };
+
     const [count, setCount] = useState<number>(1);
     const [base, setBase] = useState<BasePokemon>(bulbasaur);
+    const [base2, setBase2] = useState<BasePokemon>(ivysaur);
     const [item, setItem] = useState<Item>();
 
     React.useEffect(() => {
@@ -71,7 +86,7 @@ function TestCharles() {
         nickname: 'Whipper',
         level: 100,
         moves: [tackle, acid],
-        baseInfo: base,
+        baseInfo: base2,
         holding: airMail
     };
 

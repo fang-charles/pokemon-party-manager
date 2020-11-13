@@ -93,15 +93,17 @@ function getSpecificPokemon($pkid)
 #$holding, $moves, $baseInfo
 #other info to add includes the party id
 #level is a key word
-function addBoat($pkid, $lev, $nickname)
+function addPokemon($pokedex_number, $lev, $nickname, $party_id)
 {
 	global $db;
 
+	$query = "EXEC addPokemon @pokedex_number = :pokedex_number, @level = :level, @nickname = :nickname, @party_id = :party_id";
 	$query = "INSERT INTO boats VALUES(:pkid, :lev, :nickname)";
 	$statement = $db->prepare($query);
-	$statement->bindValue(':pkid', $pkid);
+	$statement->bindValue(':pokedex_number,', $pkid);
 	$statement->bindValue(':level', $lev);
 	$statement->bindValue(':nickname', $nickname);
+	$statement->bindValue(':party_id', $party_id);
 	$statement->execute();        // run query, if the statement is successfully executed, execute() returns true
 	// false otherwise
 
