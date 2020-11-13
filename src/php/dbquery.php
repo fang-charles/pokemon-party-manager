@@ -45,7 +45,7 @@ function addBoat($bid, $bname, $color)
 	$statement->closeCursor();    // release hold on this connection
 }
 
-function forgetMove($pokemonID, $moveName)
+function forgetMove($pokemonID, $moveName)	//UNTESTED
 {
 	global $db;
 	$query = "DELETE FROM learned WHERE pk_id = :pokemon_ID AND move_name = :move_Name";
@@ -56,7 +56,7 @@ function forgetMove($pokemonID, $moveName)
 	$statement->closeCursor();
 }
 
-function learnMove($pokemonID, $moveA, $moveB, $moveC, $moveD)
+function learnMove($pokemonID, $moveA, $moveB, $moveC, $moveD) 	// UNTESTED
 {
 	global $db;
 	$query = "CALL setMoves(:pk_id, :move1, :move2, :move3, :move4)";
@@ -71,7 +71,7 @@ function learnMove($pokemonID, $moveA, $moveB, $moveC, $moveD)
 	$statement->closeCursor();
 }
 
-function gainItem($pokemonID, $itemName)
+function gainItem($pokemonID, $itemName) 	// UNTESTED
 {
 	global $db;
 
@@ -84,7 +84,7 @@ function gainItem($pokemonID, $itemName)
 	$statement->closeCursor();
 }
 
-function addParty($userID)
+function addParty($userID) 	// UNTESTED
 {
 	global $db;
 
