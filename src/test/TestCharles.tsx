@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getBasePokemon, getItem } from '../axios/api';
+import { getBasePokemon, getItem, addPokemon } from '../axios/api';
 import { BasePokemon, Item, Pokemon, Move } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 import PokemonCard from '../components/pokemonCard/PokemonCard';
@@ -33,6 +33,14 @@ function TestCharles() {
     React.useEffect(() => {
         getItem('poke-ball').then((res) => {
             setItem(res.data);
+            console.log(res.data);
+        });
+    }, [count]);
+
+
+    
+    React.useEffect(() => {
+        addPokemon(count, 77,"frontend Test",  2).then((res) => {
             console.log(res.data);
         });
     }, [count]);

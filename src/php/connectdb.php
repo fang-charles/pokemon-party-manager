@@ -39,7 +39,8 @@ $opt = [
 try {
    $db = new PDO($dsn, $username, $password, $opt);
    //echo "<p>You are connected to the database</p>";
-   //echo json_encode(getItem("air-mail"));
+   //echo json_encode(getBasePokemon(1));
+   //echo json_encode(addPokemon(1, 90, "Hey", 1));
 } catch (PDOException $e)     // handle a PDO exception (errors thrown by the PDO library)
 {
    // Call a method from any object, 
