@@ -122,7 +122,6 @@ const Login = () => {
         verifyPassword(state.username, state.password).then((res) => {
             //pw = res.data;
             //pass = pw.password;
-            console.log(res);
             if (!res.data) {
                 dispatch({
                     type: 'loginFailed',

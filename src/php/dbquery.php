@@ -223,7 +223,11 @@ function createAccount($username, $password)
 	$statement = $db->prepare($query);
 	$statement->bindValue(':username', $username);
 	$statement->bindValue(':password', $password);
-	$statement->execute();
+	try{
+		$statement->execute();
+	} catch(Exception $exception){
+		return false;
+	}
 
 	$results = $statement->fetch();
 	$statement->closeCursor();

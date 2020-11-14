@@ -137,20 +137,22 @@ const Login = () => {
                 type: 'loginFailed',
                 payload: "Passwords don't match",
             });
-        }
-        createAccount(state.username, state.password)
-            .then((res) => {
-                dispatch({
-                    type: 'loginSuccess',
-                    payload: 'Login Successfully',
-                });
-            })
-            .catch((err) => {
-                dispatch({
-                    type: 'loginFailed',
-                    payload: err,
-                });
+        } else {
+            createAccount(state.username, state.password).then((res) => {
+                //console.log(res);
+                if (res.data) {
+                    dispatch({
+                        type: 'loginSuccess',
+                        payload: 'Sign Up Successful',
+                    });
+                } else {
+                    dispatch({
+                        type: 'loginFailed',
+                        payload: 'Account already exists! Try logging in instead.',
+                    });
+                }
             });
+        }
     };
 
     const handleKeyPress = (event: React.KeyboardEvent) => {
@@ -231,7 +233,7 @@ const Login = () => {
                         onClick={handleSignup}
                         disabled={state.isButtonDisabled}
                     >
-                        Login
+                        Sign up!
                     </Button>
                 </CardActions>
             </Card>
