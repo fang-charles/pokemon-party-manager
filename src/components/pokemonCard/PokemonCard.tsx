@@ -1,6 +1,10 @@
 import React from 'react'; // we need this to make JSX compile
 import { BasePokemon, Item, Move, Pokemon } from '../../types/types';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import MoveViewer from '../moveViewer/MoveViewer';
+import ItemAccordion from '../itemAccordion/ItemAccordion';
+import { getAllMoves, getAllItems } from '../../axios/api';
+
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -16,9 +20,6 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 
 interface WelcomeProps {
     pkmn: Pokemon;
@@ -54,20 +55,25 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
 
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
-    const [hidden, setHidden] = React.useState(false);
+    const [allMoves, setAllMoves] = React.useState<Move[]>([]);
+
+    React.useEffect(() => {
+        getAllMoves().then((res) => {
+            setAllMoves(res.data);
+        });
+    }, []);
+
+    const [allItems, setAllItems] = React.useState<Item[]>([]);
+
+    React.useEffect(() => {
+        getAllItems().then((res) => {
+            console.log(res.data);
+            setAllItems(res.data);
+        });
+    }, []);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
-    };
-
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
     };
 
     return (
@@ -79,20 +85,9 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
                     </Avatar>
                 }
                 action={
-                    <div>
-                    <IconButton aria-controls="setting" aria-haspopup="true" onClick={handleClick}>
+                    <IconButton aria-label="settings">
                         <MoreVertIcon />
                     </IconButton>
-                    <Menu
-                    id="setting"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-                    >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    </Menu>
-                </div>
                 }
                 title={pkmn.baseInfo.name}
                 subheader={pkmn.nickname ? pkmn.nickname : ''}
@@ -129,11 +124,12 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
                     <Typography paragraph>Item:</Typography>
-                    <Typography paragraph>{JSON.stringify(pkmn.holding)}</Typography>
-                    <Typography paragraph>Move 1:</Typography>
-                    <Typography paragraph>{JSON.stringify(pkmn.moves[0])}</Typography>
-                    <Typography paragraph>Move 2:</Typography>
-                    <Typography paragraph>{JSON.stringify(pkmn.moves[1])}</Typography>
+                    <ItemAccordion item={pkmn.holding} allItems={allItems}>
+                        {' '}
+                    </ItemAccordion>
+                    <br></br>
+                    <Typography paragraph>Moves:</Typography>
+                    <MoveViewer moves={pkmn.moves} allMoves={allMoves}></MoveViewer>
                 </CardContent>
             </Collapse>
         </Card>

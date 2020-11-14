@@ -62,6 +62,11 @@ function TestJammie() {
         party_id: 12,
         member: [poki1],
     };
+    let user1: User = {
+        user_id: 3,
+        username: 'Charles',
+        party: []
+    };
 
     let tackle: Move = {
         move_name: 'Tackle',

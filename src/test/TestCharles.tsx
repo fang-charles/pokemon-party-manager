@@ -28,7 +28,17 @@ function TestCharles() {
         getBasePokemon(count).then((res) => {
             setBase(res.data);
         });
+    }, []);
+
+    React.useEffect(() => {
+        getBasePokemon(count).then((res) => {
+            setBase(res.data);
+        });
     }, [count]);
+
+    React.useEffect(() => {
+        setPkmn({ ...pkmn, baseInfo: base });
+    }, [base]);
 
     React.useEffect(() => {
         getItem('poke-ball').then((res) => {
@@ -79,6 +89,12 @@ function TestCharles() {
         holding: airMail,
     };
 
+    const [pkmn, setPkmn] = useState<Pokemon>(myBulbasaur);
+
+    function handleSetPokemon(pkmn: Pokemon) {
+        setPkmn(pkmn);
+    }
+
     return (
         <div>
             Charles's Testing Room
@@ -87,7 +103,7 @@ function TestCharles() {
             <br></br>
             <TextField name="name" label="Pokedex Number" onChange={handleInputChange} value={count} />
             <p>{JSON.stringify(base)}</p>
-            <PokemonCard pkmn={myBulbasaur}> </PokemonCard>
+            <PokemonCard pkmn={pkmn}>            </PokemonCard>
         </div>
     );
 }

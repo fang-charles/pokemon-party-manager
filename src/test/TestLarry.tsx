@@ -130,10 +130,14 @@ function TestLarry() {
 
     let part: Party = {
         party_id: 1,
-        member: [myBulbasaur, myIvysaur, myPalkia, myBulbasaur, myIvysaur, myPalkia]
+        member: [myBulbasaur, myIvysaur, myPalkia, myBulbasaur, myIvysaur, myPalkia],
     };
 
     const [pokemon, setPokemon] = useState<Pokemon>();
+    function handleSetPokemon(pkmn: Pokemon) {
+        setPokemon(pkmn);
+    }
+
     React.useEffect(() => {
         addPokemon(count, level, nickname, partyid).then((res) => {
             console.log(res.data);
@@ -143,7 +147,7 @@ function TestLarry() {
     let user1: User = {
         user_id: 5,
         username: 'Darwin',
-        party: [part, part, part, part, part, part]
+        party: [part, part, part, part, part, part],
     };
 
     return (
@@ -158,7 +162,13 @@ function TestLarry() {
             <TextField name="party id" label="Party id" onChange={handleInputChange} value={partyid} />
             <p>{JSON.stringify(base)}</p>
             <p>{JSON.stringify(pokemon)}</p>
-            <PartyScreen party = {part}></PartyScreen>
+            <PokemonCard pkmn={myBulbasaur} >
+                {' '}
+            </PokemonCard>
+            <PokemonCard pkmn={myIvysaur} >
+                {' '}
+            </PokemonCard>
+            <PartyScreen party={part}></PartyScreen>
             <PartySelectScreen user={user1}> </PartySelectScreen>
         </div>
     );
