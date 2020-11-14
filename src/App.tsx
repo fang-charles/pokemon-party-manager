@@ -11,6 +11,7 @@ import TestCharles from './test/TestCharles';
 import TestLarry from './test/TestLarry';
 import TestEldon from './test/TestEldon';
 import TestJammie from './test/TestJammie';
+import Login from './components/Login'
 
 class App extends Component {
     render() {
@@ -25,6 +26,7 @@ class App extends Component {
                     <Route exact path="/test/larry" component={TestLarry}></Route>
                     <Route exact path="/test/eldon" component={TestEldon}></Route>
                     <Route exact path="/test/jammie" component={TestJammie}></Route>
+                    <Route exact path="/components/Login" component={Login}></Route>
                 </Switch>
             </>
         );

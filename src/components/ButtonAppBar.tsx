@@ -51,6 +51,9 @@ export default function ButtonAppBar() {
                     <Link to="/test/jammie">
                         <Button>Jammie</Button>
                     </Link>
+                    <Link to="/components/Login">
+                        <Button>Login</Button>
+                    </Link>
                     <Link to="/">
                         <Button>Home</Button>
                     </Link>
