@@ -37,20 +37,10 @@ function TestEldon() {
         party_id: 12,
         member: [poki1],
     };
-    let user1: User = {
-        user_id: 5,
-        username: 'Darwin',
-    };
-    let item1: Item = {
-        item_name: 'string',
-        item_description: 'string',
-    };
 
     const [count, setCount] = useState(1);
     const [base, setBase] = useState<Party>(party1);
     const [partyDel, setPartyDel] = useState<Party>(party1);
-    const [user, setUser] = useState<User>(user1);
-    const [userName, setUserName] = useState<User>(user1);
     const [move, setMove] = useState<Move>(move1);
     const [pokeDel, setPokeDel] = useState<Pokemon>(poki1);
     const [itemDel, setItemDel] = useState<Item>(item1);
@@ -68,26 +58,8 @@ function TestEldon() {
     }, [count]);
 
     React.useEffect(() => {
-        loseItem(15, 'absolite').then((res) => {
-            setItemDel(res.data);
-        });
-    }, [count]);
-
-    React.useEffect(() => {
         deletePokemon(11).then((res) => {
             setPokeDel(res.data);
-        });
-    }, [count]);
-
-    React.useEffect(() => {
-        getUser(count).then((res) => {
-            setUser(res.data);
-        });
-    }, [count]);
-
-    React.useEffect(() => {
-        getUserID('yiff.li').then((res) => {
-            setUserName(res.data);
         });
     }, [count]);
 
@@ -108,13 +80,6 @@ function TestEldon() {
             <p>You clicked {count} times</p>
             <button onClick={() => setCount(count + 1)}>Click me</button>
             <TextField name="name" label="Party Number" onChange={handleInputChange} value={count} />
-            <p>{JSON.stringify(base)}</p>
-            <p>{JSON.stringify(user)}</p>
-            <p>{JSON.stringify(userName)}</p>
-            <p>{JSON.stringify(move)}</p>
-            <p>{JSON.stringify(partyDel)}</p>
-            <p>{JSON.stringify(pokeDel)}</p>
-            <p>{JSON.stringify(itemDel)}</p>
         </div>
     );
 }
