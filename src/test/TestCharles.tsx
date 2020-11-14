@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getBasePokemon, getItem, addPokemon } from '../axios/api';
+import { getBasePokemon, getItem, addPokemon, getSpecificPokemon } from '../axios/api';
 import { BasePokemon, Item, Pokemon, Move } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 import PokemonCard from '../components/pokemonCard/PokemonCard';
@@ -30,6 +30,8 @@ function TestCharles() {
         });
     }, []);
 
+
+
     React.useEffect(() => {
         getBasePokemon(count).then((res) => {
             setBase(res.data);
@@ -43,15 +45,10 @@ function TestCharles() {
     React.useEffect(() => {
         getItem('poke-ball').then((res) => {
             setItem(res.data);
-            console.log(res.data);
+
         });
     }, [count]);
 
-    React.useEffect(() => {
-        addPokemon(count, 77, 'frontend Test', 2).then((res) => {
-            console.log(res.data);
-        });
-    }, [count]);
 
     const handleInputChange = (e) => {
         setCount(e.target.value);
@@ -94,6 +91,14 @@ function TestCharles() {
     function handleSetPokemon(pkmn: Pokemon) {
         setPkmn(pkmn);
     }
+
+    
+    React.useEffect(() => {
+        getSpecificPokemon(29).then((res) => {
+            console.log(res.data);
+            //setPkmn(res.data);
+        });
+    }, []);
 
     return (
         <div>

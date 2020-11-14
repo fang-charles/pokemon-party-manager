@@ -67,7 +67,6 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
 
     React.useEffect(() => {
         getAllItems().then((res) => {
-            console.log(res.data);
             setAllItems(res.data);
         });
     }, []);
@@ -89,19 +88,19 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
                         <MoreVertIcon />
                     </IconButton>
                 }
-                title={pkmn.baseInfo.name}
-                subheader={pkmn.nickname ? pkmn.nickname : ''}
+                title={pkmn ? pkmn.baseInfo.name : ''}
+                subheader={pkmn ? pkmn.nickname : ''}
             />
             <CardMedia className={classes.media} image={pkmn.baseInfo.sprite_data} title={pkmn.baseInfo.name} />
             <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p" align="right">
+{pkmn &&                 <Typography variant="body2" color="textSecondary" component="p" align="right">
                     HP: {pkmn.baseInfo.hp} <br />
                     Attack: {pkmn.baseInfo.attack} <br />
                     Defense: {pkmn.baseInfo.defense} <br />
                     Special Attack: {pkmn.baseInfo.special_attack} <br />
                     Special Defense: {pkmn.baseInfo.special_defense} <br />
                     Speed: {pkmn.baseInfo.speed} <br />
-                </Typography>
+                </Typography>}
             </CardContent>
             <CardActions disableSpacing>
                 <IconButton aria-label="add to favorites">

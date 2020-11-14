@@ -214,7 +214,7 @@ function getSpecificPokemon($pkid)
 {
 	global $db;
 
-	$query = "SELECT * FROM specific_pokemon WHERE pk_id=:pkid";
+	$query = "SELECT * FROM specific_pokemon as sp NATURAL JOIN base_info as bi NATURAL JOIN base_pokemon as bp WHERE sp.pk_id=:pkid";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':pkid', $pkid);
 	$statement->execute();
@@ -362,9 +362,9 @@ function createAccount($username, $password)
 	$statement = $db->prepare($query);
 	$statement->bindValue(':username', $username);
 	$statement->bindValue(':password', $password);
-	try{
+	try {
 		$statement->execute();
-	} catch(Exception $exception){
+	} catch (Exception $exception) {
 		return false;
 	}
 
