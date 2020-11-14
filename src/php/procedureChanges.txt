@@ -10,13 +10,13 @@ END
 
 ---------------
 -----------------------------------
----------------
-
-
-
-
-
-
+--------------- generateParty
+BEGIN
+INSERT INTO team (user_id) VALUES (user_id);
+SELECT @@IDENTITY INTO party_id;
+INSERT INTO party(party_id) VALUES (party_id);
+SELECT party_id as 'party_id';
+END
 
 ---------------
 -----------------------------------
