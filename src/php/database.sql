@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Nov 14, 2020 at 05:45 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.33
+-- Host: 127.0.0.1
+-- Generation Time: Nov 14, 2020 at 11:06 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.3.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -30,6 +31,7 @@ INSERT INTO member (party_id) VALUES (party_id);
 SELECT @@IDENTITY INTO pk_id;
 INSERT INTO specific_pokemon (pk_id, level, nickname) VALUES (pk_id, level, nickname);
 INSERT INTO base_info (pk_id, pokedex_number) VALUES (pk_id, pokedex_number);
+SELECT pk_id AS `pk_id`;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `clearParty` (IN `partyID` INT)  BEGIN
@@ -45,6 +47,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `generateParty` (IN `user_id` INT, O
 INSERT INTO team (user_id) VALUES (user_id);
 SELECT @@IDENTITY INTO party_id;
 INSERT INTO party(party_id) VALUES (party_id);
+SELECT party_id as 'party_id';
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getBasePokemonInfo` (IN `pk_id` INT)  BEGIN
@@ -110,6 +113,23 @@ CREATE TABLE `base_info` (
   `pk_id` int(11) NOT NULL,
   `pokedex_number` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `base_info`
+--
+
+INSERT INTO `base_info` (`pk_id`, `pokedex_number`) VALUES
+(16, 1),
+(17, 2),
+(25, 2),
+(18, 3),
+(19, 3),
+(20, 7),
+(21, 25),
+(22, 69),
+(23, 95),
+(24, 122),
+(26, 152);
 
 -- --------------------------------------------------------
 
@@ -955,6 +975,18 @@ CREATE TABLE `holding` (
   `pk_id` int(11) NOT NULL,
   `item_name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `holding`
+--
+
+INSERT INTO `holding` (`pk_id`, `item_name`) VALUES
+(16, 'apicot-berry'),
+(18, 'apicot-berry'),
+(17, 'berry-pouch'),
+(19, 'big-root'),
+(20, 'blue-apricorn'),
+(21, 'fluffy-tail');
 
 -- --------------------------------------------------------
 
@@ -1939,6 +1971,24 @@ CREATE TABLE `learned` (
   `pk_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `learned`
+--
+
+INSERT INTO `learned` (`move_name`, `pk_id`) VALUES
+('explosion', 17),
+('flamethrower', 16),
+('hyper-beam', 16),
+('hyper-beam', 18),
+('meditate', 17),
+('megahorn', 18),
+('metal-claw', 18),
+('meteor-mash', 18),
+('sing', 17),
+('sky-attack', 17),
+('splash', 16),
+('tail-whip', 16);
+
 -- --------------------------------------------------------
 
 --
@@ -1949,6 +1999,23 @@ CREATE TABLE `member` (
   `pk_id` int(11) NOT NULL,
   `party_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `member`
+--
+
+INSERT INTO `member` (`pk_id`, `party_id`) VALUES
+(16, 1),
+(17, 1),
+(18, 1),
+(19, 1),
+(20, 2),
+(21, 2),
+(22, 2),
+(23, 2),
+(24, 2),
+(25, 2),
+(26, 3);
 
 -- --------------------------------------------------------
 
@@ -2733,6 +2800,8 @@ CREATE TABLE `party` (
 --
 
 INSERT INTO `party` (`party_id`) VALUES
+(1),
+(2),
 (3),
 (4);
 
@@ -2747,6 +2816,23 @@ CREATE TABLE `specific_pokemon` (
   `level` int(11) DEFAULT NULL,
   `nickname` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `specific_pokemon`
+--
+
+INSERT INTO `specific_pokemon` (`pk_id`, `level`, `nickname`) VALUES
+(16, 10, 'Bulbasaur'),
+(17, 30, 'Ivysaur'),
+(18, 50, 'Venusaur'),
+(19, 50, 'Venusaur'),
+(20, 1, 'Squirtle'),
+(21, 15, 'Pikachu'),
+(22, 25, 'Bellsprout'),
+(23, 60, 'Onix'),
+(24, 60, 'Mr.Mime'),
+(25, 30, 'Ivysaur'),
+(26, 3, 'Chikorita');
 
 -- --------------------------------------------------------
 
@@ -2764,6 +2850,8 @@ CREATE TABLE `team` (
 --
 
 INSERT INTO `team` (`party_id`, `user_id`) VALUES
+(1, 1),
+(2, 1),
 (3, 2),
 (4, 3);
 
@@ -2882,7 +2970,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `pk_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `pk_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `team`
