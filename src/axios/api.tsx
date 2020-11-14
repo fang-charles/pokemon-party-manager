@@ -33,7 +33,7 @@ export function getItem(itemName: String) {
 
 export function gainItem(pokemonID: number, itemName: String) {
     return axios.post<Item>(apiUrl + 'item.php', { fname: 'gainItem', dataPacket: { pk_id: pokemonID, name77: itemName } });
-}
+}   // Jammie
 
 //Party
 export function getParty(partyID: number) {
@@ -46,7 +46,7 @@ export function deleteParty(partyID: number) {
 
 export function addParty(userID: number) {
     return axios.post<Party>(apiUrl + 'party.php', { fname: 'addParty', dataPacket: { id77: userID } });
-}
+} // Jammie
 
 //User
 export function getUser(userID: number) {
@@ -64,8 +64,9 @@ export function getMove(moveName: String) {
 
 export function learnMove(pokemonID: number, moveA: String, moveB: String, moveC: String, moveD: String) {
     return axios.post<Move>(apiUrl + 'move.php', { fname: 'learnMove', dataPacket: { pk_id: pokemonID, move1: moveA, move2:moveB, move3:moveC, move4:moveD} });
-}
+} // Jammie
+
 
 export function forgetMove(pokemonID: number, moveName:String) {
     return axios.post<Move>(apiUrl + 'move.php', { fname: 'forgetMove', dataPacket: { pk_id: pokemonID, name77: moveName } });
-}
+} // Jammie

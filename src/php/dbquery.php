@@ -45,7 +45,8 @@ function addBoat($bid, $bname, $color)
 	$statement->closeCursor();    // release hold on this connection
 }
 
-function forgetMove($pokemonID, $moveName)	//UNTESTED
+function forgetMove($pokemonID, $moveName)
+// Ratchetly tested through connectdb, it works
 {
 	global $db;
 	$query = "DELETE FROM learned WHERE pk_id = :pokemon_ID AND move_name = :move_Name";
@@ -56,7 +57,10 @@ function forgetMove($pokemonID, $moveName)	//UNTESTED
 	$statement->closeCursor();
 }
 
-function learnMove($pokemonID, $moveA, $moveB, $moveC, $moveD) 	// UNTESTED
+function learnMove($pokemonID, $moveA, $moveB, $moveC, $moveD)
+// Ratchetly tested through connectdb, it works
+// Requires all 4 parameters to be filled in though, don't know if we want to
+// have option to learn a NULL move or single move
 {
 	global $db;
 	$query = "CALL setMoves(:pk_id, :move1, :move2, :move3, :move4)";
@@ -71,7 +75,8 @@ function learnMove($pokemonID, $moveA, $moveB, $moveC, $moveD) 	// UNTESTED
 	$statement->closeCursor();
 }
 
-function gainItem($pokemonID, $itemName) 	// UNTESTED
+function gainItem($pokemonID, $itemName)
+// Ratchetly tested through connectdb, it works
 {
 	global $db;
 
@@ -84,11 +89,12 @@ function gainItem($pokemonID, $itemName) 	// UNTESTED
 	$statement->closeCursor();
 }
 
-function addParty($userID) 	// UNTESTED
+function addParty($userID)
+// Ratchetly tested through connectdb, it works
 {
 	global $db;
 
-	$query = "CALL generateParty(:userID);";
+	$query = "CALL generateParty(:userID, @party_id);";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':userID', $userID);
 	$statement->execute();

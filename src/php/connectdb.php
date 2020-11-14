@@ -20,8 +20,8 @@
 
 $username = 'cs4750user';
 $password = 'password';
-$host = 'localhost:3306'
-$dbname = 'cs4750user';
+$host = 'localhost:3306';
+$dbname = 'ebl9rd_c';
 
 
 require_once __DIR__ . '/dbquery.php';
@@ -40,6 +40,11 @@ try {
    $db = new PDO($dsn, $username, $password, $opt);
    echo "<p>You are connected to the database</p>";
    //echo json_encode(getItem("air-mail"));
+   // echo json_encode(forgetMove(5, "flamethrower"));
+   //echo json_encode(learnMove(5, "flamethrower", "tackle", "absorb", "acid"));
+   //echo json_encode(learnMove(5, "megahorn", "sky-attack", "flamethrower", "tackle"));
+   // echo json_encode(gainItem(6, 'apicot-berry'));
+   // echo json_encode(addParty(1));
 } catch (PDOException $e)     // handle a PDO exception (errors thrown by the PDO library)
 {
    // Call a method from any object, 
