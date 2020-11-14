@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 12, 2020 at 05:20 AM
+-- Generation Time: Nov 14, 2020 at 02:00 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.33
 
@@ -73,6 +73,11 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserID` (IN `username` VARCHAR(255))  BEGIN
 SELECT user_id FROM user WHERE username = username;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `loseItem` (IN `pk_id` INT, IN `itemName` VARCHAR(255))  NO SQL
+BEGIN
+DELETE FROM holding WHERE pk_id = pk_id AND item_name = itemName;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `removePokemon` (IN `pk_id` INT)  NO SQL
@@ -970,7 +975,6 @@ INSERT INTO `item` (`item_name`, `item_description`) VALUES
 ('ability-capsule', 'Switches a Pokemon between its two possible (non-Hidden) Abilities.'),
 ('ability-urge', 'Forcibly activates a friendly Pokemon\'s ability.'),
 ('abomasite', 'Held: Allows Abomasnow to Mega Evolve into Mega Abomasnow.'),
-('absolite', 'Held: Allows Absol to Mega Evolve into Mega Absol.'),
 ('absorb-bulb', 'Held: Raises the holder\'s Special Attack by one stage when it takes Water-type damage.'),
 ('acro-bike', 'More maneuverable than the Mach Bike, and allows hopping along rails.'),
 ('adamant-orb', 'Boosts the damage from Dialga\'s Dragon-type and Steel-type moves by 20%.'),
@@ -1608,9 +1612,9 @@ INSERT INTO `item` (`item_name`, `item_description`) VALUES
 ('ride-pager', 'Allows the player to summon a Ride Pokemon.'),
 ('rindo-berry', 'Held: Consumed when struck by a super-effective Grass-type attack to halve the damage.'),
 ('ring-target', 'Held: Negates the holder\'s type immunities. Ability immunities are not removed.'),
-('rm-1-key', 'Unlocks room 1 on the Abandoned Ship.');
+('rm-1-key', 'Unlocks room 1 on the Abandoned Ship.'),
+('rm-2-key', 'Unlocks room 2 on the Abandoned Ship.');
 INSERT INTO `item` (`item_name`, `item_description`) VALUES
-('rm-2-key', 'Unlocks room 2 on the Abandoned Ship.'),
 ('rm-4-key', 'Unlocks room 4 on the Abandoned Ship.'),
 ('rm-6-key', 'Unlocks room 6 on the Abandoned Ship.'),
 ('rock-gem', 'Held: When the holder uses a damaging rock-type move, the move has 1.5x power and this item is consumed.'),
@@ -2729,7 +2733,6 @@ CREATE TABLE `party` (
 --
 
 INSERT INTO `party` (`party_id`) VALUES
-(2),
 (3),
 (4);
 
@@ -2761,7 +2764,6 @@ CREATE TABLE `team` (
 --
 
 INSERT INTO `team` (`party_id`, `user_id`) VALUES
-(2, 1),
 (3, 2),
 (4, 3);
 
@@ -2876,7 +2878,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `pk_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `pk_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `team`

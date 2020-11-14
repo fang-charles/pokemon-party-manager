@@ -136,6 +136,28 @@ function getItem($itemName)
 	return $results;
 }
 
+function loseItem($pk_id, $itemName)
+{
+	global $db;
+
+	$q1 = "SELECT * FROM item WHERE item_name = :itemName;";
+	$statement1 = $db->prepare($q1);
+	$statement1->bindValue(':itemName', $itemName);
+	$statement1->execute();
+	$ret = $statement1->fetch();
+	$statement1->closeCursor();
+	$query = "CALL loseItem(:pk_id, :itemName);";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':itemName', $itemName);
+	$statement->bindValue(':pk_id', $pk_id);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $ret;
+}
+
 function deleteParty($partyID)
 {
 	global $db;
@@ -164,6 +186,21 @@ function getParty($partyID)
 	$query = "SELECT * FROM party WHERE party_id = :partyID;";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':partyID', $partyID);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $results;
+}
+
+function getSpecificPokemon($pkid)
+{
+	global $db;
+
+	$query = "SELECT * FROM specific_pokemon WHERE pk_id=:pkid";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':pkid', $pkid);
 	$statement->execute();
 
 	$results = $statement->fetch();
@@ -216,6 +253,38 @@ function getMove($moveName)
 
 	return $results;
 }
+
+#$holding, $moves, $baseInfo
+#other info to add includes the party id
+#level is a key word
+function addPokemon($pokedex_number, $lev, $nickname, $party_id)
+{
+	global $db;
+
+	$query = "CALL addPokemon(:pokedex_number, :level, :nickname, :party_id, @pk_id)";
+
+	$statement = $db->prepare($query);
+	$statement->bindValue(':pokedex_number', $pokedex_number);
+	$statement->bindValue(':level', $lev);
+	$statement->bindValue(':nickname', $nickname);
+	$statement->bindValue(':party_id', $party_id);
+
+	$statement->execute();        // run query, if the statement is successfully executed, execute() returns true
+	$results = $statement->fetch();
+
+	$statement->closeCursor();
+
+	return $results;
+}
+/**
+ * $query = "CALL countBoats(@p0)";
+         	echo ": prepare ";
+         	$statement = $db->prepare($query);
+         	echo ": execute"; 
+         	$statement->execute();
+         	$counter = $statement->setFetchMode(PDO::FETCH_ASSOC);
+
+ */
 
 function deletePokemon($pokeID)
 {

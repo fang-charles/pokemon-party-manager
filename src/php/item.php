@@ -22,6 +22,11 @@ switch ($fname) {
 	case "gainItem":
 		$pk_id = $dataPacket['pk_id'];
 		$itemName = $dataPacket['name77'];
+	case "loseItem":
+		$itemName = $dataPacket['name77'];
+		$pk_id = $dataPacket['pk_id'];
+		echo json_encode(loseItem($pk_id, $itemName));
+		break;
 	default:
 		echo "Your fname does not match";
 }

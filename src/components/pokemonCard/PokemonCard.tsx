@@ -103,18 +103,12 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-				<Typography paragraph>Item:</Typography>
-                    <Typography paragraph>
-                        {JSON.stringify(pkmn.holding)}
-                    </Typography>
+                    <Typography paragraph>Item:</Typography>
+                    <Typography paragraph>{JSON.stringify(pkmn.holding)}</Typography>
                     <Typography paragraph>Move 1:</Typography>
-                    <Typography paragraph>
-                        {JSON.stringify(pkmn.moves[0])}
-                    </Typography>
-					<Typography paragraph>Move 2:</Typography>
-                    <Typography paragraph>
-                        {JSON.stringify(pkmn.moves[1])}
-                    </Typography>
+                    <Typography paragraph>{JSON.stringify(pkmn.moves[0])}</Typography>
+                    <Typography paragraph>Move 2:</Typography>
+                    <Typography paragraph>{JSON.stringify(pkmn.moves[1])}</Typography>
                 </CardContent>
             </Collapse>
         </Card>

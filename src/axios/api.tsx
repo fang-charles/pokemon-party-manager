@@ -34,6 +34,9 @@ export function getItem(itemName: String) {
 export function gainItem(pokemonID: number, itemName: String) {
     return axios.post<Item>(apiUrl + 'item.php', { fname: 'gainItem', dataPacket: { pk_id: pokemonID, name77: itemName } });
 }   // Jammie
+export function loseItem(pk_id: number, itemName: String) {
+    return axios.post<Item>(apiUrl + 'item.php', { fname: 'loseItem', dataPacket: { pk_id: pk_id, name77: itemName } });
+}
 
 //Party
 export function getParty(partyID: number) {
@@ -70,3 +73,18 @@ export function learnMove(pokemonID: number, moveA: String, moveB: String, moveC
 export function forgetMove(pokemonID: number, moveName:String) {
     return axios.post<Move>(apiUrl + 'move.php', { fname: 'forgetMove', dataPacket: { pk_id: pokemonID, name77: moveName } });
 } // Jammie
+//Something for specific pokemon
+export function getSpecificPokemon(pkid: number) {
+    return axios.post<Pokemon>(apiUrl + 'pokemon.php', {
+        fname: 'getSpecificPokemon',
+        dataPacket: { pokemonid: pkid },
+    });
+}
+
+export function addPokemon(pokedexNumber: number, lev: number, nickname: String, party_id: number) {
+    return axios.post<string>(apiUrl + 'pokemon.php', {
+        fname: 'addPokemon',
+        dataPacket: { pokedex_number: pokedexNumber, level: lev, nickname: nickname, party_id: party_id },
+    });
+}
+

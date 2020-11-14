@@ -41,9 +41,6 @@ function Example() {
             >
                 Add Boat
             </button>
-            {allBoats.map((boat) => (
-                <ExampleBoatView myBoat={boat}></ExampleBoatView>
-            ))}
         </div>
     );
 }

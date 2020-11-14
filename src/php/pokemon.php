@@ -20,9 +20,20 @@ switch ($fname) {
 		echo json_encode(getBasePokemon($pokedexNumber));
 		break;
 	case "deletePokemon":
-			$pokeID = $dataPacket['id77'];
-			echo json_encode(deletePokemon($pokeID));
-			break;
+		$pokeID = $dataPacket['id77'];
+		echo json_encode(deletePokemon($pokeID));
+		break;
+	case "getSpecificPokemon":
+		$pkid = $dataPacket['pokemonid'];
+		echo json_encode(getSpecificPokemon($pkid));
+		break;
+	case "addPokemon":
+		$pkid = $dataPacket['pokedex_number'];
+		$lev = $dataPacket['level'];
+		$nickname = $dataPacket['nickname'];
+		$party_id = $dataPacket['party_id'];
+		echo json_encode(addPokemon($pkid, $lev, $nickname, $party_id));
+		break;
 	default:
 		echo "Your fname does not match";
 }
