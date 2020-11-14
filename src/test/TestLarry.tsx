@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import PokemonCard from '../components/pokemonCard/PokemonCard';
 import PartySelectScreen from '../components/PartySelectScreen/PartySelectScreen';
 import PartySelectCard from '../components/PartySelectScreen/PartySelectCard';
+import PartyScreen from '../components/PartyScreen/PartyScreen';
 
 function TestLarry() {
     // Declare a new state variable, which we'll call "count"
@@ -129,7 +130,7 @@ function TestLarry() {
 
     let part: Party = {
         party_id: 1,
-        member: [myBulbasaur, myIvysaur, myPalkia]
+        member: [myBulbasaur, myIvysaur, myPalkia, myBulbasaur, myIvysaur, myPalkia]
     };
 
     const [pokemon, setPokemon] = useState<Pokemon>();
@@ -142,7 +143,7 @@ function TestLarry() {
     let user1: User = {
         user_id: 5,
         username: 'Darwin',
-        party: [part, part]
+        party: [part, part, part, part, part, part]
     };
 
     return (
@@ -157,6 +158,7 @@ function TestLarry() {
             <TextField name="party id" label="Party id" onChange={handleInputChange} value={partyid} />
             <p>{JSON.stringify(base)}</p>
             <p>{JSON.stringify(pokemon)}</p>
+            <PartyScreen party = {part}></PartyScreen>
             <PartySelectScreen user={user1}> </PartySelectScreen>
         </div>
     );

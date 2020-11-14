@@ -34,7 +34,7 @@ const PartySelectScreen: React.FC<WelcomeProps> = (props) => {
     return (
       <Grid container className={classes.root} spacing={2}>
         <Grid item xs={12}>
-          <Grid container justify="center" spacing={spacing}>
+          <Grid container justify="center" spacing={spacing} >
             {parties.map((party)=><div className = "party"> <h1 className="inLine">{party.party_id}</h1>{party.member.map((pokemon)=> <img src={pokemon.baseInfo.sprite_data} className="photo"></img> )}</div> )}
           </Grid>
         </Grid>
