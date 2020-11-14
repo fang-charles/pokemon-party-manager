@@ -19,6 +19,9 @@ switch ($fname) {
 		$itemName = $dataPacket['name77'];
 		echo json_encode(getItem($itemName));
 		break;
+	case "gainItem":
+		$pk_id = $dataPacket['pk_id'];
+		$itemName = $dataPacket['name77'];
 	case "loseItem":
 		$itemName = $dataPacket['name77'];
 		$pk_id = $dataPacket['pk_id'];
