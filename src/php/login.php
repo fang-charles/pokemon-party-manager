@@ -17,8 +17,8 @@ $fname = $data['fname'];
 switch ($fname) {
 	case "verifyPassword":
         $username = $dataPacket['username'];
-        //$password = $dataPacket['password'];
-		echo json_encode(verifyPassword($username));
+        $password = $dataPacket['password'];
+		echo json_encode(verifyPassword($username, $password));
         break;
     case "createAccount":
         $username = $dataPacket['username'];

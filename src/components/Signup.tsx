@@ -8,7 +8,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
 
-import { verifyPassword } from '../axios/api';
+import { verifyPassword, createAccount } from '../axios/api';
 import { Loginer } from '../types/types';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -132,21 +132,25 @@ const Login = () => {
             password: 'string',
         };
         let pass: String = '';
-        verifyPassword(state.username).then((res) => {
-            pw = res.data;
-            pass = pw.password;
-            if (pass == state.password) {
+        if (state.password != state.confirm) {
+            dispatch({
+                type: 'loginFailed',
+                payload: "Passwords don't match",
+            });
+        }
+        createAccount(state.username, state.password)
+            .then((res) => {
                 dispatch({
                     type: 'loginSuccess',
                     payload: 'Login Successfully',
                 });
-            } else {
+            })
+            .catch((err) => {
                 dispatch({
                     type: 'loginFailed',
-                    payload: 'Incorrect username or password',
+                    payload: err,
                 });
-            }
-        });
+            });
     };
 
     const handleKeyPress = (event: React.KeyboardEvent) => {

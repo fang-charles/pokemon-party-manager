@@ -118,7 +118,7 @@ function TestEldon() {
 
     const [test, setTest] = useState<Loginer>(login1);
     React.useEffect(() => {
-        verifyPassword('larry.cai').then((res) => {
+        verifyPassword('larry.cai', 'i_love_cats').then((res) => {
             setTest(res.data);
         });
     }, [count]);

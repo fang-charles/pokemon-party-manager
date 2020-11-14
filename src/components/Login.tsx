@@ -119,23 +119,19 @@ const Login = () => {
     const handleLogin = () => {
         //need to check with database
         //JSON.stringify(itemDel)
-        let pw: Loginer = {
-            user: 'cats',
-            password: 'string',
-        };
-        let pass: String = '';
-        verifyPassword(state.username).then((res) => {
-            pw = res.data;
-            pass = pw.password;
-            if (pass == state.password) {
+        verifyPassword(state.username, state.password).then((res) => {
+            //pw = res.data;
+            //pass = pw.password;
+            console.log(res);
+            if (!res.data) {
                 dispatch({
-                    type: 'loginSuccess',
-                    payload: 'Login Successfully',
+                    type: 'loginFailed',
+                    payload: 'Incorrect password!',
                 });
             } else {
                 dispatch({
-                    type: 'loginFailed',
-                    payload: 'Incorrect username or password',
+                    type: 'loginSuccess',
+                    payload: 'Login Successfully',
                 });
             }
         });

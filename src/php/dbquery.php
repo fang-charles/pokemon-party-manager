@@ -201,13 +201,13 @@ function deletePokemon($pokeID)
 }
 
 //login related queries
-function verifyPassword($username)
+function verifyPassword($username, $password)
 {
 	global $db;
-	$query = "SELECT password FROM user WHERE username = :username";
+	$query = "SELECT * FROM user WHERE username = :username AND password = PASSWORD(:password)";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':username', $username);
-	#$statement->bindValue(':password', $password);
+	$statement->bindValue(':password', $password);
 	$statement->execute();
 
 	$results = $statement->fetch();
