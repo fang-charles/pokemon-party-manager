@@ -98,8 +98,18 @@ const reducer = (state: State, action: Action): State => {
 };
 
 const Login = () => {
+    let login1: Loginer = {
+        user: 'string',
+        password: 'string',
+    };
     const classes = useStyles();
     const [state, dispatch] = useReducer(reducer, initialState);
+    const [verified, setVerify] = useState<Loginer>(login1);
+    /* React.useEffect(() => {
+        verifyPassword('larry.cai').then((res) => {
+            setTest(res.data);
+        });
+    }, [state.]); */
 
     //sets button to only enable if something is typed
     useEffect(() => {
@@ -118,7 +128,17 @@ const Login = () => {
 
     const handleLogin = () => {
         //need to check with database
-        if (true) {
+        //JSON.stringify(itemDel)
+        let pw : Loginer = {
+            user: 'cats',
+            password: 'string',
+        };
+        let pass : String = ""
+        verifyPassword(state.username).then((res) => {
+            pw = res.data;
+            pass = pw.password;
+        });
+        if (verified) {
             dispatch({
                 type: 'loginSuccess',
                 payload: 'Login Successfully',
