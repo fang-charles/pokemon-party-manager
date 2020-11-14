@@ -68,7 +68,7 @@ function TestEldon() {
     }, [count]);
 
     React.useEffect(() => {
-        loseItem(count, "absolite").then((res) => {
+        loseItem(15, 'absolite').then((res) => {
             setItemDel(res.data);
         });
     }, [count]);
