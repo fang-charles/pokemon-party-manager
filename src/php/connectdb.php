@@ -18,16 +18,16 @@
 /******************************/
 // connecting to DB on XAMPP (local)
 
-$username = 'cs4750user';
-$password = 'password';
-$host = 'localhost:3306';
-$dbname = 'ebl9rd_c';
+$username = 'jw8kc';
+$password = 'Helloworld1!';
+$host = 'usersrv01.cs.virginia.edu';
+$dbname = 'jw8kc';
 
 
 require_once __DIR__ . '/dbquery.php';
 
 
-$dsn = "mysql:host=$host;dbname=$dbname";
+$dsn = "mysql:host=usersrv01.cs.virginia.edu;dbname=jw8kc";
 $db = "";
 $opt = [
    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
@@ -38,7 +38,7 @@ $opt = [
 /** connect to the database **/
 try {
    $db = new PDO($dsn, $username, $password, $opt);
-   // echo "<p>You are connected to the database</p>";
+   echo "<p>You are connected to the database</p>";
    //echo json_encode(getItem("air-mail"));
    // echo json_encode(forgetMove(5, "flamethrower"));
    //echo json_encode(learnMove(5, "flamethrower", "tackle", "absorb", "acid"));
