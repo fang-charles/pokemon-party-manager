@@ -125,7 +125,7 @@ function TestEldon() {
 
     const [test2, setTest2] = useState<Loginer>(login1);
     React.useEffect(() => {
-        createAccount('jammie.wang', 'rickeyguo<3').then((res) => {
+        createAccount('jammie.wang3', 'rickeyguo<3').then((res) => {
             setTest2(res.data);
         });
     }, [count]);

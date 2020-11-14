@@ -204,7 +204,7 @@ function deletePokemon($pokeID)
 function verifyPassword($username)
 {
 	global $db;
-	$query = "SELECT password FROM login WHERE user = :username";
+	$query = "SELECT password FROM user WHERE username = :username";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':username', $username);
 	#$statement->bindValue(':password', $password);
@@ -219,7 +219,7 @@ function verifyPassword($username)
 function createAccount($username, $password)
 {
 	global $db;
-	$query = "INSERT INTO login (user, password) VALUES (:username, PASSWORD(:password));";
+	$query = "INSERT INTO user (username, password) VALUES (:username, PASSWORD(:password));";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':username', $username);
 	$statement->bindValue(':password', $password);
@@ -228,7 +228,7 @@ function createAccount($username, $password)
 	$results = $statement->fetch();
 	$statement->closeCursor();
 
-	$q1 = "SELECT * FROM login WHERE user = :username;";
+	$q1 = "SELECT * FROM user WHERE username = :username;";
 	$statement1 = $db->prepare($q1);
 	$statement1->bindValue(':username', $username);
 	$statement1->execute();
