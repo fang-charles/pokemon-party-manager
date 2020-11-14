@@ -129,26 +129,26 @@ const Login = () => {
     const handleLogin = () => {
         //need to check with database
         //JSON.stringify(itemDel)
-        let pw : Loginer = {
+        let pw: Loginer = {
             user: 'cats',
             password: 'string',
         };
-        let pass : String = ""
+        let pass: String = '';
         verifyPassword(state.username).then((res) => {
             pw = res.data;
             pass = pw.password;
+            if (pass == state.password) {
+                dispatch({
+                    type: 'loginSuccess',
+                    payload: 'Login Successfully',
+                });
+            } else {
+                dispatch({
+                    type: 'loginFailed',
+                    payload: 'Incorrect username or password',
+                });
+            }
         });
-        if (verified) {
-            dispatch({
-                type: 'loginSuccess',
-                payload: 'Login Successfully',
-            });
-        } else {
-            dispatch({
-                type: 'loginFailed',
-                payload: 'Incorrect username or password',
-            });
-        }
     };
 
     const handleKeyPress = (event: React.KeyboardEvent) => {
