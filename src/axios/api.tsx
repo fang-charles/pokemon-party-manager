@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { Boat, BasePokemon, Item, Party, User, Move, Pokemon } from '../types/types';
 
-const apiUrl = 'http://localhost/cs4750/pokemon-party-manager/src/php/';
+//const apiUrl = 'http://localhost/cs4750/pokemon-party-manager/src/php/';
+const apiUrl = 'http://www.cs.virginia.edu/~jw8kc/pokemon-party-manager/src/php/';
 
 export function getAllBoats() {
     return axios.post<Boat[]>(apiUrl + 'getAllBoats.php', { fname: 'getAllBoats' });
