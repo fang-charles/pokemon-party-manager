@@ -37,10 +37,8 @@ function TestCharles() {
         });
     }, [count]);
 
-
-    
     React.useEffect(() => {
-        addPokemon(count, 77,"frontend Test",  2).then((res) => {
+        addPokemon(count, 77, 'frontend Test', 2).then((res) => {
             console.log(res.data);
         });
     }, [count]);
