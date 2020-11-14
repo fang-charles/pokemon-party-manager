@@ -41,10 +41,6 @@ function TestEldon() {
         user_id: 5,
         username: 'Darwin',
     };
-    let item1: Item = {
-        item_name: 'string',
-        item_description: 'string',
-    };
 
     const [count, setCount] = useState(1);
     const [base, setBase] = useState<Party>(party1);
@@ -63,12 +59,6 @@ function TestEldon() {
     React.useEffect(() => {
         deleteParty(count).then((res) => {
             setPartyDel(res.data);
-        });
-    }, [count]);
-
-    React.useEffect(() => {
-        loseItem(15, 'absolite').then((res) => {
-            setItemDel(res.data);
         });
     }, [count]);
 
@@ -107,13 +97,6 @@ function TestEldon() {
             <p>You clicked {count} times</p>
             <button onClick={() => setCount(count + 1)}>Click me</button>
             <TextField name="name" label="Party Number" onChange={handleInputChange} value={count} />
-            <p>{JSON.stringify(base)}</p>
-            <p>{JSON.stringify(user)}</p>
-            <p>{JSON.stringify(userName)}</p>
-            <p>{JSON.stringify(move)}</p>
-            <p>{JSON.stringify(partyDel)}</p>
-            <p>{JSON.stringify(pokeDel)}</p>
-            <p>{JSON.stringify(itemDel)}</p>
         </div>
     );
 }

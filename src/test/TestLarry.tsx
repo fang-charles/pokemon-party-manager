@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { getBasePokemon, getItem, getSpecificPokemon, addPokemon } from '../axios/api';
-import { BasePokemon, Item, Pokemon, Move } from '../types/types';
+import { BasePokemon, Item, Pokemon, Move, Party } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 import PokemonCard from '../components/pokemonCard/PokemonCard';
+import PartyScreen from '../components/PartyScreen/PartyScreen';
 
 function TestLarry() {
     // Declare a new state variable, which we'll call "count"
@@ -34,12 +35,27 @@ function TestLarry() {
         sprite_data: 'https://img.pokemondb.net/artwork/ivysaur.jpg',
     };
 
+    let palkia: BasePokemon = {
+        pokedex_number: 484,
+        name: 'Palkia',
+        type1: 'Dragon',
+        type2: 'Poison',
+        hp: 60,
+        attack: 62,
+        defense: 63,
+        special_attack: 80,
+        special_defense: 80,
+        speed: 60,
+        sprite_data: 'https://img.pokemondb.net/artwork/palkia.jpg',
+    };
+
     const [count, setCount] = useState<number>(1);
     const [level, setLevel] = useState<number>(90);
     const [nickname, setNickname] = useState<String>('KI MI NO NA WA');
     const [partyid, setPartyID] = useState<number>(1);
     const [base, setBase] = useState<BasePokemon>(bulbasaur);
     const [base2, setBase2] = useState<BasePokemon>(ivysaur);
+    const [base3, setBase3] = useState<BasePokemon>(palkia);
     const [item, setItem] = useState<Item>();
 
     React.useEffect(() => {
@@ -100,6 +116,20 @@ function TestLarry() {
         holding: airMail,
     };
 
+    let myPalkia: Pokemon = {
+        pkID: 5,
+        nickname: 'test',
+        level: 79,
+        moves: [tackle],
+        baseInfo: base3,
+        holding: airMail,
+    };
+
+    let part: Party = {
+        party_id: 1,
+        member: [myBulbasaur, myIvysaur, myPalkia]
+    };
+
     const [pokemon, setPokemon] = useState<Pokemon>();
     React.useEffect(() => {
         addPokemon(count, level, nickname, partyid).then((res) => {
@@ -119,8 +149,7 @@ function TestLarry() {
             <TextField name="party id" label="Party id" onChange={handleInputChange} value={partyid} />
             <p>{JSON.stringify(base)}</p>
             <p>{JSON.stringify(pokemon)}</p>
-            <PokemonCard pkmn={myBulbasaur}> </PokemonCard>
-            <PokemonCard pkmn={myIvysaur}> </PokemonCard>
+            <PartyScreen party={part}> </PartyScreen>
         </div>
     );
 }
