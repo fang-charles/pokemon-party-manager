@@ -58,6 +58,7 @@ export type Item = {
 export type User = {
     user_id: number;
     username: string;
+    party: Party[];
 };
 
 export type Move = {
@@ -67,4 +68,9 @@ export type Move = {
     type: string;
     pp: number;
     effect: string;
+};
+
+export type Loginer = {
+    user: String;
+    password: string;
 };

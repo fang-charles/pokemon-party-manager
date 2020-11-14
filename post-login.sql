@@ -2,10 +2,10 @@
 -- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 26, 2020 at 01:06 AM
--- Server version: 8.0.20
--- PHP Version: 7.4.10
+-- Host: localhost
+-- Generation Time: Nov 14, 2020 at 05:45 PM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.2.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,67 +18,79 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ebl9rd_a`
+-- Database: `ebl9rd_c`
 --
 
 DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`ebl9rd`@`%` PROCEDURE `addPokemon` (IN `pokedex_id` INT, IN `level` INT, IN `nickname` VARCHAR(255), IN `party_id` INT, OUT `pk_id` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addPokemon` (IN `pokedex_number` INT, IN `level` INT, IN `nickname` VARCHAR(255), IN `party_id` INT, OUT `pk_id` INT)  BEGIN
 INSERT INTO member (party_id) VALUES (party_id);
 SELECT @@IDENTITY INTO pk_id;
 INSERT INTO specific_pokemon (pk_id, level, nickname) VALUES (pk_id, level, nickname);
 INSERT INTO base_info (pk_id, pokedex_number) VALUES (pk_id, pokedex_number);
 END$$
 
-CREATE DEFINER=`ebl9rd`@`%` PROCEDURE `clearParty` (IN `partyID` INT)  BEGIN
-DELETE FROM member WHERE party_id = partyID;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `clearParty` (IN `partyID` INT)  BEGIN
+DELETE FROM party WHERE party_id = partyID;
+DELETE FROM team WHERE party_id = partyID;
 END$$
 
-CREATE DEFINER=`ebl9rd`@`%` PROCEDURE `clearUser` (IN `userID` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `clearUser` (IN `userID` INT)  BEGIN
 DELETE FROM team WHERE user_id = userID;
 END$$
 
-CREATE DEFINER=`ebl9rd`@`%` PROCEDURE `generateParty` (IN `user_id` INT, OUT `party_id` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `generateParty` (IN `user_id` INT, OUT `party_id` INT)  BEGIN
 INSERT INTO team (user_id) VALUES (user_id);
 SELECT @@IDENTITY INTO party_id;
 INSERT INTO party(party_id) VALUES (party_id);
 END$$
 
-CREATE DEFINER=`ebl9rd`@`%` PROCEDURE `getBasePokemonInfo` (IN `pk_id` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getBasePokemonInfo` (IN `pk_id` INT)  BEGIN
 SELECT * FROM base_pokemon as base WHERE pk_id = base.pokedex_number;
 END$$
 
-CREATE DEFINER=`ebl9rd`@`%` PROCEDURE `getParty` (IN `party_id` INT)  BEGIN
-SELECT party.* FROM party, team WHERE party_id = team.party_id;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getParty` (IN `party_id` INT)  BEGIN
+SELECT * FROM party WHERE party_id = party_id;
 END$$
 
-CREATE DEFINER=`ebl9rd`@`%` PROCEDURE `getPokemonitem` (IN `item_name` VARCHAR(255))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getPokemonitem` (IN `item_name` VARCHAR(255))  BEGIN
 SELECT * FROM item WHERE item_name = item.item_name;
 END$$
 
-CREATE DEFINER=`ebl9rd`@`%` PROCEDURE `getPokemonmoves` (IN `move_name` VARCHAR(255))  BEGIN
-SELECT * FROM move WHERE move_name = move.move_name;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getPokemonmoves` (IN `move_name` VARCHAR(255))  BEGIN
+SELECT * FROM move WHERE move_name = move_name;
 END$$
 
-CREATE DEFINER=`ebl9rd`@`%` PROCEDURE `getSpecificPokemon` (IN `pk_id` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getSpecificPokemon` (IN `pk_id` INT)  BEGIN
 SELECT * FROM specific_pokemon as pokemon WHERE pk_id = pokemon.pk_id;
 END$$
 
-CREATE DEFINER=`ebl9rd`@`%` PROCEDURE `getUser` (IN `user_id` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUser` (IN `user_id` INT)  BEGIN
 SELECT * FROM user WHERE user_id = user.user_id;
 END$$
 
-CREATE DEFINER=`ebl9rd`@`%` PROCEDURE `getUserID` (IN `username` VARCHAR(255), OUT `id` INT)  BEGIN
-SELECT user_id INTO id FROM user WHERE username = username;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserID` (IN `username` VARCHAR(255))  BEGIN
+SELECT user_id FROM user WHERE username = username;
 END$$
 
-CREATE DEFINER=`ebl9rd`@`%` PROCEDURE `setitem` (IN `pk_id` INT, IN `item_name` VARCHAR(255))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `loseItem` (IN `pk_id` INT, IN `itemName` VARCHAR(255))  NO SQL
+BEGIN
+DELETE FROM holding WHERE pk_id = pk_id AND item_name = itemName;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `removePokemon` (IN `pk_id` INT)  NO SQL
+BEGIN
+DELETE FROM member WHERE pk_id = pk_id;
+DELETE FROM specific_pokemon WHERE pk_id = pk_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `setitem` (IN `pk_id` INT, IN `item_name` VARCHAR(255))  BEGIN
 INSERT INTO holding (pk_id, item_name) VALUES (pk_id, item_name);
 END$$
 
-CREATE DEFINER=`ebl9rd`@`%` PROCEDURE `setmoves` (IN `pk_id` INT, IN `move1` VARCHAR(255), IN `move2` VARCHAR(255), IN `move3` VARCHAR(255), IN `move4` VARCHAR(255))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `setmoves` (IN `pk_id` INT, IN `move1` VARCHAR(255), IN `move2` VARCHAR(255), IN `move3` VARCHAR(255), IN `move4` VARCHAR(255))  BEGIN
 DELETE FROM learned WHERE learned.pk_id = pk_id;
 INSERT INTO learned (pk_id, move_name) VALUES (pk_id, move1);
 INSERT INTO learned (pk_id, move_name) VALUES (pk_id, move2);
@@ -95,26 +107,9 @@ DELIMITER ;
 --
 
 CREATE TABLE `base_info` (
-  `pk_id` int NOT NULL,
-  `pokedex_number` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `base_info`
---
-
-INSERT INTO `base_info` (`pk_id`, `pokedex_number`) VALUES
-(1, NULL),
-(2, NULL),
-(3, NULL),
-(4, NULL),
-(5, NULL),
-(6, NULL),
-(7, NULL),
-(8, NULL),
-(9, NULL),
-(10, NULL),
-(11, NULL);
+  `pk_id` int(11) NOT NULL,
+  `pokedex_number` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -123,18 +118,18 @@ INSERT INTO `base_info` (`pk_id`, `pokedex_number`) VALUES
 --
 
 CREATE TABLE `base_pokemon` (
-  `pokedex_number` int NOT NULL,
+  `pokedex_number` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `type1` varchar(255) DEFAULT NULL,
   `type2` varchar(255) DEFAULT NULL,
-  `hp` int DEFAULT NULL,
-  `attack` int DEFAULT NULL,
-  `defense` int DEFAULT NULL,
-  `special_attack` int DEFAULT NULL,
-  `special_defense` int DEFAULT NULL,
-  `speed` int DEFAULT NULL,
+  `hp` int(11) DEFAULT NULL,
+  `attack` int(11) DEFAULT NULL,
+  `defense` int(11) DEFAULT NULL,
+  `special_attack` int(11) DEFAULT NULL,
+  `special_defense` int(11) DEFAULT NULL,
+  `speed` int(11) DEFAULT NULL,
   `sprite_data` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `base_pokemon`
@@ -957,21 +952,9 @@ INSERT INTO `base_pokemon` (`pokedex_number`, `name`, `type1`, `type2`, `hp`, `a
 --
 
 CREATE TABLE `holding` (
-  `pk_id` int NOT NULL,
+  `pk_id` int(11) NOT NULL,
   `item_name` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `holding`
---
-
-INSERT INTO `holding` (`pk_id`, `item_name`) VALUES
-(1, 'apicot-berry'),
-(3, 'apicot-berry'),
-(2, 'berry-pouch'),
-(4, 'big-root'),
-(5, 'blue-apricorn'),
-(7, 'fluffy-tail');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -982,7 +965,7 @@ INSERT INTO `holding` (`pk_id`, `item_name`) VALUES
 CREATE TABLE `item` (
   `item_name` varchar(255) NOT NULL,
   `item_description` varchar(2047) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `item`
@@ -992,7 +975,6 @@ INSERT INTO `item` (`item_name`, `item_description`) VALUES
 ('ability-capsule', 'Switches a Pokemon between its two possible (non-Hidden) Abilities.'),
 ('ability-urge', 'Forcibly activates a friendly Pokemon\'s ability.'),
 ('abomasite', 'Held: Allows Abomasnow to Mega Evolve into Mega Abomasnow.'),
-('absolite', 'Held: Allows Absol to Mega Evolve into Mega Absol.'),
 ('absorb-bulb', 'Held: Raises the holder\'s Special Attack by one stage when it takes Water-type damage.'),
 ('acro-bike', 'More maneuverable than the Mach Bike, and allows hopping along rails.'),
 ('adamant-orb', 'Boosts the damage from Dialga\'s Dragon-type and Steel-type moves by 20%.'),
@@ -1630,9 +1612,9 @@ INSERT INTO `item` (`item_name`, `item_description`) VALUES
 ('ride-pager', 'Allows the player to summon a Ride Pokemon.'),
 ('rindo-berry', 'Held: Consumed when struck by a super-effective Grass-type attack to halve the damage.'),
 ('ring-target', 'Held: Negates the holder\'s type immunities. Ability immunities are not removed.'),
-('rm-1-key', 'Unlocks room 1 on the Abandoned Ship.');
+('rm-1-key', 'Unlocks room 1 on the Abandoned Ship.'),
+('rm-2-key', 'Unlocks room 2 on the Abandoned Ship.');
 INSERT INTO `item` (`item_name`, `item_description`) VALUES
-('rm-2-key', 'Unlocks room 2 on the Abandoned Ship.'),
 ('rm-4-key', 'Unlocks room 4 on the Abandoned Ship.'),
 ('rm-6-key', 'Unlocks room 6 on the Abandoned Ship.'),
 ('rock-gem', 'Held: When the holder uses a damaging rock-type move, the move has 1.5x power and this item is consumed.'),
@@ -1954,26 +1936,8 @@ INSERT INTO `item` (`item_name`, `item_description`) VALUES
 
 CREATE TABLE `learned` (
   `move_name` varchar(255) NOT NULL,
-  `pk_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `learned`
---
-
-INSERT INTO `learned` (`move_name`, `pk_id`) VALUES
-('flamethrower', 1),
-('hyper-beam', 1),
-('splash', 1),
-('tail-whip', 1),
-('explosion', 2),
-('meditate', 2),
-('sing', 2),
-('sky-attack', 2),
-('hyper-beam', 3),
-('megahorn', 3),
-('metal-claw', 3),
-('meteor-mash', 3);
+  `pk_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1982,26 +1946,9 @@ INSERT INTO `learned` (`move_name`, `pk_id`) VALUES
 --
 
 CREATE TABLE `member` (
-  `pk_id` int NOT NULL,
-  `party_id` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `member`
---
-
-INSERT INTO `member` (`pk_id`, `party_id`) VALUES
-(1, 1),
-(2, 1),
-(3, 1),
-(4, 1),
-(5, 2),
-(6, 2),
-(7, 2),
-(8, 2),
-(9, 2),
-(10, 2),
-(11, 3);
+  `pk_id` int(11) NOT NULL,
+  `party_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -2016,7 +1963,7 @@ CREATE TABLE `move` (
   `type` varchar(255) DEFAULT NULL,
   `pp` varchar(255) DEFAULT NULL,
   `effect` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `move`
@@ -2778,16 +2725,14 @@ INSERT INTO `move` (`move_name`, `power`, `accuracy`, `type`, `pp`, `effect`) VA
 --
 
 CREATE TABLE `party` (
-  `party_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `party_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `party`
 --
 
 INSERT INTO `party` (`party_id`) VALUES
-(1),
-(2),
 (3),
 (4);
 
@@ -2798,27 +2743,10 @@ INSERT INTO `party` (`party_id`) VALUES
 --
 
 CREATE TABLE `specific_pokemon` (
-  `pk_id` int NOT NULL,
-  `level` int DEFAULT NULL,
+  `pk_id` int(11) NOT NULL,
+  `level` int(11) DEFAULT NULL,
   `nickname` varchar(255) DEFAULT NULL
-) ;
-
---
--- Dumping data for table `specific_pokemon`
---
-
-INSERT INTO `specific_pokemon` (`pk_id`, `level`, `nickname`) VALUES
-(1, 10, 'Bulbasaur'),
-(2, 30, 'Ivysaur'),
-(3, 50, 'Venusaur'),
-(4, 50, 'Venusaur'),
-(5, 1, 'Squirtle'),
-(6, 15, 'Pikachu'),
-(7, 25, 'Bellsprout'),
-(8, 60, 'Onix'),
-(9, 60, 'Mr.Mime'),
-(10, 30, 'Ivysaur'),
-(11, 3, 'Chikorita');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -2827,17 +2755,15 @@ INSERT INTO `specific_pokemon` (`pk_id`, `level`, `nickname`) VALUES
 --
 
 CREATE TABLE `team` (
-  `party_id` int NOT NULL,
-  `user_id` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `party_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `team`
 --
 
 INSERT INTO `team` (`party_id`, `user_id`) VALUES
-(1, 1),
-(2, 1),
 (3, 2),
 (4, 3);
 
@@ -2848,26 +2774,29 @@ INSERT INTO `team` (`party_id`, `user_id`) VALUES
 --
 
 CREATE TABLE `user` (
-  `User_id` int NOT NULL,
-  `username` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `User_id` int(11) NOT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`User_id`, `username`) VALUES
-(1, 'larry.cai'),
-(2, 'charles.fang'),
-(3, 'eldon.luk'),
-(4, 'jammie.wang'),
-(5, 'rickey.guo'),
-(6, 'vivi.pham'),
-(7, 'yiff.li'),
-(9, 'darwin.walter'),
-(10, 'Ash'),
-(11, 'Brock'),
-(12, 'Misty');
+INSERT INTO `user` (`User_id`, `username`, `password`) VALUES
+(1, 'larry.cai', 'i_love_cats'),
+(2, 'charles.fang', ''),
+(3, 'eldon.luk', ''),
+(4, 'jammie.wang', ''),
+(5, 'rickey.guo', ''),
+(6, 'vivi.pham', ''),
+(7, 'yiff.li', ''),
+(9, 'darwin.walter', ''),
+(10, 'Ash', ''),
+(11, 'Brock', ''),
+(12, 'Misty', ''),
+(13, 'jammie.wang2', '*8F4D9E72EA0E4CDF6511B79CCB370876471E1717'),
+(16, 'jammie.wang3', '*8F4D9E72EA0E4CDF6511B79CCB370876471E1717');
 
 --
 -- Indexes for dumped tables
@@ -2942,7 +2871,8 @@ ALTER TABLE `team`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`User_id`);
+  ADD PRIMARY KEY (`User_id`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -2952,19 +2882,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `pk_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `pk_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `team`
 --
 ALTER TABLE `team`
-  MODIFY `party_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `party_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `User_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `User_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables

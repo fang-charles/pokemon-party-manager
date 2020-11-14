@@ -15,18 +15,16 @@ $fname = $data['fname'];
 
 //Specify the fname in api.tsx
 switch ($fname) {
-	case "getParty":
-		$partyID = $dataPacket['id77'];
-		echo json_encode(getParty($partyID));
-		break;
-	case "deleteParty":
-		$partyID = $dataPacket['id77'];
-		echo json_encode(deleteParty($partyID));
-		break;
-	case "addParty":
-		$userID = $dataPacket['id77'];
-		echo json_encode(addParty($partyID));
-		break;
+	case "verifyPassword":
+        $username = $dataPacket['username'];
+        $password = $dataPacket['password'];
+		echo json_encode(verifyPassword($username, $password));
+        break;
+    case "createAccount":
+        $username = $dataPacket['username'];
+        $password = $dataPacket['password'];
+        echo json_encode(createAccount($username, $password));
+        break;
 	default:
 		echo "Your fname does not match";
 }

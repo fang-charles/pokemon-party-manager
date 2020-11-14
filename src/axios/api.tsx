@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Boat, BasePokemon, Item, Party, User, Move, Pokemon } from '../types/types';
+import { Boat, BasePokemon, Item, Party, User, Move, Pokemon, Loginer } from '../types/types';
 
 const apiUrl = 'http://localhost/cs4750/pokemon-party-manager/src/php/';
 
@@ -103,5 +103,17 @@ export function addPokemon(pokedexNumber: number, lev: number, nickname: String,
     return axios.post<string>(apiUrl + 'pokemon.php', {
         fname: 'addPokemon',
         dataPacket: { pokedex_number: pokedexNumber, level: lev, nickname: nickname, party_id: party_id },
+//Passwords
+export function verifyPassword(username: String, password: String) {
+    return axios.post<Loginer>(apiUrl + 'login.php', {
+        fname: 'verifyPassword',
+        dataPacket: { username: username, password: password },
+    });
+}
+
+export function createAccount(username: String, password: String) {
+    return axios.post<Loginer>(apiUrl + 'login.php', {
+        fname: 'createAccount',
+        dataPacket: { username: username, password: password },
     });
 }
