@@ -2,6 +2,8 @@ import React from 'react'; // we need this to make JSX compile
 import { BasePokemon, Item, Move, Pokemon } from '../../types/types';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import MoveViewer from '../moveViewer/MoveViewer';
+import ItemAccordion from '../itemAccordion/ItemAccordion';
+import {getAllMoves, getAllItems} from '../../axios/api'
 
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -21,6 +23,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 interface WelcomeProps {
     pkmn: Pokemon;
+    setPkmn: (pkmn: Pokemon) => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -50,9 +53,26 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const PokemonCard: React.FC<WelcomeProps> = (props) => {
     let pkmn = props.pkmn;
+    let setPkmn = props.pkmn;
 
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
+    const [allMoves, setAllMoves] = React.useState<Move[]>([]);
+
+    React.useEffect(() => {
+        getAllMoves().then((res) => {
+            setAllMoves(res.data)
+        });
+    }, []);
+
+    const [allItems, setAllItems] = React.useState<Item[]>([]);
+
+    React.useEffect(() => {
+        getAllItems().then((res) => {
+            console.log(res.data);
+            setAllItems(res.data)
+        });
+    }, []);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -105,11 +125,11 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-				<Typography paragraph>Item:</Typography>
-                    <Typography paragraph>
-                        {JSON.stringify(pkmn.holding)}
-                    </Typography>
-                    <MoveViewer moves={pkmn.moves} allMoves={pkmn.moves}></MoveViewer>
+                    <Typography paragraph>Item:</Typography>
+                    <ItemAccordion item={pkmn.holding} allItems={allItems}> </ItemAccordion>
+                    <br></br>
+                    <Typography paragraph>Moves:</Typography>
+                    <MoveViewer moves={pkmn.moves} allMoves={allMoves}></MoveViewer>
                 </CardContent>
             </Collapse>
         </Card>

@@ -53,7 +53,7 @@ function forgetMove($pokemonID, $moveName)
 	$statement = $db->prepare($query);
 	$statement->bindValue(':pokemon_ID', $pokemonID);
 	$statement->bindValue(':move_Name', $moveName);
-	$statement->execute(); 
+	$statement->execute();
 	$statement->closeCursor();
 }
 
@@ -71,7 +71,7 @@ function learnMove($pokemonID, $moveA, $moveB, $moveC, $moveD)
 	$statement->bindValue(':move3', $moveC);
 	$statement->bindValue(':move4', $moveD);
 
-	$statement->execute(); 
+	$statement->execute();
 	$statement->closeCursor();
 }
 
@@ -85,7 +85,7 @@ function gainItem($pokemonID, $itemName)
 	$statement->bindValue(':pk_id', $pokemonID);
 	$statement->bindValue(':item_name', $itemName);
 
-	$statement->execute(); 
+	$statement->execute();
 	$statement->closeCursor();
 }
 
@@ -132,6 +132,22 @@ function getItem($itemName)
 
 	$results = $statement->fetch();
 	$statement->closeCursor();
+
+	return $results;
+}
+
+function getAllItems()
+{
+	global $db;
+	$query = "SELECT * FROM item";
+	$statement = $db->prepare($query);
+	$statement->execute();
+
+	// fetchAll() returns an array for all of the rows in the result set
+	$results = $statement->fetchAll();
+
+	// closes the cursor and frees the connection to the server so other SQL statements may be issued
+	$statement->closecursor();
 
 	return $results;
 }
@@ -250,6 +266,22 @@ function getMove($moveName)
 
 	$results = $statement->fetch();
 	$statement->closeCursor();
+
+	return $results;
+}
+
+function getAllMoves()
+{
+	global $db;
+	$query = "SELECT * FROM move";
+	$statement = $db->prepare($query);
+	$statement->execute();
+
+	// fetchAll() returns an array for all of the rows in the result set
+	$results = $statement->fetchAll();
+
+	// closes the cursor and frees the connection to the server so other SQL statements may be issued
+	$statement->closecursor();
 
 	return $results;
 }

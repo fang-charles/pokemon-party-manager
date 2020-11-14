@@ -10,44 +10,46 @@ import { Move } from '../../types/types';
 import MoveAccordion from './MoveAccordion';
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      width: '100%',
-    },
-    heading: {
-      fontSize: theme.typography.pxToRem(15),
-      flexBasis: '33.33%',
-      flexShrink: 0,
-    },
-    secondaryHeading: {
-      fontSize: theme.typography.pxToRem(15),
-      color: theme.palette.text.secondary,
-    },
-  }),
+    createStyles({
+        root: {
+            width: '100%',
+        },
+        heading: {
+            fontSize: theme.typography.pxToRem(15),
+            flexBasis: '33.33%',
+            flexShrink: 0,
+        },
+        secondaryHeading: {
+            fontSize: theme.typography.pxToRem(15),
+            color: theme.palette.text.secondary,
+        },
+    }),
 );
 
 interface WelcomeProps {
-	moves: Move[],
-	allMoves: Move[]
+    moves: Move[];
+    allMoves: Move[];
 }
 
 const MoveViewer: React.FC<WelcomeProps> = (props) => {
-	let moves: Move[] = props.moves;
-	let allMoves: Move[] = props.allMoves;
+    let moves: Move[] = props.moves;
+    let allMoves: Move[] = props.allMoves;
 
-  const classes = useStyles();
-  const [expanded, setExpanded] = React.useState<string | false>(false);
+    const classes = useStyles();
+    const [expanded, setExpanded] = React.useState<string | false>(false);
 
-  const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
-    setExpanded(isExpanded ? panel : false);
-  };
+    const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
+        setExpanded(isExpanded ? panel : false);
+    };
 
-  return (
-    <div className={classes.root}>
-		{moves.map((move)=> <MoveAccordion move={move}> </MoveAccordion> )}
-      
-    </div>
-  );
-}
+    return (
+        <div className={classes.root}>
+            <MoveAccordion move={moves[0]} allMoves={allMoves}> </MoveAccordion>
+            <MoveAccordion move={moves[1]} allMoves={allMoves}> </MoveAccordion>
+            <MoveAccordion move={moves[2]} allMoves={allMoves}> </MoveAccordion>
+            <MoveAccordion move={moves[3]} allMoves={allMoves}> </MoveAccordion>
+        </div>
+    );
+};
 
 export default MoveViewer;

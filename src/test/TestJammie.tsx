@@ -1,5 +1,18 @@
 import React, { useState } from 'react';
-import { getBasePokemon, getItem, getParty, getUser, getMove, getUserID, deleteParty, deletePokemon, gainItem, addParty, learnMove, forgetMove } from '../axios/api';
+import {
+    getBasePokemon,
+    getItem,
+    getParty,
+    getUser,
+    getMove,
+    getUserID,
+    deleteParty,
+    deletePokemon,
+    gainItem,
+    addParty,
+    learnMove,
+    forgetMove,
+} from '../axios/api';
 import { BasePokemon, Item, Pokemon, Move, Party, User } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 import PokemonCard from '../components/pokemonCard/PokemonCard';
@@ -53,7 +66,7 @@ function TestJammie() {
         user_id: 3,
         username: 'Charles',
     };
-    
+
     let tackle: Move = {
         move_name: 'Tackle',
         power: 40,
@@ -83,10 +96,9 @@ function TestJammie() {
     // Only recognizing the most passed to ------------- here
     const [moveLearned, setMoveLearned] = useState<Move>(move);
     React.useEffect(() => {
-        learnMove(4, 'tackle', 'tackle', 'acid', 'acid')
+        learnMove(4, 'tackle', 'tackle', 'acid', 'acid');
     }, [count]);
 
-    
     // not working!!!
     const [addingParty, setAddParty] = useState<Party>(party1);
     React.useEffect(() => {
@@ -94,7 +106,6 @@ function TestJammie() {
             setAddParty(res.data);
         });
     }, [count]);
-
 
     React.useEffect(() => {
         getParty(count).then((res) => {

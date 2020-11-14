@@ -101,6 +101,11 @@ function TestLarry() {
     };
 
     const [pokemon, setPokemon] = useState<Pokemon>();
+    function handleSetPokemon(pkmn: Pokemon){
+        setPokemon(pkmn);
+    }
+
+
     React.useEffect(() => {
         addPokemon(count, level, nickname, partyid).then((res) => {
             console.log(res.data);
@@ -119,8 +124,8 @@ function TestLarry() {
             <TextField name="party id" label="Party id" onChange={handleInputChange} value={partyid} />
             <p>{JSON.stringify(base)}</p>
             <p>{JSON.stringify(pokemon)}</p>
-            <PokemonCard pkmn={myBulbasaur}> </PokemonCard>
-            <PokemonCard pkmn={myIvysaur}> </PokemonCard>
+            <PokemonCard pkmn={myBulbasaur} setPkmn={handleSetPokemon}> </PokemonCard>
+            <PokemonCard pkmn={myIvysaur} setPkmn={handleSetPokemon}> </PokemonCard>
         </div>
     );
 }

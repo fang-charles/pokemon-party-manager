@@ -32,8 +32,16 @@ export function getItem(itemName: String) {
 }
 
 export function gainItem(pokemonID: number, itemName: String) {
-    return axios.post<Item>(apiUrl + 'item.php', { fname: 'gainItem', dataPacket: { pk_id: pokemonID, name77: itemName } });
-}   // Jammie
+    return axios.post<Item>(apiUrl + 'item.php', {
+        fname: 'gainItem',
+        dataPacket: { pk_id: pokemonID, name77: itemName },
+    });
+} // Jammie
+
+export function getAllItems() {
+    return axios.post<Item[]>(apiUrl + 'item.php', { fname: 'getAllItems', dataPacket:{} });
+}
+
 export function loseItem(pk_id: number, itemName: String) {
     return axios.post<Item>(apiUrl + 'item.php', { fname: 'loseItem', dataPacket: { pk_id: pk_id, name77: itemName } });
 }
@@ -65,13 +73,23 @@ export function getMove(moveName: String) {
     return axios.post<Move>(apiUrl + 'move.php', { fname: 'getMove', dataPacket: { name77: moveName } });
 }
 
+export function getAllMoves() {
+    return axios.post<Move[]>(apiUrl + 'move.php', { fname: 'getAllMoves', dataPacket:{} });
+}
+
+
 export function learnMove(pokemonID: number, moveA: String, moveB: String, moveC: String, moveD: String) {
-    return axios.post<Move>(apiUrl + 'move.php', { fname: 'learnMove', dataPacket: { pk_id: pokemonID, move1: moveA, move2:moveB, move3:moveC, move4:moveD} });
+    return axios.post<Move>(apiUrl + 'move.php', {
+        fname: 'learnMove',
+        dataPacket: { pk_id: pokemonID, move1: moveA, move2: moveB, move3: moveC, move4: moveD },
+    });
 } // Jammie
 
-
-export function forgetMove(pokemonID: number, moveName:String) {
-    return axios.post<Move>(apiUrl + 'move.php', { fname: 'forgetMove', dataPacket: { pk_id: pokemonID, name77: moveName } });
+export function forgetMove(pokemonID: number, moveName: String) {
+    return axios.post<Move>(apiUrl + 'move.php', {
+        fname: 'forgetMove',
+        dataPacket: { pk_id: pokemonID, name77: moveName },
+    });
 } // Jammie
 //Something for specific pokemon
 export function getSpecificPokemon(pkid: number) {
@@ -87,4 +105,3 @@ export function addPokemon(pokedexNumber: number, lev: number, nickname: String,
         dataPacket: { pokedex_number: pokedexNumber, level: lev, nickname: nickname, party_id: party_id },
     });
 }
-

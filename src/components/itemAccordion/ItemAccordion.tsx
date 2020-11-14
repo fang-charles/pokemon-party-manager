@@ -8,7 +8,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 
-import { Move } from '../../types/types';
+import { Item } from '../../types/types';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -28,13 +28,13 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface WelcomeProps {
-    move: Move;
-    allMoves: Move[];
+    item: Item;
+    allItems:Item[];
 }
 
-const MoveAccordion: React.FC<WelcomeProps> = (props) => {
-    let move: Move = props.move;
-    let allMoves =props.allMoves;
+const ItemAccordion: React.FC<WelcomeProps> = (props) => {
+    let item: Item = props.item;
+    let allItems: Item[] = props.allItems;
 
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState<string | false>(false);
@@ -47,16 +47,16 @@ const MoveAccordion: React.FC<WelcomeProps> = (props) => {
         <>
             <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
-                    <Typography className={classes.heading}>{move ? move.move_name : 'Empty'}</Typography>
-                    <Typography className={classes.secondaryHeading}>{move ? move.effect : ''}</Typography>
+                    <Typography className={classes.heading}>{item ? item.item_name : 'Empty'}</Typography>
+                    <Typography className={classes.secondaryHeading}>{item ? item.item_description : ''}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                 <Autocomplete
       id="combo-box-demo"
-      options={allMoves}
-      getOptionLabel={(option) => option.move_name}
+      options={allItems}
+      getOptionLabel={(option) => option.item_name}
       style={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Move Selection" variant="outlined" />}
+      renderInput={(params) => <TextField {...params} label="Item Selection" variant="outlined" />}
     />
                 </AccordionDetails>
             </Accordion>
@@ -64,4 +64,4 @@ const MoveAccordion: React.FC<WelcomeProps> = (props) => {
     );
 };
 
-export default MoveAccordion;
+export default ItemAccordion;
