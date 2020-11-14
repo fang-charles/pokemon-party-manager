@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/~jw8kc/pokemon-party-manager/build/static/css/main.9ea246cc.chunk.css",
-    "main.js": "/~jw8kc/pokemon-party-manager/build/static/js/main.68a51c10.chunk.js",
-    "main.js.map": "/~jw8kc/pokemon-party-manager/build/static/js/main.68a51c10.chunk.js.map",
+    "main.js": "/~jw8kc/pokemon-party-manager/build/static/js/main.60330fc2.chunk.js",
+    "main.js.map": "/~jw8kc/pokemon-party-manager/build/static/js/main.60330fc2.chunk.js.map",
     "runtime-main.js": "/~jw8kc/pokemon-party-manager/build/static/js/runtime-main.eec643ad.js",
     "runtime-main.js.map": "/~jw8kc/pokemon-party-manager/build/static/js/runtime-main.eec643ad.js.map",
     "static/js/2.f3497ae8.chunk.js": "/~jw8kc/pokemon-party-manager/build/static/js/2.f3497ae8.chunk.js",
     "static/js/2.f3497ae8.chunk.js.map": "/~jw8kc/pokemon-party-manager/build/static/js/2.f3497ae8.chunk.js.map",
     "index.html": "/~jw8kc/pokemon-party-manager/build/index.html",
-    "precache-manifest.4e8fa3cd83f9c14041e3254901e3928d.js": "/~jw8kc/pokemon-party-manager/build/precache-manifest.4e8fa3cd83f9c14041e3254901e3928d.js",
+    "precache-manifest.8a2b12120ba55ee7fca28e9c963a5f18.js": "/~jw8kc/pokemon-party-manager/build/precache-manifest.8a2b12120ba55ee7fca28e9c963a5f18.js",
     "service-worker.js": "/~jw8kc/pokemon-party-manager/build/service-worker.js",
     "static/css/main.9ea246cc.chunk.css.map": "/~jw8kc/pokemon-party-manager/build/static/css/main.9ea246cc.chunk.css.map",
     "static/js/2.f3497ae8.chunk.js.LICENSE.txt": "/~jw8kc/pokemon-party-manager/build/static/js/2.f3497ae8.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.eec643ad.js",
     "static/js/2.f3497ae8.chunk.js",
     "static/css/main.9ea246cc.chunk.css",
-    "static/js/main.68a51c10.chunk.js"
+    "static/js/main.60330fc2.chunk.js"
   ]
 }
