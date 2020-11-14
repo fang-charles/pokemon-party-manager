@@ -8,6 +8,7 @@ import {
     deletePokemon,
     loseItem,
     verifyPassword,
+    createAccount,
 } from '../axios/api';
 import { Party, Pokemon, BasePokemon, User, Move, Item, Loginer } from '../types/types';
 import TextField from '@material-ui/core/TextField';
@@ -122,6 +123,13 @@ function TestEldon() {
         });
     }, [count]);
 
+    const [test2, setTest2] = useState<Loginer>(login1);
+    React.useEffect(() => {
+        createAccount('jammie.wang', 'rickeyguo<3').then((res) => {
+            setTest2(res.data);
+        });
+    }, [count]);
+
     return (
         <div>
             Eldon's Testing Room
@@ -136,6 +144,7 @@ function TestEldon() {
             <p>{JSON.stringify(pokeDel)}</p>
             <p>{JSON.stringify(itemDel)}</p>
             <p>Password: {JSON.stringify(test)}</p>
+            <p>Password: {JSON.stringify(test2)}</p>
         </div>
     );
 }

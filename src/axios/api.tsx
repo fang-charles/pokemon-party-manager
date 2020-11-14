@@ -58,6 +58,14 @@ export function getMove(moveName: String) {
     return axios.post<Move>(apiUrl + 'move.php', { fname: 'getMove', dataPacket: { name77: moveName } });
 }
 
+//Passwords
 export function verifyPassword(username: String) {
     return axios.post<Loginer>(apiUrl + 'login.php', { fname: 'verifyPassword', dataPacket: { username: username } });
+}
+
+export function createAccount(username: String, password: String) {
+    return axios.post<Loginer>(apiUrl + 'login.php', {
+        fname: 'createAccount',
+        dataPacket: { username: username, password: password },
+    });
 }

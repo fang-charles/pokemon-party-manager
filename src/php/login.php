@@ -19,7 +19,12 @@ switch ($fname) {
         $username = $dataPacket['username'];
         //$password = $dataPacket['password'];
 		echo json_encode(verifyPassword($username));
-		break;
+        break;
+    case "createAccount":
+        $username = $dataPacket['username'];
+        $password = $dataPacket['password'];
+        echo json_encode(createAccount($username, $password));
+        break;
 	default:
 		echo "Your fname does not match";
 }

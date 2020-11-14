@@ -215,3 +215,25 @@ function verifyPassword($username)
 
 	return $results;
 }
+
+function createAccount($username, $password)
+{
+	global $db;
+	$query = "INSERT INTO login (user, password) VALUES (:username, PASSWORD(:password));";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':username', $username);
+	$statement->bindValue(':password', $password);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	$q1 = "SELECT * FROM login WHERE user = :username;";
+	$statement1 = $db->prepare($q1);
+	$statement1->bindValue(':username', $username);
+	$statement1->execute();
+	$ret = $statement1->fetch();
+	$statement1->closeCursor();
+
+	return $ret;
+}

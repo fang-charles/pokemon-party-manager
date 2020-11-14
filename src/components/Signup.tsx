@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
 type State = {
     username: string;
     password: string;
+    confirm: string;
     isButtonDisabled: boolean;
     helperText: string;
     isError: boolean;
@@ -47,6 +48,7 @@ type State = {
 const initialState: State = {
     username: '',
     password: '',
+    confirm: '',
     isButtonDisabled: true,
     helperText: '',
     isError: false,
@@ -55,6 +57,7 @@ const initialState: State = {
 type Action =
     | { type: 'setUsername'; payload: string }
     | { type: 'setPassword'; payload: string }
+    | { type: 'setConfirmPassword'; payload: string }
     | { type: 'setIsButtonDisabled'; payload: boolean }
     | { type: 'loginSuccess'; payload: string }
     | { type: 'loginFailed'; payload: string }
@@ -71,6 +74,11 @@ const reducer = (state: State, action: Action): State => {
             return {
                 ...state,
                 password: action.payload,
+            };
+        case 'setConfirmPassword':
+            return {
+                ...state,
+                confirm: action.payload,
             };
         case 'setIsButtonDisabled':
             return {
@@ -103,7 +111,7 @@ const Login = () => {
 
     //sets button to only enable if something is typed
     useEffect(() => {
-        if (state.username.trim() && state.password.trim()) {
+        if (state.username.trim() && state.password.trim() && state.confirm.trim()) {
             dispatch({
                 type: 'setIsButtonDisabled',
                 payload: false,
@@ -114,9 +122,9 @@ const Login = () => {
                 payload: true,
             });
         }
-    }, [state.username, state.password]);
+    }, [state.username, state.password, state.confirm]);
 
-    const handleLogin = () => {
+    const handleSignup = () => {
         //need to check with database
         //JSON.stringify(itemDel)
         let pw: Loginer = {
@@ -143,7 +151,7 @@ const Login = () => {
 
     const handleKeyPress = (event: React.KeyboardEvent) => {
         if (event.keyCode === 13 || event.which === 13) {
-            state.isButtonDisabled || handleLogin();
+            state.isButtonDisabled || handleSignup();
         }
     };
 
@@ -160,10 +168,17 @@ const Login = () => {
             payload: event.target.value,
         });
     };
+
+    const handleConfirmPasswordChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+        dispatch({
+            type: 'setConfirmPassword',
+            payload: event.target.value,
+        });
+    };
     return (
         <form className={classes.container} noValidate autoComplete="off">
             <Card className={classes.card}>
-                <CardHeader className={classes.header} title="Login to play Pokemon!" />
+                <CardHeader className={classes.header} title="Sign up to play Pokemon!" />
                 <CardContent>
                     <div>
                         <TextField
@@ -189,6 +204,18 @@ const Login = () => {
                             onChange={handlePasswordChange}
                             onKeyPress={handleKeyPress}
                         />
+                        <TextField
+                            error={state.isError}
+                            fullWidth
+                            id="confirmPassword"
+                            type="password"
+                            label="Confirm Password"
+                            placeholder="Confirm Password"
+                            margin="normal"
+                            helperText={state.helperText}
+                            onChange={handleConfirmPasswordChange}
+                            onKeyPress={handleKeyPress}
+                        />
                     </div>
                 </CardContent>
                 <CardActions>
@@ -197,7 +224,7 @@ const Login = () => {
                         size="large"
                         color="secondary"
                         className={classes.loginBtn}
-                        onClick={handleLogin}
+                        onClick={handleSignup}
                         disabled={state.isButtonDisabled}
                     >
                         Login
