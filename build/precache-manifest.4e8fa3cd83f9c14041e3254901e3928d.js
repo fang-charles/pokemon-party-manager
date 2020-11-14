@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "77971e573d9e41e2b224aa4aa9960d25",
+    "revision": "397427d3a69b9c73c8d50a346a7a1360",
     "url": "/~jw8kc/pokemon-party-manager/build/index.html"
   },
   {
