@@ -16,6 +16,9 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 interface WelcomeProps {
     pkmn: Pokemon;
@@ -51,9 +54,20 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
 
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
+    const [hidden, setHidden] = React.useState(false);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
+    };
+
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
     };
 
     return (
@@ -65,9 +79,20 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
                     </Avatar>
                 }
                 action={
-                    <IconButton aria-label="settings">
+                    <div>
+                    <IconButton aria-controls="setting" aria-haspopup="true" onClick={handleClick}>
                         <MoreVertIcon />
                     </IconButton>
+                    <Menu
+                    id="setting"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                    >
+                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    </Menu>
+                </div>
                 }
                 title={pkmn.baseInfo.name}
                 subheader={pkmn.nickname ? pkmn.nickname : ''}
