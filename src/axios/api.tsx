@@ -57,3 +57,19 @@ export function getUserID(username: String) {
 export function getMove(moveName: String) {
     return axios.post<Move>(apiUrl + 'move.php', { fname: 'getMove', dataPacket: { name77: moveName } });
 }
+
+//Something for specific pokemon
+export function getSpecificPokemon(pkid: number) {
+    return axios.post<Pokemon>(apiUrl + 'pokemon.php', {
+        fname: 'getSpecificPokemon',
+        dataPacket: { pokemonid: pkid },
+    });
+}
+
+export function addPokemon(pokedexNumber: number, lev: number, nickname: String, party_id: number) {
+    return axios.post<string>(apiUrl + 'pokemon.php', {
+        fname: 'addPokemon',
+        dataPacket: { pokedex_number: pokedexNumber, level: lev, nickname: nickname, party_id: party_id },
+    });
+}
+

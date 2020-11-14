@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { getParty, getUser, getMove, getUserID, deleteParty, deletePokemon, loseItem } from '../axios/api';
-import { Party, Pokemon, BasePokemon, User, Move, Item } from '../types/types';
+import { getParty, getUser, getMove, getUserID, deleteParty, deletePokemon } from '../axios/api';
+import { Party, Pokemon, BasePokemon, User, Move } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 
 function TestEldon() {
@@ -53,7 +53,6 @@ function TestEldon() {
     const [userName, setUserName] = useState<User>(user1);
     const [move, setMove] = useState<Move>(move1);
     const [pokeDel, setPokeDel] = useState<Pokemon>(poki1);
-    const [itemDel, setItemDel] = useState<Item>(item1);
 
     React.useEffect(() => {
         getParty(count).then((res) => {
@@ -94,6 +93,7 @@ function TestEldon() {
     React.useEffect(() => {
         getMove('after-you').then((res) => {
             setMove(res.data);
+            console.log(res.data);
         });
     }, [count]);
 
