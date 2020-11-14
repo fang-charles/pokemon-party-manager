@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import TextField from '@material-ui/core/TextField';
@@ -7,6 +7,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
+
+import { verifyPassword } from '../axios/api';
+import { Loginer } from '../types/types';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -98,6 +101,7 @@ const Login = () => {
     const classes = useStyles();
     const [state, dispatch] = useReducer(reducer, initialState);
 
+    //sets button to only enable if something is typed
     useEffect(() => {
         if (state.username.trim() && state.password.trim()) {
             dispatch({
@@ -113,7 +117,8 @@ const Login = () => {
     }, [state.username, state.password]);
 
     const handleLogin = () => {
-        if (state.username === 'abc@email.com' && state.password === 'password') {
+        //need to check with database
+        if (true) {
             dispatch({
                 type: 'loginSuccess',
                 payload: 'Login Successfully',

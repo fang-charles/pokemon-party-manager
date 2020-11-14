@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
-import { getParty, getUser, getMove, getUserID, deleteParty, deletePokemon, loseItem } from '../axios/api';
-import { Party, Pokemon, BasePokemon, User, Move, Item } from '../types/types';
+import {
+    getParty,
+    getUser,
+    getMove,
+    getUserID,
+    deleteParty,
+    deletePokemon,
+    loseItem,
+    verifyPassword,
+} from '../axios/api';
+import { Party, Pokemon, BasePokemon, User, Move, Item, Loginer } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 
 function TestEldon() {
@@ -101,6 +110,18 @@ function TestEldon() {
         setCount(e.target.value);
     };
 
+    let login1: Loginer = {
+        user: 'string',
+        password: 'string',
+    };
+
+    const [test, setTest] = useState<Loginer>(login1);
+    React.useEffect(() => {
+        verifyPassword('larry.cai').then((res) => {
+            setTest(res.data);
+        });
+    }, [count]);
+
     return (
         <div>
             Eldon's Testing Room
@@ -114,6 +135,7 @@ function TestEldon() {
             <p>{JSON.stringify(partyDel)}</p>
             <p>{JSON.stringify(pokeDel)}</p>
             <p>{JSON.stringify(itemDel)}</p>
+            <p>Password: {JSON.stringify(test)}</p>
         </div>
     );
 }

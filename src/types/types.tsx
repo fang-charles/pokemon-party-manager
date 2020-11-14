@@ -68,3 +68,8 @@ export type Move = {
     pp: number;
     effect: string;
 };
+
+export type Loginer = {
+    user: String;
+    password: string;
+};

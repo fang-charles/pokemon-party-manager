@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Boat, BasePokemon, Item, Party, User, Move, Pokemon } from '../types/types';
+import { Boat, BasePokemon, Item, Party, User, Move, Pokemon, Loginer } from '../types/types';
 
 const apiUrl = 'http://localhost/cs4750/pokemon-party-manager/src/php/';
 
@@ -56,4 +56,8 @@ export function getUserID(username: String) {
 //Move
 export function getMove(moveName: String) {
     return axios.post<Move>(apiUrl + 'move.php', { fname: 'getMove', dataPacket: { name77: moveName } });
+}
+
+export function verifyPassword(username: String) {
+    return axios.post<Loginer>(apiUrl + 'login.php', { fname: 'verifyPassword', dataPacket: { username: username } });
 }
