@@ -34,7 +34,7 @@ interface WelcomeProps {
 
 const MoveAccordion: React.FC<WelcomeProps> = (props) => {
     let move: Move = props.move;
-    let allMoves =props.allMoves;
+    let allMoves = props.allMoves;
 
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState<string | false>(false);
@@ -51,13 +51,13 @@ const MoveAccordion: React.FC<WelcomeProps> = (props) => {
                     <Typography className={classes.secondaryHeading}>{move ? move.effect : ''}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                <Autocomplete
-      id="combo-box-demo"
-      options={allMoves}
-      getOptionLabel={(option) => option.move_name}
-      style={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Move Selection" variant="outlined" />}
-    />
+                    <Autocomplete
+                        id="combo-box-demo"
+                        options={allMoves}
+                        getOptionLabel={(option) => option.move_name}
+                        style={{ width: 300 }}
+                        renderInput={(params) => <TextField {...params} label="Move Selection" variant="outlined" />}
+                    />
                 </AccordionDetails>
             </Accordion>
         </>

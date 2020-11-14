@@ -48,6 +48,11 @@ function TestEldon() {
         member: [poki1],
     };
 
+    let item1: Item = {
+        item_name: 'testItem',
+        item_description: 'testItemDesc',
+    };
+
     const [count, setCount] = useState(1);
     const [base, setBase] = useState<Party>(party1);
     const [partyDel, setPartyDel] = useState<Party>(party1);
@@ -110,8 +115,7 @@ function TestEldon() {
             <button onClick={() => setCount(count + 1)}>Click me</button>
             <TextField name="name" label="Party Number" onChange={handleInputChange} value={count} />
             <p>{JSON.stringify(base)}</p>
-            <p>{JSON.stringify(user)}</p>
-            <p>{JSON.stringify(userName)}</p>
+
             <p>{JSON.stringify(move)}</p>
             <p>{JSON.stringify(partyDel)}</p>
             <p>{JSON.stringify(pokeDel)}</p>

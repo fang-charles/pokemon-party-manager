@@ -44,10 +44,18 @@ const MoveViewer: React.FC<WelcomeProps> = (props) => {
 
     return (
         <div className={classes.root}>
-            <MoveAccordion move={moves[0]} allMoves={allMoves}> </MoveAccordion>
-            <MoveAccordion move={moves[1]} allMoves={allMoves}> </MoveAccordion>
-            <MoveAccordion move={moves[2]} allMoves={allMoves}> </MoveAccordion>
-            <MoveAccordion move={moves[3]} allMoves={allMoves}> </MoveAccordion>
+            <MoveAccordion move={moves[0]} allMoves={allMoves}>
+                {' '}
+            </MoveAccordion>
+            <MoveAccordion move={moves[1]} allMoves={allMoves}>
+                {' '}
+            </MoveAccordion>
+            <MoveAccordion move={moves[2]} allMoves={allMoves}>
+                {' '}
+            </MoveAccordion>
+            <MoveAccordion move={moves[3]} allMoves={allMoves}>
+                {' '}
+            </MoveAccordion>
         </div>
     );
 };

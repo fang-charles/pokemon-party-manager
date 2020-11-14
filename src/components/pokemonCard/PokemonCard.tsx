@@ -3,7 +3,7 @@ import { BasePokemon, Item, Move, Pokemon } from '../../types/types';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import MoveViewer from '../moveViewer/MoveViewer';
 import ItemAccordion from '../itemAccordion/ItemAccordion';
-import {getAllMoves, getAllItems} from '../../axios/api'
+import { getAllMoves, getAllItems } from '../../axios/api';
 
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -23,7 +23,6 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 interface WelcomeProps {
     pkmn: Pokemon;
-    setPkmn: (pkmn: Pokemon) => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -53,7 +52,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const PokemonCard: React.FC<WelcomeProps> = (props) => {
     let pkmn = props.pkmn;
-    let setPkmn = props.pkmn;
 
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
@@ -61,7 +59,7 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
 
     React.useEffect(() => {
         getAllMoves().then((res) => {
-            setAllMoves(res.data)
+            setAllMoves(res.data);
         });
     }, []);
 
@@ -70,7 +68,7 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
     React.useEffect(() => {
         getAllItems().then((res) => {
             console.log(res.data);
-            setAllItems(res.data)
+            setAllItems(res.data);
         });
     }, []);
 
@@ -126,7 +124,9 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
                     <Typography paragraph>Item:</Typography>
-                    <ItemAccordion item={pkmn.holding} allItems={allItems}> </ItemAccordion>
+                    <ItemAccordion item={pkmn.holding} allItems={allItems}>
+                        {' '}
+                    </ItemAccordion>
                     <br></br>
                     <Typography paragraph>Moves:</Typography>
                     <MoveViewer moves={pkmn.moves} allMoves={allMoves}></MoveViewer>

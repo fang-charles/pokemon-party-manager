@@ -91,7 +91,7 @@ function TestCharles() {
 
     const [pkmn, setPkmn] = useState<Pokemon>(myBulbasaur);
 
-    function handleSetPokemon(pkmn: Pokemon){
+    function handleSetPokemon(pkmn: Pokemon) {
         setPkmn(pkmn);
     }
 
@@ -103,7 +103,7 @@ function TestCharles() {
             <br></br>
             <TextField name="name" label="Pokedex Number" onChange={handleInputChange} value={count} />
             <p>{JSON.stringify(base)}</p>
-            <PokemonCard pkmn={pkmn} setPkmn={handleSetPokemon}> </PokemonCard>
+            <PokemonCard pkmn={pkmn}>            </PokemonCard>
         </div>
     );
 }

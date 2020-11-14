@@ -11,8 +11,8 @@ import TestCharles from './test/TestCharles';
 import TestLarry from './test/TestLarry';
 import TestEldon from './test/TestEldon';
 import TestJammie from './test/TestJammie';
-import Login from './components/Login'
-import Signup from './components/Signup'
+import Login from './components/Login';
+import Signup from './components/Signup';
 
 class App extends Component {
     render() {

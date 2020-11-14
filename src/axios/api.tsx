@@ -103,6 +103,9 @@ export function addPokemon(pokedexNumber: number, lev: number, nickname: String,
     return axios.post<string>(apiUrl + 'pokemon.php', {
         fname: 'addPokemon',
         dataPacket: { pokedex_number: pokedexNumber, level: lev, nickname: nickname, party_id: party_id },
+    });
+}
+
 //Passwords
 export function verifyPassword(username: String, password: String) {
     return axios.post<Loginer>(apiUrl + 'login.php', {

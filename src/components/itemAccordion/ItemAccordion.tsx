@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface WelcomeProps {
     item: Item;
-    allItems:Item[];
+    allItems: Item[];
 }
 
 const ItemAccordion: React.FC<WelcomeProps> = (props) => {
@@ -51,13 +51,13 @@ const ItemAccordion: React.FC<WelcomeProps> = (props) => {
                     <Typography className={classes.secondaryHeading}>{item ? item.item_description : ''}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                <Autocomplete
-      id="combo-box-demo"
-      options={allItems}
-      getOptionLabel={(option) => option.item_name}
-      style={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Item Selection" variant="outlined" />}
-    />
+                    <Autocomplete
+                        id="combo-box-demo"
+                        options={allItems}
+                        getOptionLabel={(option) => option.item_name}
+                        style={{ width: 300 }}
+                        renderInput={(params) => <TextField {...params} label="Item Selection" variant="outlined" />}
+                    />
                 </AccordionDetails>
             </Accordion>
         </>
