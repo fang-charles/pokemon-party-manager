@@ -1,0 +1,30 @@
+---------------addPokemon
+
+BEGIN
+INSERT INTO member (party_id) VALUES (party_id);
+SELECT @@IDENTITY INTO pk_id;
+INSERT INTO specific_pokemon (pk_id, level, nickname) VALUES (pk_id, level, nickname);
+INSERT INTO base_info (pk_id, pokedex_number) VALUES (pk_id, pokedex_number);
+SELECT pk_id AS `pk_id`;
+END
+
+---------------
+-----------------------------------
+---------------
+
+
+
+
+
+
+
+---------------
+-----------------------------------
+---------------
+
+
+
+
+---------------
+-----------------------------------
+---------------
