@@ -8,4 +8,5 @@ require_once __DIR__ . '/dbquery.php';
 
 
 //echo json_encode(getBasePokemon(1));
-echo json_encode(addPokemon(1, 90, "Hey", 1));
+echo json_encode(getBasePokemon(2));
+echo "Hello world";

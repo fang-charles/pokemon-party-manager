@@ -7,7 +7,8 @@ require_once __DIR__ . '/connectdb.php';
 require_once __DIR__ . '/dbquery.php';
 
 
-
+// Maybe this line is causing the extra slashes?
+// Ask charles about it
 $data = json_decode(file_get_contents("php://input"), TRUE);
 
 $dataPacket = $data['dataPacket'];
