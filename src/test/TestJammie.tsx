@@ -62,10 +62,6 @@ function TestJammie() {
         party_id: 12,
         member: [poki1],
     };
-    let user1: User = {
-        user_id: 3,
-        username: 'Charles',
-    };
 
     let tackle: Move = {
         move_name: 'Tackle',
@@ -88,8 +84,6 @@ function TestJammie() {
     const [count, setCount] = useState(1);
     const [base, setBase] = useState<Party>(party1);
     const [partyDel, setPartyDel] = useState<Party>(party1);
-    const [user, setUser] = useState<User>(user1);
-    const [userName, setUserName] = useState<User>(user1);
     const [move, setMove] = useState<Move>(move1);
     const [pokeDel, setPokeDel] = useState<Pokemon>(poki1);
 
@@ -126,18 +120,6 @@ function TestJammie() {
     }, [count]);
 
     React.useEffect(() => {
-        getUser(count).then((res) => {
-            setUser(res.data);
-        });
-    }, [count]);
-
-    React.useEffect(() => {
-        getUserID('yiff.li').then((res) => {
-            setUserName(res.data);
-        });
-    }, [count]);
-
-    React.useEffect(() => {
         getMove('after-you').then((res) => {
             setMove(res.data);
             console.log(res.data);
@@ -154,7 +136,6 @@ function TestJammie() {
             <p>You clicked {count} times</p>
             <button onClick={() => setCount(count + 1)}>Click me</button>
             <TextField name="name" label="Party Number" onChange={handleInputChange} value={count} />
-            <p>{JSON.stringify(user)}</p>
             <p>{JSON.stringify(moveLearned)}</p>
         </div>
     );

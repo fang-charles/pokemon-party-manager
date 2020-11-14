@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { getBasePokemon, getItem, getSpecificPokemon, addPokemon } from '../axios/api';
-import { BasePokemon, Item, Pokemon, Move, Party } from '../types/types';
+import { BasePokemon, Item, Pokemon, Move, Party, User } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 import PokemonCard from '../components/pokemonCard/PokemonCard';
-import PartyScreen from '../components/PartyScreen/PartyScreen';
+import PartySelectScreen from '../components/PartySelectScreen/PartySelectScreen';
+import PartySelectCard from '../components/PartySelectScreen/PartySelectCard';
 
 function TestLarry() {
     // Declare a new state variable, which we'll call "count"
+
     let bulbasaur: BasePokemon = {
         pokedex_number: 1,
         name: 'Bulbasaur',
@@ -137,6 +139,12 @@ function TestLarry() {
         });
     }, [count]);
 
+    let user1: User = {
+        user_id: 5,
+        username: 'Darwin',
+        party: [part, part]
+    };
+
     return (
         <div>
             Larry's Testing Room
@@ -149,7 +157,7 @@ function TestLarry() {
             <TextField name="party id" label="Party id" onChange={handleInputChange} value={partyid} />
             <p>{JSON.stringify(base)}</p>
             <p>{JSON.stringify(pokemon)}</p>
-            <PartyScreen party={part}> </PartyScreen>
+            <PartySelectScreen user={user1}> </PartySelectScreen>
         </div>
     );
 }

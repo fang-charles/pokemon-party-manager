@@ -1,0 +1,23 @@
+.photo {
+    width: 75px;
+    height: 75px;
+  }
+
+.inLine {
+  font-size: 75px;
+  font-family: "pokemon-font", monospace;
+  display:inline-block;
+  text-align: center; 
+}
+
+.party {
+  padding: 1rem 4rem;
+    display: inline-block;
+    border: 3px solid #333333;
+    font-size: 2.5rem;
+    border-radius: 2% 6% 5% 4% / 1% 1% 2% 4%;
+    text-transform: uppercase;
+    letter-spacing: 0.3ch;
+    background: #ffffff;
+    position: relative;
+}

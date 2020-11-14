@@ -58,6 +58,7 @@ export type Item = {
 export type User = {
     user_id: number;
     username: string;
+    party: Party[];
 };
 
 export type Move = {

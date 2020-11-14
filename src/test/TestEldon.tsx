@@ -37,16 +37,10 @@ function TestEldon() {
         party_id: 12,
         member: [poki1],
     };
-    let user1: User = {
-        user_id: 5,
-        username: 'Darwin',
-    };
 
     const [count, setCount] = useState(1);
     const [base, setBase] = useState<Party>(party1);
     const [partyDel, setPartyDel] = useState<Party>(party1);
-    const [user, setUser] = useState<User>(user1);
-    const [userName, setUserName] = useState<User>(user1);
     const [move, setMove] = useState<Move>(move1);
     const [pokeDel, setPokeDel] = useState<Pokemon>(poki1);
 
@@ -65,18 +59,6 @@ function TestEldon() {
     React.useEffect(() => {
         deletePokemon(11).then((res) => {
             setPokeDel(res.data);
-        });
-    }, [count]);
-
-    React.useEffect(() => {
-        getUser(count).then((res) => {
-            setUser(res.data);
-        });
-    }, [count]);
-
-    React.useEffect(() => {
-        getUserID('yiff.li').then((res) => {
-            setUserName(res.data);
         });
     }, [count]);
 
