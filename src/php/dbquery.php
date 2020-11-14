@@ -306,3 +306,45 @@ function deletePokemon($pokeID)
 
 	return $ret;
 }
+
+//login related queries
+function verifyPassword($username, $password)
+{
+	global $db;
+	$query = "SELECT * FROM user WHERE username = :username AND password = PASSWORD(:password)";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':username', $username);
+	$statement->bindValue(':password', $password);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $results;
+}
+
+function createAccount($username, $password)
+{
+	global $db;
+	$query = "INSERT INTO user (username, password) VALUES (:username, PASSWORD(:password));";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':username', $username);
+	$statement->bindValue(':password', $password);
+	try{
+		$statement->execute();
+	} catch(Exception $exception){
+		return false;
+	}
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	$q1 = "SELECT * FROM user WHERE username = :username;";
+	$statement1 = $db->prepare($q1);
+	$statement1->bindValue(':username', $username);
+	$statement1->execute();
+	$ret = $statement1->fetch();
+	$statement1->closeCursor();
+
+	return $ret;
+}

@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
-import { getParty, getUser, getMove, getUserID, deleteParty, deletePokemon, loseItem } from '../axios/api';
-import { Party, Pokemon, BasePokemon, User, Move, Item } from '../types/types';
+import {
+    getParty,
+    getUser,
+    getMove,
+    getUserID,
+    deleteParty,
+    deletePokemon,
+    loseItem,
+    verifyPassword,
+    createAccount,
+} from '../axios/api';
+import { Party, Pokemon, BasePokemon, User, Move, Item, Loginer } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 
 function TestEldon() {
@@ -74,12 +84,40 @@ function TestEldon() {
         setCount(e.target.value);
     };
 
+    let login1: Loginer = {
+        user: 'string',
+        password: 'string',
+    };
+
+    const [test, setTest] = useState<Loginer>(login1);
+    React.useEffect(() => {
+        verifyPassword('larry.cai', 'i_love_cats').then((res) => {
+            setTest(res.data);
+        });
+    }, [count]);
+
+    const [test2, setTest2] = useState<Loginer>(login1);
+    React.useEffect(() => {
+        createAccount('jammie.wang3', 'rickeyguo<3').then((res) => {
+            setTest2(res.data);
+        });
+    }, [count]);
+
     return (
         <div>
             Eldon's Testing Room
             <p>You clicked {count} times</p>
             <button onClick={() => setCount(count + 1)}>Click me</button>
             <TextField name="name" label="Party Number" onChange={handleInputChange} value={count} />
+            <p>{JSON.stringify(base)}</p>
+            <p>{JSON.stringify(user)}</p>
+            <p>{JSON.stringify(userName)}</p>
+            <p>{JSON.stringify(move)}</p>
+            <p>{JSON.stringify(partyDel)}</p>
+            <p>{JSON.stringify(pokeDel)}</p>
+            <p>{JSON.stringify(itemDel)}</p>
+            <p>Password: {JSON.stringify(test)}</p>
+            <p>Password: {JSON.stringify(test2)}</p>
         </div>
     );
 }
