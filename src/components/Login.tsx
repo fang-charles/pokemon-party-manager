@@ -8,9 +8,11 @@ import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
 
-import { verifyPassword } from '../axios/api';
+import { verifyPassword, getPartyGivenUsername } from '../axios/api';
 import { Link } from 'react-router-dom';
 import PartySelectScreen from './PartySelectScreen/PartySelectScreen';
+import { Divider } from '@material-ui/core';
+import { partyID } from '../types/types';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -159,59 +161,96 @@ const Login = () => {
             payload: event.target.value,
         });
     };
-    return (
-        <form className={classes.container} noValidate autoComplete="off">
-            <Card className={classes.card}>
-                <CardHeader className={classes.header} title="Login to play Pokemon!" />
-                <CardContent>
-                    <div>
-                        <TextField
-                            error={state.isError}
-                            fullWidth
-                            id="username"
-                            type="email"
-                            label="Username"
-                            placeholder="Username"
-                            margin="normal"
-                            onChange={handleUsernameChange}
-                            onKeyPress={handleKeyPress}
-                        />
-                        <TextField
-                            error={state.isError}
-                            fullWidth
-                            id="password"
-                            type="password"
-                            label="Password"
-                            placeholder="Password"
-                            margin="normal"
-                            helperText={state.helperText}
-                            onChange={handlePasswordChange}
-                            onKeyPress={handleKeyPress}
-                        />
-                    </div>
-                </CardContent>
-                <CardActions>
-                    <Button
-                        variant="contained"
-                        size="large"
-                        color="secondary"
-                        className={classes.loginBtn}
-                        onClick={handleLogin}
-                        disabled={state.isButtonDisabled}
-                    >
-                        Login
-                    </Button>
-                </CardActions>
-                <CardActions>
-                    <Link to="/components/Signup">
-                        <Button variant="contained" size="large" color="secondary" className={classes.loginBtn}>
-                            Sign up!
+
+    function makeParty(num: number) {
+        return (
+            <>
+                <PartySelectScreen partyID={num}></PartySelectScreen>
+                <br></br>
+            </>
+        );
+    }
+
+    function genParty(num: number) {
+        return <a>Placeholder for genParty</a>;
+    }
+
+    //let partyArr: any[] = [];
+    const [partyArr, setPartyArr] = React.useState<partyID[]>([]);
+    React.useEffect(() => {
+        getPartyGivenUsername(state.username).then((res) => {
+            setPartyArr(res.data);
+        });
+    }, [state.username]);
+    /*     getPartyGivenUsername(state.username).then((res) => {
+        React.useEffect(() =>)
+        partyArr = res.data;
+
+    }); */
+
+    if (state.loggedIn) {
+        console.log(partyArr);
+        return (
+            <div>
+                {partyArr.map((num) => makeParty(num.party_id))}
+                {genParty(4 - partyArr.length)}
+            </div>
+        );
+    } else {
+        return (
+            <form className={classes.container} noValidate autoComplete="off">
+                <Card className={classes.card}>
+                    <CardHeader className={classes.header} title="Login to play Pokemon!" />
+                    <CardContent>
+                        <div>
+                            <TextField
+                                error={state.isError}
+                                fullWidth
+                                id="username"
+                                type="email"
+                                label="Username"
+                                placeholder="Username"
+                                margin="normal"
+                                onChange={handleUsernameChange}
+                                onKeyPress={handleKeyPress}
+                            />
+                            <TextField
+                                error={state.isError}
+                                fullWidth
+                                id="password"
+                                type="password"
+                                label="Password"
+                                placeholder="Password"
+                                margin="normal"
+                                helperText={state.helperText}
+                                onChange={handlePasswordChange}
+                                onKeyPress={handleKeyPress}
+                            />
+                        </div>
+                    </CardContent>
+                    <CardActions>
+                        <Button
+                            variant="contained"
+                            size="large"
+                            color="secondary"
+                            className={classes.loginBtn}
+                            onClick={handleLogin}
+                            disabled={state.isButtonDisabled}
+                        >
+                            Login
                         </Button>
-                    </Link>
-                </CardActions>
-            </Card>
-        </form>
-    );
+                    </CardActions>
+                    <CardActions>
+                        <Link to="/components/Signup">
+                            <Button variant="contained" size="large" color="secondary" className={classes.loginBtn}>
+                                Sign up!
+                            </Button>
+                        </Link>
+                    </CardActions>
+                </Card>
+            </form>
+        );
+    }
 };
 
 export default Login;
