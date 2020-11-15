@@ -19,12 +19,18 @@ switch ($fname) {
 		$itemName = $dataPacket['name77'];
 		echo json_encode(getItem($itemName));
 		break;
+	case "getHeldItem":
+		$pk_id = $dataPacket['pk_id'];
+		echo json_encode(getHeldItem($pk_id));
+		break;
 	case "getAllItems":
 		echo json_encode(getAllItems());
 		break;
 	case "gainItem":
 		$pk_id = $dataPacket['pk_id'];
 		$itemName = $dataPacket['name77'];
+		gainItem($pk_id, $itemName);
+		break;
 	case "loseItem":
 		$itemName = $dataPacket['name77'];
 		$pk_id = $dataPacket['pk_id'];

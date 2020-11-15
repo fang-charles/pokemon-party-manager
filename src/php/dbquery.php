@@ -136,6 +136,38 @@ function getItem($itemName)
 	return $results;
 }
 
+function getHeldItem($pk_id)
+{
+	global $db;
+
+	$query = "SELECT * FROM holding as h NATURAL JOIN item as i WHERE h.pk_id=:pk_id";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':pk_id', $pk_id);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $results;
+}
+
+function getLearnedMoves($pk_id)
+{
+	global $db;
+	$query = "SELECT * FROM learned as l NATURAL JOIN move as m WHERE l.pk_id=:pk_id";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':pk_id', $pk_id);
+	$statement->execute();
+
+	// fetchAll() returns an array for all of the rows in the result set
+	$results = $statement->fetchAll();
+
+	// closes the cursor and frees the connection to the server so other SQL statements may be issued
+	$statement->closecursor();
+
+	return $results;
+}
+
 function getAllItems()
 {
 	global $db;
@@ -221,6 +253,22 @@ function getSpecificPokemon($pkid)
 
 	$results = $statement->fetch();
 	$statement->closeCursor();
+
+	return $results;
+}
+
+function getAllBasePokemon()
+{
+	global $db;
+	$query = "SELECT * FROM base_pokemon";
+	$statement = $db->prepare($query);
+	$statement->execute();
+
+	// fetchAll() returns an array for all of the rows in the result set
+	$results = $statement->fetchAll();
+
+	// closes the cursor and frees the connection to the server so other SQL statements may be issued
+	$statement->closecursor();
 
 	return $results;
 }
@@ -358,10 +406,11 @@ function deletePokemon($pokeID)
 function verifyPassword($username, $password)
 {
 	global $db;
-	$query = "SELECT * FROM user WHERE username = :username AND password = PASSWORD(:password)";
+	$hash = hash('md5', $password);
+	$query = "SELECT * FROM user WHERE username = :username AND password = :hash";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':username', $username);
-	$statement->bindValue(':password', $password);
+	$statement->bindValue(':hash', $hash);
 	$statement->execute();
 
 	$results = $statement->fetch();
@@ -373,10 +422,11 @@ function verifyPassword($username, $password)
 function createAccount($username, $password)
 {
 	global $db;
-	$query = "INSERT INTO user (username, password) VALUES (:username, PASSWORD(:password));";
+	$hash = hash('md5', $password);
+	$query = "INSERT INTO user (username, password) VALUES (:username, :hash);";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':username', $username);
-	$statement->bindValue(':password', $password);
+	$statement->bindValue(':hash', $hash);
 	try {
 		$statement->execute();
 	} catch (Exception $exception) {

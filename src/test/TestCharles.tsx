@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { getBasePokemon, getItem, addPokemon, getSpecificPokemon } from '../axios/api';
+import { getBasePokemon, getItem, addPokemon, getSpecificPokemon, getLearnedMoves } from '../axios/api';
 import { BasePokemon, Item, Pokemon, Move } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 import PokemonCard from '../components/pokemonCard/PokemonCard';
+import { Grid } from '@material-ui/core';
 
 function TestCharles() {
     // Declare a new state variable, which we'll call "count"
@@ -95,16 +96,50 @@ function TestCharles() {
         });
     }, []);
 
+    function makeImage(sprite: string) {
+        return <img src={sprite} className="photo"></img>;
+    }
+
+    let arr: number[] = [1, 2, 3];
+    function makeButton(num: number) {
+        return (
+            <>
+                <TextField name="name" label={'Party:' + num} type="number" value={num} />
+                <br></br>
+            </>
+        );
+    }
+
+    function genParty(num: number) {
+        const items = [];
+        for (let i = 0; i < num; i++) {
+            items.push(
+                <>
+                    <button onClick={() => setCount(count + 1)}>Generate Party</button>
+                    <br></br>
+                </>,
+            );
+        }
+        return items;
+    }
+
     return (
-        <div>
-            Charles's Testing Room
-            <p>You clicked {count} times</p>
-            <button onClick={() => setCount(count + 1)}>Click me</button>
-            <br></br>
-            <TextField name="name" label="Pokedex Number" type="number" onChange={handleInputChange} value={count} />
-            <p>{JSON.stringify(base)}</p>
-            <PokemonCard pk_id={count}> </PokemonCard>
-        </div>
+        <Grid container spacing={3} justify="center">
+            <Grid item xs={4}>
+                <div>
+                    Charles's Testing Room
+                    {makeImage('https://img.pokemondb.net/artwork/bulbasaur.jpg')}
+                    <p>You clicked {count} times</p>
+                    <button onClick={() => setCount(count + 1)}>Click me</button>
+                    <br></br>
+                    <TextField name="name" label="PK_ID" type="number" onChange={handleInputChange} value={count} />
+                    <PokemonCard pk_id={count}> </PokemonCard>
+                    <div>hello</div>
+                    {arr.map((num) => makeButton(num))}
+                    {genParty(4 - arr.length)}
+                </div>
+            </Grid>
+        </Grid>
     );
 }
 export default TestCharles;

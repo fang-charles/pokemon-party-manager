@@ -57,6 +57,9 @@ export default function ButtonAppBar() {
                     <Link to="/components/Signup">
                         <Button>Signup</Button>
                     </Link>
+                    <Link to="/components/AddPokemon">
+                        <Button>Add PKMN</Button>
+                    </Link>
                     <Link to="/">
                         <Button>Home</Button>
                     </Link>

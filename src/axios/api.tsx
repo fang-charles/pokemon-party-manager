@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Boat, BasePokemon, Item, Party, User, Move, Pokemon, Loginer, PokemonPacket } from '../types/types';
 
 const apiUrl = 'http://localhost/cs4750/pokemon-party-manager/src/php/';
+//const apiUrl = 'http://www.cs.virginia.edu/~jw8kc/pokemon-party-manager/src/php/';
 
 export function getAllBoats() {
     return axios.post<Boat[]>(apiUrl + 'getAllBoats.php', { fname: 'getAllBoats' });
@@ -29,6 +30,10 @@ export function deletePokemon(pokeID: number) {
 //Items
 export function getItem(itemName: String) {
     return axios.post<Item>(apiUrl + 'item.php', { fname: 'getItem', dataPacket: { name77: itemName } });
+}
+
+export function getHeldItem(pk_id: number) {
+    return axios.post<Item>(apiUrl + 'item.php', { fname: 'getHeldItem', dataPacket: { pk_id: pk_id } });
 }
 
 export function gainItem(pokemonID: number, itemName: String) {
@@ -81,6 +86,10 @@ export function getAllMoves() {
     return axios.post<Move[]>(apiUrl + 'move.php', { fname: 'getAllMoves', dataPacket: {} });
 }
 
+export function getLearnedMoves(pk_id: number) {
+    return axios.post<Move[]>(apiUrl + 'move.php', { fname: 'getLearnedMoves', dataPacket: { pk_id: pk_id } });
+}
+
 export function learnMove(pokemonID: number, moveA: String, moveB: String, moveC: String, moveD: String) {
     return axios.post<Move>(apiUrl + 'move.php', {
         fname: 'learnMove',
@@ -122,4 +131,8 @@ export function createAccount(username: String, password: String) {
         fname: 'createAccount',
         dataPacket: { username: username, password: password },
     });
+}
+
+export function getAllBasePokemon() {
+    return axios.post<BasePokemon[]>(apiUrl + 'pokemon.php', { fname: 'getAllBasePokemon', dataPacket: {} });
 }
