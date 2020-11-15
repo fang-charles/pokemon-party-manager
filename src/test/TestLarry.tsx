@@ -190,7 +190,7 @@ function TestLarry() {
             <TextField name="party id" label="Party id" onChange={handleInputChange} value={partyid} />
             <TextField name="username" label="Username" onChange={handleInputUsername} value={username} />
             <p>{JSON.stringify(party_id)}</p>
-            <PartyScreen pkids={[11]} partyID={3}>
+            <PartyScreen pkids={[12]} partyID={2}>
                 {' '}
             </PartyScreen>
         </div>

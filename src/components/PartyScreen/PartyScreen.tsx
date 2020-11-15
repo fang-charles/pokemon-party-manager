@@ -48,6 +48,7 @@ const PartyScreen: React.FC<WelcomeProps> = (props) => {
     
     React.useEffect(() => {
             getPartyIDs(thispartyID).then((res) => {
+                
                 setPartyIDs(res.data);
                 console.log("PartyIDs: "+res.data);
         })
