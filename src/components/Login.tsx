@@ -159,9 +159,6 @@ const Login = () => {
             payload: event.target.value,
         });
     };
-    if (state.loggedIn) {
-        return <PartySelectScreen user={state.username}></PartySelectScreen>;
-    }
     return (
         <form className={classes.container} noValidate autoComplete="off">
             <Card className={classes.card}>

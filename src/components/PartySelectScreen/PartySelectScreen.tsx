@@ -29,6 +29,18 @@ const PartySelectScreen: React.FC<WelcomeProps> = (props) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSpacing(Number((event.target as HTMLInputElement).value) as GridSpacing);
     };
+
+    const [expanded, setExpanded] = React.useState(false);
+    const [allMoves, setAllMoves] = React.useState<Move[]>([]);
+    const [allItems, setAllItems] = React.useState<Item[]>([]);
+    const [pkmn, setPkmn] = React.useState<User>({
+        user_id: 1,
+        username: '',
+        party: []
+    });
+    const [item, setItem] = React.useState<Item>();
+    const [moves, setMoves] = React.useState<Move[]>([]);
+
     let width = 'width: 50px';
 
     return (
