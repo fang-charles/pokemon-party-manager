@@ -136,6 +136,21 @@ function getItem($itemName)
 	return $results;
 }
 
+function getHeldItem($pk_id)
+{
+	global $db;
+
+	$query = "SELECT * FROM holding as h NATURAL JOIN item as i WHERE h.pk_id=:pk_id";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':pk_id', $pk_id);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $results;
+}
+
 function getAllItems()
 {
 	global $db;

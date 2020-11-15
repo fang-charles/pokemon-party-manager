@@ -90,4 +90,6 @@ export type PokemonPacket = {
     special_defense: number;
     speed: number;
     sprite_data: string;
+    holding?: Item;
+    moves: Move[];
 };

@@ -20,6 +20,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Button from '@material-ui/core/Button';
+import SaveIcon from '@material-ui/icons/Save';
 
 interface WelcomeProps {
     pk_id: number;
@@ -47,6 +49,9 @@ const useStyles = makeStyles((theme: Theme) =>
         avatar: {
             backgroundColor: red[500],
         },
+        button: {
+            margin: theme.spacing(1),
+          },
     }),
 );
 
@@ -72,6 +77,7 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
         special_defense: 0,
         speed: 0,
         sprite_data: '',
+        moves:[],
     });
     const [item, setItem] = React.useState<Item>();
     const [moves, setMoves] = React.useState<Move[]>([]);
@@ -98,6 +104,14 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
         setExpanded(!expanded);
     };
 
+    const handleSave = () => {
+        alert("saved");
+    }
+
+    const handleSetItem = (item:Item) => {
+        setItem(item);
+    }
+
     return (
         <Card className={classes.root}>
             <CardHeader
@@ -112,7 +126,7 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
                     </IconButton>
                 }
                 title={pkmn ? pkmn.name : ''}
-                subheader={pkmn ? pkmn.nickname + 'PK_ID: ' + pk_id : ''}
+                subheader={pkmn ? pkmn.nickname + ' PK_ID: ' + pk_id : ''}
             />
             <CardMedia className={classes.media} image={pkmn.sprite_data} title={pkmn.name} />
             <CardContent>
@@ -148,12 +162,22 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
                     <Typography paragraph>Item:</Typography>
-                    <ItemAccordion item={item} allItems={allItems}>
+                    <ItemAccordion item={item} allItems={allItems} setItem={handleSetItem}>
                         {' '}
                     </ItemAccordion>
                     <br></br>
                     <Typography paragraph>Moves:</Typography>
                     <MoveViewer moves={moves} allMoves={allMoves}></MoveViewer>
+                    <Button
+        variant="contained"
+        color="primary"
+        size="small"
+        className={classes.button}
+        startIcon={<SaveIcon />}
+        onClick={handleSave}
+      >
+        Save
+      </Button>
                 </CardContent>
             </Collapse>
         </Card>

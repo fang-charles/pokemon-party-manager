@@ -30,11 +30,13 @@ const useStyles = makeStyles((theme: Theme) =>
 interface WelcomeProps {
     item: Item;
     allItems: Item[];
+    setItem: (item: Item) => void;
 }
 
 const ItemAccordion: React.FC<WelcomeProps> = (props) => {
     let item: Item = props.item;
     let allItems: Item[] = props.allItems;
+    let setItem = props.setItem;
 
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState<string | false>(false);
@@ -42,6 +44,10 @@ const ItemAccordion: React.FC<WelcomeProps> = (props) => {
     const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
         setExpanded(isExpanded ? panel : false);
     };
+
+    function handleInputChange(event, value) {
+        setItem(value);
+      }
 
     return (
         <>
@@ -55,6 +61,7 @@ const ItemAccordion: React.FC<WelcomeProps> = (props) => {
                         id="combo-box-demo"
                         options={allItems}
                         getOptionLabel={(option) => option.item_name}
+                        onChange={handleInputChange}
                         style={{ width: 300 }}
                         renderInput={(params) => <TextField {...params} label="Item Selection" variant="outlined" />}
                     />
