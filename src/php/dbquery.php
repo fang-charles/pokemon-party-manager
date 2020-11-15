@@ -395,3 +395,18 @@ function createAccount($username, $password)
 
 	return $ret;
 }
+
+function getImagesURLS($partyID)
+{
+	global $db;
+
+	$query = "SELECT DISTINCT sprite_data FROM member NATURAL JOIN base_info NATURAL JOIN base_pokemon WHERE party_id = :party_id;";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':party_id', $partyID);
+	$statement->execute();
+
+	$results = $statement->fetchAll();
+	$statement->closeCursor();
+
+	return $results;
+}

@@ -72,7 +72,7 @@ function TestLarry() {
     React.useEffect(() => {
         getItem('poke-ball').then((res) => {
             setItem(res.data);
-            console.log(res.data);
+            //console.log(res.data);
         });
     }, [count]);
 
@@ -172,11 +172,13 @@ function TestLarry() {
         member: member,
     });*/
 
+    /*
     React.useEffect(() => {
         getPartyGivenUsername(username).then((res) => {
             setID(res.data);
         });
     }, [party_id]);
+    */
 
     return (
         <div>

@@ -92,3 +92,7 @@ export type PokemonPacket = {
     speed: number;
     sprite_data: string;
 };
+
+export type imageURL = {
+    sprite_data: string;
+}

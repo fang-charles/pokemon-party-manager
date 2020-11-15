@@ -1,10 +1,10 @@
 import React, { useState }  from 'react'; // we need this to make JSX compile
-import { BasePokemon, Item, Move, Party, Pokemon, User, PokemonPacket} from '../../types/types';
+import { BasePokemon, Item, Move, Party, Pokemon, User, PokemonPacket, imageURL} from '../../types/types';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import PokemonCard from '../pokemonCard/PokemonCard';
 import Grid, { GridSpacing } from '@material-ui/core/Grid';
 import '../../styles.css';
-import { getAllMoves, getAllItems, getSpecificPokemon, getPartyGivenUsername, getParty } from '../../axios/api';
+import { getAllMoves, getAllItems, getSpecificPokemon, getPartyGivenUsername, getParty, getImagesURLS } from '../../axios/api';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -58,6 +58,8 @@ const PartySelectScreen: React.FC<WelcomeProps> = (props) => {
     
     //return (<img src ={sprite} className="photo"></img>);
 
+    
+
     const [spacing, setSpacing] = React.useState<GridSpacing>(2);
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSpacing(Number((event.target as HTMLInputElement).value) as GridSpacing);
@@ -69,15 +71,33 @@ const PartySelectScreen: React.FC<WelcomeProps> = (props) => {
     const [pkid, setID] = React.useState<number>();
     const [pokemon, setPokemon] = React.useState<PokemonPacket>();
     const [partyPokemon, setPartyPokemon] = React.useState<Pokemon[]>([]);
-    const [imageURLs, setimageURLs] = React.useState<string[]>([]);
+    const [imageURLs, setimageURLs] = React.useState<imageURL[]>([]);
     
     React.useEffect(() => {
-        getParty(partID).then((res) => {
-            setParty(res.data);
-            console.log("party: "+res.data);
+        getImagesURLS(partID).then((res) => {
+            setimageURLs(res.data);
+            //console.log("ImagesURLS: "+res.data);
         })
     }, [partID]);
 
+/*
+    function modifyImageURLs(URLs: string[]) {
+        let imgs = '';
+        for(let i=0; i<URLs.length; i++){
+            //console.log("URLs: "+URLs[i]);
+            //imgs = imgs + '<img src ={'+URLs[i]+'} className="photo"></img>';
+        }
+        return (<div innerHtml={{imgs}}></div>);
+    }
+    
+    React.useEffect(() => {
+        modifyImageURLs(imageURLs).then((res) => {
+            //setimageURLs(res.data);
+            //console.log("ImagesURLS: "+res.data);
+        })
+    }, [imageURLs]);
+*/
+    /*
     function modifyImageURLs(index: number, url: string) {
         console.log("imageURLs: "+imageURLs);
         let newImageURLs: string[] = [];
@@ -97,8 +117,16 @@ const PartySelectScreen: React.FC<WelcomeProps> = (props) => {
             })
         }
     }, [party]);
-
+*/
     let width = 'width: 50px';
+
+    /*
+        {imageURLs.map((url) => (
+                        <div className="party">
+                        <p>{JSON.stringify(url)}</p>
+                        </div>
+                    ))}
+    */
 
     return (
         <Grid container className={classes.root} spacing={2}>
@@ -106,7 +134,9 @@ const PartySelectScreen: React.FC<WelcomeProps> = (props) => {
                 <Grid container justify="center" spacing={spacing}>
                     <div className="party">
                         <h1 className="inLine">{partyID}</h1>
-                        <p>{JSON.stringify(imageURLs)}</p>
+                        {imageURLs.map((url) => (
+                        <img src ={url.sprite_data} className="photo"></img>
+                    ))}
                     </div>
                 </Grid>
             </Grid>

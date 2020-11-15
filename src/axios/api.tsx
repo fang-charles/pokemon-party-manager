@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Boat, BasePokemon, Item, Party, User, Move, Pokemon, Loginer, PokemonPacket } from '../types/types';
+import { Boat, BasePokemon, Item, Party, User, Move, Pokemon, Loginer, PokemonPacket, imageURL } from '../types/types';
 
 const apiUrl = 'http://localhost/cs4750/pokemon-party-manager/src/php/';
 
@@ -58,6 +58,13 @@ export function deleteParty(partyID: number) {
 export function addParty(userID: number) {
     return axios.post<Party>(apiUrl + 'party.php', { fname: 'addParty', dataPacket: { id77: userID } });
 } // Jammie
+
+export function getImagesURLS(partyID: number) {
+    return axios.post<imageURL[]>(apiUrl + 'party.php', {
+        fname: 'getImagesURLS',
+        dataPacket: { id77: partyID },
+    });
+}
 
 export function getPartyGivenUsername(username: String) {
     return axios.post<number[]>(apiUrl + 'party.php', {
