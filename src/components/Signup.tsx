@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 
 import { verifyPassword, createAccount } from '../axios/api';
 import { Loginer } from '../types/types';
+import PartySelectScreen from './PartySelectScreen/PartySelectScreen';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -43,6 +44,7 @@ type State = {
     isButtonDisabled: boolean;
     helperText: string;
     isError: boolean;
+    loggedIn: boolean;
 };
 
 const initialState: State = {
@@ -52,6 +54,7 @@ const initialState: State = {
     isButtonDisabled: true,
     helperText: '',
     isError: false,
+    loggedIn: false,
 };
 
 type Action =
@@ -90,6 +93,7 @@ const reducer = (state: State, action: Action): State => {
                 ...state,
                 helperText: action.payload,
                 isError: false,
+                loggedIn: true,
             };
         case 'loginFailed':
             return {
@@ -181,6 +185,9 @@ const Login = () => {
             payload: event.target.value,
         });
     };
+    if (state.loggedIn) {
+        return <PartySelectScreen user={state.username}></PartySelectScreen>;
+    }
     return (
         <form className={classes.container} noValidate autoComplete="off">
             <Card className={classes.card}>
