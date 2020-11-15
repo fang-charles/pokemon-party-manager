@@ -35,7 +35,7 @@ const PartyScreen: React.FC<WelcomeProps> = (props) => {
             <Grid item xs={12}>
                 <Grid container justify="center" spacing={spacing}>
                     {members.map((pokemon) => (
-                        <PokemonCard pkmn={pokemon}> </PokemonCard>
+                        <PokemonCard pk_id={pokemon.pkID}> </PokemonCard>
                     ))}
                 </Grid>
             </Grid>

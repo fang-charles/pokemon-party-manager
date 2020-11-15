@@ -115,7 +115,6 @@ function TestEldon() {
             <button onClick={() => setCount(count + 1)}>Click me</button>
             <TextField name="name" label="Party Number" onChange={handleInputChange} value={count} />
             <p>{JSON.stringify(base)}</p>
-
             <p>{JSON.stringify(move)}</p>
             <p>{JSON.stringify(partyDel)}</p>
             <p>{JSON.stringify(pokeDel)}</p>

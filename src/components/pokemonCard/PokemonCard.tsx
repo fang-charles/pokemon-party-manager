@@ -1,9 +1,9 @@
 import React from 'react'; // we need this to make JSX compile
-import { BasePokemon, Item, Move, Pokemon } from '../../types/types';
+import { BasePokemon, Item, Move, Pokemon, PokemonPacket } from '../../types/types';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import MoveViewer from '../moveViewer/MoveViewer';
 import ItemAccordion from '../itemAccordion/ItemAccordion';
-import { getAllMoves, getAllItems } from '../../axios/api';
+import { getAllMoves, getAllItems, getSpecificPokemon } from '../../axios/api';
 
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -22,7 +22,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 interface WelcomeProps {
-    pkmn: Pokemon;
+    pk_id: number;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -51,11 +51,30 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const PokemonCard: React.FC<WelcomeProps> = (props) => {
-    let pkmn = props.pkmn;
+    let pk_id = props.pk_id;
 
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
     const [allMoves, setAllMoves] = React.useState<Move[]>([]);
+    const [allItems, setAllItems] = React.useState<Item[]>([]);
+    const [pkmn, setPkmn] = React.useState<PokemonPacket>({
+        pkID: 1,
+        nickname: '',
+        level: 0,
+        pokedex_number: 1,
+        name: '',
+        type1: '',
+        type2: '',
+        hp: 0,
+        attack: 0,
+        defense: 0,
+        special_attack: 0,
+        special_defense: 0,
+        speed: 0,
+        sprite_data: '',
+    });
+    const [item, setItem] = React.useState<Item>();
+    const [moves, setMoves] = React.useState<Move[]>([]);
 
     React.useEffect(() => {
         getAllMoves().then((res) => {
@@ -63,13 +82,17 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
         });
     }, []);
 
-    const [allItems, setAllItems] = React.useState<Item[]>([]);
-
     React.useEffect(() => {
         getAllItems().then((res) => {
             setAllItems(res.data);
         });
     }, []);
+
+    React.useEffect(() => {
+        getSpecificPokemon(pk_id).then((res) => {
+            setPkmn(res.data);
+        });
+    }, [pk_id]);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -80,7 +103,7 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
             <CardHeader
                 avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
-                        {pkmn.level}
+                        {pkmn ? pkmn.level : 0}
                     </Avatar>
                 }
                 action={
@@ -88,19 +111,21 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
                         <MoreVertIcon />
                     </IconButton>
                 }
-                title={pkmn ? pkmn.baseInfo.name : ''}
-                subheader={pkmn ? pkmn.nickname : ''}
+                title={pkmn ? pkmn.name : ''}
+                subheader={pkmn ? pkmn.nickname + 'PK_ID: ' + pk_id : ''}
             />
-            <CardMedia className={classes.media} image={pkmn.baseInfo.sprite_data} title={pkmn.baseInfo.name} />
+            <CardMedia className={classes.media} image={pkmn.sprite_data} title={pkmn.name} />
             <CardContent>
-{pkmn &&                 <Typography variant="body2" color="textSecondary" component="p" align="right">
-                    HP: {pkmn.baseInfo.hp} <br />
-                    Attack: {pkmn.baseInfo.attack} <br />
-                    Defense: {pkmn.baseInfo.defense} <br />
-                    Special Attack: {pkmn.baseInfo.special_attack} <br />
-                    Special Defense: {pkmn.baseInfo.special_defense} <br />
-                    Speed: {pkmn.baseInfo.speed} <br />
-                </Typography>}
+                {pkmn && (
+                    <Typography variant="body2" color="textSecondary" component="p" align="right">
+                        HP: {pkmn.hp} <br />
+                        Attack: {pkmn.attack} <br />
+                        Defense: {pkmn.defense} <br />
+                        Special Attack: {pkmn.special_attack} <br />
+                        Special Defense: {pkmn.special_defense} <br />
+                        Speed: {pkmn.speed} <br />
+                    </Typography>
+                )}
             </CardContent>
             <CardActions disableSpacing>
                 <IconButton aria-label="add to favorites">
@@ -123,12 +148,12 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
                     <Typography paragraph>Item:</Typography>
-                    <ItemAccordion item={pkmn.holding} allItems={allItems}>
+                    <ItemAccordion item={item} allItems={allItems}>
                         {' '}
                     </ItemAccordion>
                     <br></br>
                     <Typography paragraph>Moves:</Typography>
-                    <MoveViewer moves={pkmn.moves} allMoves={allMoves}></MoveViewer>
+                    <MoveViewer moves={moves} allMoves={allMoves}></MoveViewer>
                 </CardContent>
             </Collapse>
         </Card>
