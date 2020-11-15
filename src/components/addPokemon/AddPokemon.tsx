@@ -118,7 +118,7 @@ const AddPokemon: React.FC<WelcomeProps> = (props) => {
     };
 
     function handleInputChangeBasePokemon(event, value) {
-        setPkmn({ ...pkmn, baseInfo: value });
+		setPkmn({ ...pkmn, baseInfo: value, pokedex_number: value.pokedex_number });
     }
 
     function handleInputChangeNickname(event) {
