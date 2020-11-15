@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getBasePokemon, getItem, getSpecificPokemon, addPokemon } from '../axios/api';
+import { getBasePokemon, getItem, getSpecificPokemon, addPokemon, getPartyGivenUsername } from '../axios/api';
 import { BasePokemon, Item, Pokemon, Move, Party, User } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 import PokemonCard from '../components/pokemonCard/PokemonCard';
@@ -60,6 +60,9 @@ function TestLarry() {
     const [base2, setBase2] = useState<BasePokemon>(ivysaur);
     const [base3, setBase3] = useState<BasePokemon>(palkia);
     const [item, setItem] = useState<Item>();
+    const [party, getParty] = useState<Party>();
+
+    const [username, setUsername] = useState<String>('admin1');
 
     React.useEffect(() => {
         getBasePokemon(count).then((res) => {
@@ -76,6 +79,10 @@ function TestLarry() {
 
     const handleInputChange = (e) => {
         setCount(e.target.value);
+    };
+
+    const handleInputUsername = (e) => {
+        setUsername(e.target.value);
     };
 
     let tackle: Move = {
@@ -150,6 +157,27 @@ function TestLarry() {
         party: [part, part, part, part, part, part],
     };
 
+    const [expanded, setExpanded] = React.useState(false);
+    const [allMoves, setAllMoves] = React.useState<Move[]>([]);
+    const [allItems, setAllItems] = React.useState<Item[]>([]);
+
+    const [moves, setMoves] = React.useState<Move[]>([]);
+
+    const [member, setMember] = React.useState<Pokemon[]>([]);
+    const [party_id, setID] = React.useState<number>(1);
+
+    const [pary, setPary] = React.useState<Party>({
+        party_id: party_id,
+        member: member,
+    });
+    
+
+    React.useEffect(() => {
+        getPartyGivenUsername(username).then((res) => {
+            setID(res.data);
+        });
+    }, [party_id]);
+
     return (
         <div>
             Larry's Testing Room
@@ -160,6 +188,8 @@ function TestLarry() {
             <TextField name="level" label="Level" onChange={handleInputChange} value={level} />
             <TextField name="nickname" label="Nickname" onChange={handleInputChange} value={nickname} />
             <TextField name="party id" label="Party id" onChange={handleInputChange} value={partyid} />
+            <TextField name="username" label="Username" onChange={handleInputUsername} value={username} />
+            <p>{JSON.stringify(party_id)}</p>
             <p>{JSON.stringify(base)}</p>
             <p>{JSON.stringify(pokemon)}</p>
             <PokemonCard pk_id={myBulbasaur.pkID}> </PokemonCard>
