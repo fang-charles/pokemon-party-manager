@@ -26,7 +26,7 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addPokemon` (IN `pokedex_number` INT, IN `level` INT, IN `nickname` VARCHAR(255), IN `party_id` INT, OUT `pk_id` INT)  BEGIN
+CREATE  PROCEDURE `addPokemon` (IN `pokedex_number` INT, IN `level` INT, IN `nickname` VARCHAR(255), IN `party_id` INT, OUT `pk_id` INT)  BEGIN
 INSERT INTO member (party_id) VALUES (party_id);
 SELECT @@IDENTITY INTO pk_id;
 INSERT INTO specific_pokemon (pk_id, level, nickname) VALUES (pk_id, level, nickname);
@@ -34,66 +34,66 @@ INSERT INTO base_info (pk_id, pokedex_number) VALUES (pk_id, pokedex_number);
 SELECT pk_id AS `pk_id`;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `clearParty` (IN `partyID` INT)  BEGIN
+CREATE PROCEDURE `clearParty` (IN `partyID` INT)  BEGIN
 DELETE FROM party WHERE party_id = partyID;
 DELETE FROM team WHERE party_id = partyID;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `clearUser` (IN `userID` INT)  BEGIN
+CREATE PROCEDURE `clearUser` (IN `userID` INT)  BEGIN
 DELETE FROM team WHERE user_id = userID;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `generateParty` (IN `user_id` INT, OUT `party_id` INT)  BEGIN
+CREATE PROCEDURE `generateParty` (IN `user_id` INT, OUT `party_id` INT)  BEGIN
 INSERT INTO team (user_id) VALUES (user_id);
 SELECT @@IDENTITY INTO party_id;
 INSERT INTO party(party_id) VALUES (party_id);
 SELECT party_id as 'party_id';
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getBasePokemonInfo` (IN `pk_id` INT)  BEGIN
+CREATE PROCEDURE `getBasePokemonInfo` (IN `pk_id` INT)  BEGIN
 SELECT * FROM base_pokemon as base WHERE pk_id = base.pokedex_number;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getParty` (IN `party_id` INT)  BEGIN
+CREATE PROCEDURE `getParty` (IN `party_id` INT)  BEGIN
 SELECT * FROM party WHERE party_id = party_id;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getPokemonitem` (IN `item_name` VARCHAR(255))  BEGIN
+CREATE PROCEDURE `getPokemonitem` (IN `item_name` VARCHAR(255))  BEGIN
 SELECT * FROM item WHERE item_name = item.item_name;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getPokemonmoves` (IN `move_name` VARCHAR(255))  BEGIN
+CREATE PROCEDURE `getPokemonmoves` (IN `move_name` VARCHAR(255))  BEGIN
 SELECT * FROM move WHERE move_name = move_name;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getSpecificPokemon` (IN `pk_id` INT)  BEGIN
+CREATE PROCEDURE `getSpecificPokemon` (IN `pk_id` INT)  BEGIN
 SELECT * FROM specific_pokemon as pokemon WHERE pk_id = pokemon.pk_id;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getUser` (IN `user_id` INT)  BEGIN
+CREATE PROCEDURE `getUser` (IN `user_id` INT)  BEGIN
 SELECT * FROM user WHERE user_id = user.user_id;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserID` (IN `username` VARCHAR(255))  BEGIN
+CREATE PROCEDURE `getUserID` (IN `username` VARCHAR(255))  BEGIN
 SELECT user_id FROM user WHERE username = username;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `loseItem` (IN `pk_id` INT, IN `itemName` VARCHAR(255))  NO SQL
+CREATE PROCEDURE `loseItem` (IN `pk_id` INT, IN `itemName` VARCHAR(255))  NO SQL
 BEGIN
 DELETE FROM holding WHERE pk_id = pk_id AND item_name = itemName;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `removePokemon` (IN `pk_id` INT)  NO SQL
+CREATE PROCEDURE `removePokemon` (IN `pk_id` INT)  NO SQL
 BEGIN
 DELETE FROM member WHERE pk_id = pk_id;
 DELETE FROM specific_pokemon WHERE pk_id = pk_id;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `setitem` (IN `pk_id` INT, IN `item_name` VARCHAR(255))  BEGIN
+CREATE PROCEDURE `setitem` (IN `pk_id` INT, IN `item_name` VARCHAR(255))  BEGIN
 INSERT INTO holding (pk_id, item_name) VALUES (pk_id, item_name);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `setmoves` (IN `pk_id` INT, IN `move1` VARCHAR(255), IN `move2` VARCHAR(255), IN `move3` VARCHAR(255), IN `move4` VARCHAR(255))  BEGIN
+CREATE PROCEDURE `setmoves` (IN `pk_id` INT, IN `move1` VARCHAR(255), IN `move2` VARCHAR(255), IN `move3` VARCHAR(255), IN `move4` VARCHAR(255))  BEGIN
 DELETE FROM learned WHERE learned.pk_id = pk_id;
 INSERT INTO learned (pk_id, move_name) VALUES (pk_id, move1);
 INSERT INTO learned (pk_id, move_name) VALUES (pk_id, move2);

@@ -333,41 +333,44 @@ function deletePokemon($pokeID)
 //login related queries
 function verifyPassword($username, $password)
 {
-	global $db;
-	$query = "SELECT * FROM user WHERE username = :username AND password = PASSWORD(:password)";
-	$statement = $db->prepare($query);
-	$statement->bindValue(':username', $username);
-	$statement->bindValue(':password', $password);
-	$statement->execute();
+    global $db;
+    $hash = hash('md5', $password);
+    $query = "SELECT * FROM user WHERE username = :username AND password = :hash";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':username', $username);
+    $statement->bindValue(':hash', $hash);
+    $statement->execute();
 
-	$results = $statement->fetch();
-	$statement->closeCursor();
+    $results = $statement->fetch();
+    $statement->closeCursor();
 
-	return $results;
+    return $results;
 }
 
 function createAccount($username, $password)
 {
-	global $db;
-	$query = "INSERT INTO user (username, password) VALUES (:username, PASSWORD(:password));";
-	$statement = $db->prepare($query);
-	$statement->bindValue(':username', $username);
-	$statement->bindValue(':password', $password);
-	try {
-		$statement->execute();
-	} catch (Exception $exception) {
-		return false;
-	}
+    global $db;
+    $hash = hash('md5', $password);
+    $query = "INSERT INTO user (username, password) VALUES (:username, :hash);";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':username', $username);
+    $statement->bindValue(':hash', $hash);
+    try {
+        $statement->execute();
+    } catch (Exception $exception) {
+		$statement->closeCursor();
+        return false;
+    }
 
-	$results = $statement->fetch();
-	$statement->closeCursor();
+    $results = $statement->fetch();
+    $statement->closeCursor();
 
-	$q1 = "SELECT * FROM user WHERE username = :username;";
-	$statement1 = $db->prepare($q1);
-	$statement1->bindValue(':username', $username);
-	$statement1->execute();
-	$ret = $statement1->fetch();
-	$statement1->closeCursor();
+    $q1 = "SELECT * FROM user WHERE username = :username;";
+    $statement1 = $db->prepare($q1);
+    $statement1->bindValue(':username', $username);
+    $statement1->execute();
+    $ret = $statement1->fetch();
+    $statement1->closeCursor();
 
-	return $ret;
+    return $ret;
 }
