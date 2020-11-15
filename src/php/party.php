@@ -37,7 +37,7 @@ switch ($fname) {
 		break;
 	case "addParty":
 		$userID = $dataPacket['id77'];
-		echo json_encode(addParty($partyID));
+		echo json_encode(addParty($userID));
 		break;
 	default:
 		echo "Your fname does not match";
