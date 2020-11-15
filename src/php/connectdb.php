@@ -38,7 +38,7 @@ $opt = [
 /** connect to the database **/
 try {
    $db = new PDO($dsn, $username, $password, $opt);
-   // echo "<p>You are connected to the database</p>";
+   //echo "<p>You are connected to the database</p>";
    //echo json_encode(getItem("air-mail"));
    // echo json_encode(forgetMove(5, "flamethrower"));
    //echo json_encode(learnMove(5, "flamethrower", "tackle", "absorb", "acid"));
