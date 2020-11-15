@@ -210,6 +210,21 @@ function getParty($partyID)
 	return $results;
 }
 
+function getPartyGivenUsername($username)
+{
+    global $db;
+
+    $query = "SELECT DISTINCT party_id FROM user NATURAL JOIN team WHERE username = :username;";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':username', $username);
+    $statement->execute();
+
+    $results = $statement->fetchAll();
+    $statement->closeCursor();
+
+    return $results;
+}
+
 function getSpecificPokemon($pkid)
 {
 	global $db;
