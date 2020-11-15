@@ -11,6 +11,8 @@ import Button from '@material-ui/core/Button';
 import { verifyPassword, getPartyGivenUsername } from '../axios/api';
 import { Link } from 'react-router-dom';
 import PartySelectScreen from './PartySelectScreen/PartySelectScreen';
+import { Divider } from '@material-ui/core';
+import { partyID } from '../types/types';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -104,7 +106,6 @@ const reducer = (state: State, action: Action): State => {
 const Login = () => {
     const classes = useStyles();
     const [state, dispatch] = useReducer(reducer, initialState);
-    const [logedin, setlogedin] = React.useState<boolean>(false); 
 
     //sets button to only enable if something is typed
     useEffect(() => {
@@ -133,7 +134,6 @@ const Login = () => {
                     payload: 'Incorrect password!',
                 });
             } else {
-                setlogedin(true);
                 dispatch({
                     type: 'loginSuccess',
                     payload: 'Login Successfully',
@@ -175,73 +175,82 @@ const Login = () => {
         return <a>Placeholder for genParty</a>;
     }
 
-    let partyArr: any[] = [];
-    getPartyGivenUsername(state.username).then((res) => {
+    //let partyArr: any[] = [];
+    const [partyArr, setPartyArr] = React.useState<partyID[]>([]);
+    React.useEffect(() => {
+        getPartyGivenUsername(state.username).then((res) => {
+            setPartyArr(res.data);
+        });
+    }, [state.username]);
+    /*     getPartyGivenUsername(state.username).then((res) => {
+        React.useEffect(() =>)
         partyArr = res.data;
-        if (state.loggedIn) {
-            console.log(partyArr);
-            /* return (
-                <div>
-                    {partyArr.map((num) => makeParty(num))}
-                    {genParty(4 - partyArr.length)}
-                </div>
-            ); */
-        }
-    });
 
-    return (
+    }); */
+
+    if (state.loggedIn) {
+        console.log(partyArr);
+        return (
+            <div>
+                {partyArr.map((num) => makeParty(num.party_id))}
+                {genParty(4 - partyArr.length)}
+            </div>
+        );
+    } else {
+        return (
             <form className={classes.container} noValidate autoComplete="off">
-            <Card className={classes.card}>
-                <CardHeader className={classes.header} title="Login to play Pokemon!" />
-                <CardContent>
-                    <div>
-                        <TextField
-                            error={state.isError}
-                            fullWidth
-                            id="username"
-                            type="email"
-                            label="Username"
-                            placeholder="Username"
-                            margin="normal"
-                            onChange={handleUsernameChange}
-                            onKeyPress={handleKeyPress}
-                        />
-                        <TextField
-                            error={state.isError}
-                            fullWidth
-                            id="password"
-                            type="password"
-                            label="Password"
-                            placeholder="Password"
-                            margin="normal"
-                            helperText={state.helperText}
-                            onChange={handlePasswordChange}
-                            onKeyPress={handleKeyPress}
-                        />
-                    </div>
-                </CardContent>
-                <CardActions>
-                    <Button
-                        variant="contained"
-                        size="large"
-                        color="secondary"
-                        className={classes.loginBtn}
-                        onClick={handleLogin}
-                        disabled={state.isButtonDisabled}
-                    >
-                        Login
-                    </Button>
-                </CardActions>
-                <CardActions>
-                    <Link to="/components/Signup">
-                        <Button variant="contained" size="large" color="secondary" className={classes.loginBtn}>
-                            Sign up!
+                <Card className={classes.card}>
+                    <CardHeader className={classes.header} title="Login to play Pokemon!" />
+                    <CardContent>
+                        <div>
+                            <TextField
+                                error={state.isError}
+                                fullWidth
+                                id="username"
+                                type="email"
+                                label="Username"
+                                placeholder="Username"
+                                margin="normal"
+                                onChange={handleUsernameChange}
+                                onKeyPress={handleKeyPress}
+                            />
+                            <TextField
+                                error={state.isError}
+                                fullWidth
+                                id="password"
+                                type="password"
+                                label="Password"
+                                placeholder="Password"
+                                margin="normal"
+                                helperText={state.helperText}
+                                onChange={handlePasswordChange}
+                                onKeyPress={handleKeyPress}
+                            />
+                        </div>
+                    </CardContent>
+                    <CardActions>
+                        <Button
+                            variant="contained"
+                            size="large"
+                            color="secondary"
+                            className={classes.loginBtn}
+                            onClick={handleLogin}
+                            disabled={state.isButtonDisabled}
+                        >
+                            Login
                         </Button>
-                    </Link>
-                </CardActions>
-            </Card>
-        </form>
-    );
+                    </CardActions>
+                    <CardActions>
+                        <Link to="/components/Signup">
+                            <Button variant="contained" size="large" color="secondary" className={classes.loginBtn}>
+                                Sign up!
+                            </Button>
+                        </Link>
+                    </CardActions>
+                </Card>
+            </form>
+        );
+    }
 };
 
 export default Login;

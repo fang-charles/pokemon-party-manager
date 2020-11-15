@@ -96,3 +96,7 @@ export type PokemonPacket = {
 export type imageURL = {
     sprite_data: string;
 };
+
+export type partyID = {
+    party_id: number;
+};
