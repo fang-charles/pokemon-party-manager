@@ -159,6 +159,10 @@ export type imageURL = {
     sprite_data: string;
 };
 
+export type partyID = {
+    party_id: number;
+};
+
 export type pkids = {
     pk_id: number;
 };

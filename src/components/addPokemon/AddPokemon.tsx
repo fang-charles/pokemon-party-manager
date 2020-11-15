@@ -118,7 +118,7 @@ const AddPokemon: React.FC<WelcomeProps> = (props) => {
     };
 
     function handleInputChangeBasePokemon(event, value) {
-        setPkmn({ ...pkmn, baseInfo: value });
+		setPkmn({ ...pkmn, baseInfo: value, pokedex_number: value.pokedex_number });
     }
 
     function handleInputChangeNickname(event) {
@@ -131,8 +131,7 @@ const AddPokemon: React.FC<WelcomeProps> = (props) => {
     }
 
     return (
-        <>
-            <br></br>
+        <div>
             <div>
                 <Autocomplete
                     id="combo-box-item"
@@ -235,10 +234,10 @@ const AddPokemon: React.FC<WelcomeProps> = (props) => {
                 onClick={handleSave}
                 fullWidth
             >
-                Save
+                Add Pokemon
             </Button>
             <p>{JSON.stringify(pkmn)} </p>
-        </>
+        </div>
     );
 };
 

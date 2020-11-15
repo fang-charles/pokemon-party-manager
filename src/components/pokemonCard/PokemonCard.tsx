@@ -101,7 +101,7 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
     ];
 
     const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(true);
+    const [expanded, setExpanded] = React.useState(false);
     const [allMoves, setAllMoves] = React.useState<Move[]>([]);
     const [allItems, setAllItems] = React.useState<Item[]>([]);
     const [pkmn, setPkmn] = React.useState<PokemonPacket>({

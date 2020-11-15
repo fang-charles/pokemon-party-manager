@@ -8,8 +8,9 @@ import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
 
-import { verifyPassword, createAccount } from '../axios/api';
+import { createAccount, getPartyGivenUsername } from '../axios/api';
 import { Loginer } from '../types/types';
+import PartySelectScreen from './PartySelectScreen/PartySelectScreen';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -43,6 +44,7 @@ type State = {
     isButtonDisabled: boolean;
     helperText: string;
     isError: boolean;
+    loggedIn: boolean;
 };
 
 const initialState: State = {
@@ -52,6 +54,7 @@ const initialState: State = {
     isButtonDisabled: true,
     helperText: '',
     isError: false,
+    loggedIn: false,
 };
 
 type Action =
@@ -90,6 +93,7 @@ const reducer = (state: State, action: Action): State => {
                 ...state,
                 helperText: action.payload,
                 isError: false,
+                loggedIn: true,
             };
         case 'loginFailed':
             return {
@@ -181,6 +185,33 @@ const Login = () => {
             payload: event.target.value,
         });
     };
+
+    function makeParty(num: number) {
+        return (
+            <>
+                <PartySelectScreen partyID={num}></PartySelectScreen>
+                <br></br>
+            </>
+        );
+    }
+
+    function genParty(num: number) {
+        return <a>Placeholder for genParty</a>;
+    }
+
+    let partyArr: any[] = [];
+    getPartyGivenUsername(state.username).then((res) => {
+        partyArr = res.data;
+        if (state.loggedIn) {
+            return (
+                <div>
+                    {partyArr.map((num) => makeParty(num))}
+                    {genParty(4 - partyArr.length)}
+                </div>
+            );
+        }
+    });
+
     return (
         <form className={classes.container} noValidate autoComplete="off">
             <Card className={classes.card}>

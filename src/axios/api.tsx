@@ -10,6 +10,7 @@ import {
     Loginer,
     PokemonPacket,
     imageURL,
+    partyID,
     pkids,
 } from '../types/types';
 
@@ -68,6 +69,13 @@ export function getParty(partyID: number) {
     return axios.post<number[]>(apiUrl + 'party.php', { fname: 'getParty', dataPacket: { id77: partyID } });
 }
 
+export function getPartyGivenUsername(username: String) {
+    return axios.post<partyID[]>(apiUrl + 'party.php', {
+        fname: 'getPartyGivenUsername',
+        dataPacket: { id77: username },
+    });
+}
+
 export function deleteParty(partyID: number) {
     return axios.post<Party>(apiUrl + 'party.php', { fname: 'deleteParty', dataPacket: { id77: partyID } });
 }
@@ -80,13 +88,6 @@ export function getImagesURLS(partyID: number) {
     return axios.post<imageURL[]>(apiUrl + 'party.php', {
         fname: 'getImagesURLS',
         dataPacket: { id77: partyID },
-    });
-}
-
-export function getPartyGivenUsername(username: String) {
-    return axios.post<number[]>(apiUrl + 'party.php', {
-        fname: 'getPartyGivenUsername',
-        dataPacket: { id77: username },
     });
 }
 
