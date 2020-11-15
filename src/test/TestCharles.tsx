@@ -30,8 +30,6 @@ function TestCharles() {
         });
     }, []);
 
-
-
     React.useEffect(() => {
         getBasePokemon(count).then((res) => {
             setBase(res.data);
@@ -45,10 +43,8 @@ function TestCharles() {
     React.useEffect(() => {
         getItem('poke-ball').then((res) => {
             setItem(res.data);
-
         });
     }, [count]);
-
 
     const handleInputChange = (e) => {
         setCount(e.target.value);
@@ -92,9 +88,8 @@ function TestCharles() {
         setPkmn(pkmn);
     }
 
-    
     React.useEffect(() => {
-        getSpecificPokemon(3).then((res) => {
+        getSpecificPokemon(1).then((res) => {
             console.log(res.data);
             //setPkmn(res.data);
         });
@@ -106,9 +101,9 @@ function TestCharles() {
             <p>You clicked {count} times</p>
             <button onClick={() => setCount(count + 1)}>Click me</button>
             <br></br>
-            <TextField name="name" label="Pokedex Number" onChange={handleInputChange} value={count} />
+            <TextField name="name" label="Pokedex Number" type="number" onChange={handleInputChange} value={count} />
             <p>{JSON.stringify(base)}</p>
-            <PokemonCard pkmn={pkmn}>            </PokemonCard>
+            <PokemonCard pk_id={count}> </PokemonCard>
         </div>
     );
 }

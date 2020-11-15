@@ -74,3 +74,20 @@ export type Loginer = {
     user: String;
     password: string;
 };
+
+export type PokemonPacket = {
+    pkID: number;
+    nickname: string;
+    level: number;
+    pokedex_number: number;
+    name: string;
+    type1: string;
+    type2?: string;
+    hp: number;
+    attack: number;
+    defense: number;
+    special_attack: number;
+    special_defense: number;
+    speed: number;
+    sprite_data: string;
+};

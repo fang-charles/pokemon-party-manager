@@ -162,12 +162,8 @@ function TestLarry() {
             <TextField name="party id" label="Party id" onChange={handleInputChange} value={partyid} />
             <p>{JSON.stringify(base)}</p>
             <p>{JSON.stringify(pokemon)}</p>
-            <PokemonCard pkmn={myBulbasaur} >
-                {' '}
-            </PokemonCard>
-            <PokemonCard pkmn={myIvysaur} >
-                {' '}
-            </PokemonCard>
+            <PokemonCard pk_id={myBulbasaur.pkID}> </PokemonCard>
+            <PokemonCard pk_id={myIvysaur.pkID}> </PokemonCard>
             <PartyScreen party={part}></PartyScreen>
             <PartySelectScreen user={user1}> </PartySelectScreen>
         </div>

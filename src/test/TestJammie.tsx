@@ -65,7 +65,7 @@ function TestJammie() {
     let user1: User = {
         user_id: 3,
         username: 'Charles',
-        party: []
+        party: [],
     };
 
     let tackle: Move = {
