@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2020 at 11:06 PM
+-- Generation Time: Nov 15, 2020 at 02:21 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.13
 
@@ -119,17 +119,17 @@ CREATE TABLE `base_info` (
 --
 
 INSERT INTO `base_info` (`pk_id`, `pokedex_number`) VALUES
-(16, 1),
-(17, 2),
-(25, 2),
-(18, 3),
-(19, 3),
-(20, 7),
-(21, 25),
-(22, 69),
-(23, 95),
-(24, 122),
-(26, 152);
+(1, 1),
+(2, 2),
+(10, 2),
+(3, 3),
+(4, 3),
+(5, 7),
+(6, 25),
+(7, 69),
+(8, 95),
+(9, 122),
+(11, 152);
 
 -- --------------------------------------------------------
 
@@ -981,12 +981,12 @@ CREATE TABLE `holding` (
 --
 
 INSERT INTO `holding` (`pk_id`, `item_name`) VALUES
-(16, 'apicot-berry'),
-(18, 'apicot-berry'),
-(17, 'berry-pouch'),
-(19, 'big-root'),
-(20, 'blue-apricorn'),
-(21, 'fluffy-tail');
+(1, 'apicot-berry'),
+(3, 'apicot-berry'),
+(2, 'berry-pouch'),
+(4, 'big-root'),
+(5, 'blue-apricorn'),
+(7, 'fluffy-tail');
 
 -- --------------------------------------------------------
 
@@ -1976,18 +1976,18 @@ CREATE TABLE `learned` (
 --
 
 INSERT INTO `learned` (`move_name`, `pk_id`) VALUES
-('explosion', 17),
-('flamethrower', 16),
-('hyper-beam', 16),
-('hyper-beam', 18),
-('meditate', 17),
-('megahorn', 18),
-('metal-claw', 18),
-('meteor-mash', 18),
-('sing', 17),
-('sky-attack', 17),
-('splash', 16),
-('tail-whip', 16);
+('explosion', 2),
+('flamethrower', 1),
+('hyper-beam', 1),
+('hyper-beam', 3),
+('meditate', 2),
+('megahorn', 3),
+('metal-claw', 3),
+('meteor-mash', 3),
+('sing', 2),
+('sky-attack', 2),
+('splash', 1),
+('tail-whip', 1);
 
 -- --------------------------------------------------------
 
@@ -2005,17 +2005,17 @@ CREATE TABLE `member` (
 --
 
 INSERT INTO `member` (`pk_id`, `party_id`) VALUES
-(16, 1),
-(17, 1),
-(18, 1),
-(19, 1),
-(20, 2),
-(21, 2),
-(22, 2),
-(23, 2),
-(24, 2),
-(25, 2),
-(26, 3);
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 2),
+(6, 2),
+(7, 2),
+(8, 2),
+(9, 2),
+(10, 2),
+(11, 3);
 
 -- --------------------------------------------------------
 
@@ -2822,17 +2822,17 @@ CREATE TABLE `specific_pokemon` (
 --
 
 INSERT INTO `specific_pokemon` (`pk_id`, `level`, `nickname`) VALUES
-(16, 10, 'Bulbasaur'),
-(17, 30, 'Ivysaur'),
-(18, 50, 'Venusaur'),
-(19, 50, 'Venusaur'),
-(20, 1, 'Squirtle'),
-(21, 15, 'Pikachu'),
-(22, 25, 'Bellsprout'),
-(23, 60, 'Onix'),
-(24, 60, 'Mr.Mime'),
-(25, 30, 'Ivysaur'),
-(26, 3, 'Chikorita');
+(1, 10, 'Bulbasaur'),
+(2, 30, 'Ivysaur'),
+(3, 50, 'Venusaur'),
+(4, 50, 'Venusaur'),
+(5, 1, 'Squirtle'),
+(6, 15, 'Pikachu'),
+(7, 25, 'Bellsprout'),
+(8, 60, 'Onix'),
+(9, 60, 'Mr.Mime'),
+(10, 30, 'Ivysaur'),
+(11, 3, 'Chikorita');
 
 -- --------------------------------------------------------
 
@@ -2872,19 +2872,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`User_id`, `username`, `password`) VALUES
-(1, 'larry.cai', 'i_love_cats'),
-(2, 'charles.fang', ''),
-(3, 'eldon.luk', ''),
-(4, 'jammie.wang', ''),
-(5, 'rickey.guo', ''),
-(6, 'vivi.pham', ''),
-(7, 'yiff.li', ''),
-(9, 'darwin.walter', ''),
-(10, 'Ash', ''),
-(11, 'Brock', ''),
-(12, 'Misty', ''),
-(13, 'jammie.wang2', '*8F4D9E72EA0E4CDF6511B79CCB370876471E1717'),
-(16, 'jammie.wang3', '*8F4D9E72EA0E4CDF6511B79CCB370876471E1717');
+(1, 'admin1', '*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19'),
+(2, 'admin2', '*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19'),
+(3, 'admin3', '*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19'),
+(4, 'admin4', '*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19');
 
 --
 -- Indexes for dumped tables
@@ -2970,7 +2961,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `pk_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `pk_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `team`
@@ -2982,7 +2973,7 @@ ALTER TABLE `team`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `User_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `User_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

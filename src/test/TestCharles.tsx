@@ -94,7 +94,7 @@ function TestCharles() {
 
     
     React.useEffect(() => {
-        getSpecificPokemon(29).then((res) => {
+        getSpecificPokemon(3).then((res) => {
             console.log(res.data);
             //setPkmn(res.data);
         });
