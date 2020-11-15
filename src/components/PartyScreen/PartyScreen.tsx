@@ -26,35 +26,42 @@ interface WelcomeProps {
 
 const PartyScreen: React.FC<WelcomeProps> = (props) => {
     const classes = useStyles();
+
+    //pk_id array
     let pkids: number[] = props.pkids;
+
+    //partyID
     let partyID: number = props.partyID;
-    const [expanded, setExpanded] = React.useState<string | false>(false);
+
+    //Grid Spacing
     const [spacing, setSpacing] = React.useState<GridSpacing>(2);
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSpacing(Number((event.target as HTMLInputElement).value) as GridSpacing);
     };
 
-    //Party Screen given partyid
-    /*
-    {partyIDs.map((res) => (
-        <PokemonCard pk_id={res.pk_id}> </PokemonCard>
-    ))}
-    */
+    //partyID
+    const [thispartyID, setPartyID] = React.useState<number>(partyID);
 
-   const [thispartyID, setPartyID] = React.useState<number>(partyID);
-   const [partyIDs, setPartyIDs] = React.useState<pkids[]>([]);
+    //pk_id of pokemon in Party
+    const [partyIDs, setPartyIDs] = React.useState<pkids[]>([]);
     
-   React.useEffect(() => {
-        getPartyIDs(thispartyID).then((res) => {
-            setPartyIDs(res.data);
-            console.log("PartyIDs: "+res.data);
-       })
-   }, [thispartyID]);
+    React.useEffect(() => {
+            getPartyIDs(thispartyID).then((res) => {
+                setPartyIDs(res.data);
+                console.log("PartyIDs: "+res.data);
+        })
+    }, [thispartyID]);
 
     /*Party Screen given pkid's
     {pkids.map((pkid, index) => {
         return <PokemonCard pk_id={pkid}> </PokemonCard>
     })}
+    */
+
+    /*Party Screen given partyid
+    {partyIDs.map((res) => (
+        <PokemonCard pk_id={res.pk_id}> </PokemonCard>
+    ))}
     */
 
     return (

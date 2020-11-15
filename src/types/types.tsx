@@ -95,8 +95,8 @@ export type PokemonPacket = {
 
 export type imageURL = {
     sprite_data: string;
-}
+};
 
 export type pkids = {
     pk_id: number;
-}
+};
