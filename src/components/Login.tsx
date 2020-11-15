@@ -189,7 +189,6 @@ const Login = () => {
     }); */
 
     if (state.loggedIn) {
-        console.log(partyArr);
         return (
             <div>
                 {partyArr.map((num) => makeParty(num.party_id))}
