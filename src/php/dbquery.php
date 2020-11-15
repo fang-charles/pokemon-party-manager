@@ -199,7 +199,7 @@ function getParty($partyID)
 {
 	global $db;
 
-	$query = "SELECT * FROM party WHERE party_id = :partyID;";
+	$query = "SELECT pk_id FROM party NATURAL JOIN member WHERE party_id = :partyID;";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':partyID', $partyID);
 	$statement->execute();
@@ -244,12 +244,27 @@ function getUserID($username)
 {
 	global $db;
 
-	$query = "SELECT User_id FROM user WHERE username = :username;";
+	$query = "SELECT * FROM user WHERE username = :username;";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':username', $username);
 	$statement->execute();
 
 	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $results;
+}
+
+function getPartyGivenUsername($username)
+{
+	global $db;
+
+	$query = "SELECT DISTINCT party_id FROM user NATURAL JOIN team NATURAL JOIN party NATURAL JOIN member WHERE username = :username;";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':username', $username);
+	$statement->execute();
+
+	$results = $statement->fetchAll();
 	$statement->closeCursor();
 
 	return $results;
@@ -308,6 +323,15 @@ function addPokemon($pokedex_number, $lev, $nickname, $party_id)
 
 	return $results;
 }
+/**
+ * $query = "CALL countBoats(@p0)";
+         	echo ": prepare ";
+         	$statement = $db->prepare($query);
+         	echo ": execute"; 
+         	$statement->execute();
+         	$counter = $statement->setFetchMode(PDO::FETCH_ASSOC);
+
+ */
 
 function deletePokemon($pokeID)
 {
