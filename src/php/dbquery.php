@@ -367,6 +367,7 @@ function createAccount($username, $password)
 	try {
 		$statement->execute();
 	} catch (Exception $exception) {
+		$statement->closeCursor();
 		return false;
 	}
 

@@ -18,11 +18,15 @@
 /******************************/
 // connecting to DB on XAMPP (local)
 
-$username = 'ebl9rd_c';
-$password = 'JammieWang073099!';
-$host = 'usersrv01.cs.virginia.edu';
-$dbname = 'ebl9rd_c';
+//$username = 'ebl9rd_c';
+//$password = 'JammieWang073099!';
+//$host = 'usersrv01.cs.virginia.edu';
+//$dbname = 'ebl9rd_c';
 
+$username = 'jw8kc';
+$password = 'Helloworld1!';
+$host = 'usersrv01.cs.virginia.edu';
+$dbname = 'jw8kc_';
 
 require_once __DIR__ . '/dbquery.php';
 
