@@ -4,6 +4,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import PokemonCard from '../pokemonCard/PokemonCard';
 import Grid, { GridSpacing } from '@material-ui/core/Grid';
 import '../../styles.css';
+import { getAllMoves, getAllItems, getSpecificPokemon, getPartyGivenUsername, getParty } from '../../axios/api';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -19,12 +20,22 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface WelcomeProps {
-    user: User;
+    username: String;
 }
 
 const PartySelectScreen: React.FC<WelcomeProps> = (props) => {
     const classes = useStyles();
-    let parties: Party[] = props.user.party;
+
+    let partiesID: number[]=[];
+    getPartyGivenUsername(props.username).then((res2)=>{
+        partiesID = res2.data;
+    })
+
+    function makeImage(sprite: string){
+        return (<img src ={sprite} className="photo"></img>);
+    }
+    //return (<img src ={sprite} className="photo"></img>);
+
     const [spacing, setSpacing] = React.useState<GridSpacing>(2);
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSpacing(Number((event.target as HTMLInputElement).value) as GridSpacing);
@@ -47,13 +58,17 @@ const PartySelectScreen: React.FC<WelcomeProps> = (props) => {
         <Grid container className={classes.root} spacing={2}>
             <Grid item xs={12}>
                 <Grid container justify="center" spacing={spacing}>
-                    {parties.map((party) => (
+                    {partiesID.map((partyID) => (
                         <div className="party">
                             {' '}
-                            <h1 className="inLine">{party.party_id}</h1>
-                            {party.member.map((pokemon) => (
-                                <img src={pokemon.baseInfo.sprite_data} className="photo"></img>
-                            ))}
+                            <h1 className="inLine">{partyID}</h1>
+                            {getParty(partyID).then((res)=>{
+                                {res.data.map((pkid) => {
+                                    {getSpecificPokemon(pkid).then((res2)=>{
+                                        makeImage(res2.data.sprite_data);
+                                    })}
+                                })}
+                            })}
                         </div>
                     ))}
                 </Grid>

@@ -4,7 +4,6 @@ import { BasePokemon, Item, Pokemon, Move, Party, User } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 import PokemonCard from '../components/pokemonCard/PokemonCard';
 import PartySelectScreen from '../components/PartySelectScreen/PartySelectScreen';
-import PartySelectCard from '../components/PartySelectScreen/PartySelectCard';
 import PartyScreen from '../components/PartyScreen/PartyScreen';
 
 function TestLarry() {
@@ -164,13 +163,12 @@ function TestLarry() {
     const [moves, setMoves] = React.useState<Move[]>([]);
 
     const [member, setMember] = React.useState<Pokemon[]>([]);
-    const [party_id, setID] = React.useState<number>(1);
+    const [party_id, setID] = React.useState<number[]>([1]);
 
-    const [pary, setPary] = React.useState<Party>({
+    /*const [pary, setPary] = React.useState<Party>({
         party_id: party_id,
         member: member,
-    });
-    
+    });*/
 
     React.useEffect(() => {
         getPartyGivenUsername(username).then((res) => {
@@ -190,12 +188,7 @@ function TestLarry() {
             <TextField name="party id" label="Party id" onChange={handleInputChange} value={partyid} />
             <TextField name="username" label="Username" onChange={handleInputUsername} value={username} />
             <p>{JSON.stringify(party_id)}</p>
-            <p>{JSON.stringify(base)}</p>
-            <p>{JSON.stringify(pokemon)}</p>
-            <PokemonCard pk_id={myBulbasaur.pkID}> </PokemonCard>
-            <PokemonCard pk_id={myIvysaur.pkID}> </PokemonCard>
-            <PartyScreen party={part}></PartyScreen>
-            <PartySelectScreen user={user1}> </PartySelectScreen>
+            <PartySelectScreen username={username}> </PartySelectScreen>
         </div>
     );
 }

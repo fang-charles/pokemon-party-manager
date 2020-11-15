@@ -204,7 +204,7 @@ function getParty($partyID)
 	$statement->bindValue(':partyID', $partyID);
 	$statement->execute();
 
-	$results = $statement->fetch();
+	$results = $statement->fetchAll();
 	$statement->closeCursor();
 
 	return $results;
@@ -259,7 +259,7 @@ function getPartyGivenUsername($username)
 {
 	global $db;
 
-	$query = "SELECT DISTINCT party_id FROM user NATURAL JOIN team NATURAL JOIN party NATURAL JOIN member WHERE username = :username;";
+	$query = "SELECT DISTINCT party_id FROM user NATURAL JOIN team WHERE username = :username;";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':username', $username);
 	$statement->execute();

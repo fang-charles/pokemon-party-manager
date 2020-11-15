@@ -48,7 +48,7 @@ export function loseItem(pk_id: number, itemName: String) {
 
 //Party
 export function getParty(partyID: number) {
-    return axios.post<Party>(apiUrl + 'party.php', { fname: 'getParty', dataPacket: { id77: partyID } });
+    return axios.post<number[]>(apiUrl + 'party.php', { fname: 'getParty', dataPacket: { id77: partyID } });
 }
 
 export function deleteParty(partyID: number) {
@@ -60,7 +60,7 @@ export function addParty(userID: number) {
 } // Jammie
 
 export function getPartyGivenUsername(username: String) {
-    return axios.post<number>(apiUrl + 'party.php', { fname: 'getPartyGivenUsername', dataPacket: { id77: username } });
+    return axios.post<number[]>(apiUrl + 'party.php', { fname: 'getPartyGivenUsername', dataPacket: { id77: username } });
 }
 
 //User
