@@ -9,7 +9,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
 
 import { verifyPassword } from '../axios/api';
-import { Loginer } from '../types/types';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -197,6 +197,18 @@ const Login = () => {
                     >
                         Login
                     </Button>
+                </CardActions>
+                <CardActions>
+                    <Link to="/components/Signup">
+                        <Button
+                            variant="contained"
+                            size="large"
+                            color="secondary"
+                            className={classes.loginBtn}
+                        >
+                            Sign up!
+                        </Button>
+                    </Link>
                 </CardActions>
             </Card>
         </form>
