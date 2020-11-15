@@ -7,8 +7,11 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import { Item } from '../../types/types';
+import {loseItem} from '../../axios/api';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -24,6 +27,9 @@ const useStyles = makeStyles((theme: Theme) =>
             fontSize: theme.typography.pxToRem(15),
             color: theme.palette.text.secondary,
         },
+        button: {
+            margin: theme.spacing(1),
+          },
     }),
 );
 
@@ -31,12 +37,14 @@ interface WelcomeProps {
     item: Item;
     allItems: Item[];
     setItem: (item: Item) => void;
+    pk_id:number;
 }
 
 const ItemAccordion: React.FC<WelcomeProps> = (props) => {
     let item: Item = props.item;
     let allItems: Item[] = props.allItems;
     let setItem = props.setItem;
+    let pk_id = props.pk_id;
 
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState<string | false>(false);
@@ -48,6 +56,11 @@ const ItemAccordion: React.FC<WelcomeProps> = (props) => {
     function handleInputChange(event, value) {
         setItem(value);
       }
+
+      const handleDrop = () => {
+        loseItem(pk_id, item.item_name);
+        setItem(null);
+    }
 
     return (
         <>
@@ -65,6 +78,15 @@ const ItemAccordion: React.FC<WelcomeProps> = (props) => {
                         style={{ width: 300 }}
                         renderInput={(params) => <TextField {...params} label="Item Selection" variant="outlined" />}
                     />
+
+<Button
+        variant="contained"
+        color="primary"
+        size="small"
+        startIcon={<DeleteIcon />}
+        onClick={handleDrop}
+      >
+      </Button>
                 </AccordionDetails>
             </Accordion>
         </>

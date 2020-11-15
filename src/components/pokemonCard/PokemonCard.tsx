@@ -117,6 +117,7 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
 
     const handleSave = () => {
         gainItem(pk_id, pkmn.holding.item_name);
+        alert("Saved!");
     }
 
     const handleSetItem = (item:Item) => {
@@ -175,7 +176,7 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
                     <Typography paragraph>Item:</Typography>
-                    <ItemAccordion item={item} allItems={allItems} setItem={handleSetItem}>
+                    <ItemAccordion item={item} allItems={allItems} setItem={handleSetItem} pk_id={pk_id}>
                         {' '}
                     </ItemAccordion>
                     <br></br>
