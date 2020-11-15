@@ -51,7 +51,7 @@ function TestLarry() {
         sprite_data: 'https://img.pokemondb.net/artwork/palkia.jpg',
     };
 
-    const [count, setCount] = useState<number>(1);
+    const [count, setCount] = useState<number>(2);
     const [level, setLevel] = useState<number>(90);
     const [nickname, setNickname] = useState<String>('KI MI NO NA WA');
     const [partyid, setPartyID] = useState<number>(1);
@@ -144,11 +144,13 @@ function TestLarry() {
         setPokemon(pkmn);
     }
 
+    /*
     React.useEffect(() => {
         addPokemon(count, level, nickname, partyid).then((res) => {
             console.log(res.data);
         });
     }, [count]);
+    */
 
     let user1: User = {
         user_id: 5,
@@ -188,7 +190,7 @@ function TestLarry() {
             <TextField name="party id" label="Party id" onChange={handleInputChange} value={partyid} />
             <TextField name="username" label="Username" onChange={handleInputUsername} value={username} />
             <p>{JSON.stringify(party_id)}</p>
-            <PartySelectScreen username={username}> </PartySelectScreen>
+            <PartySelectScreen partyID={count}> </PartySelectScreen>
         </div>
     );
 }
