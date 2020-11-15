@@ -22,6 +22,10 @@ switch ($fname) {
 	case "getAllMoves":
 		echo json_encode(getAllMoves());
 		break;
+	case "getLearnedMoves":
+		$pk_id = $dataPacket['pk_id'];
+		echo json_encode(getLearnedMoves($pk_id));
+		break;
 	case "learnMove":
 		$pk_id = $dataPacket['pk_id'];
 		$move1 = $dataPacket['move1'];

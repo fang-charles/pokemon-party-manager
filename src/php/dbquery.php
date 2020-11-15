@@ -151,6 +151,23 @@ function getHeldItem($pk_id)
 	return $results;
 }
 
+function getLearnedMoves($pk_id)
+{
+	global $db;
+	$query = "SELECT * FROM learned as l NATURAL JOIN move as m WHERE l.pk_id=:pk_id";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':pk_id', $pk_id);
+	$statement->execute();
+
+	// fetchAll() returns an array for all of the rows in the result set
+	$results = $statement->fetchAll();
+
+	// closes the cursor and frees the connection to the server so other SQL statements may be issued
+	$statement->closecursor();
+
+	return $results;
+}
+
 function getAllItems()
 {
 	global $db;

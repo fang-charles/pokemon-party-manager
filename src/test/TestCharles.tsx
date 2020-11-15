@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getBasePokemon, getItem, addPokemon, getSpecificPokemon } from '../axios/api';
+import { getBasePokemon, getItem, addPokemon, getSpecificPokemon, getLearnedMoves } from '../axios/api';
 import { BasePokemon, Item, Pokemon, Move } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 import PokemonCard from '../components/pokemonCard/PokemonCard';
@@ -35,6 +35,8 @@ function TestCharles() {
             setBase(res.data);
         });
     }, [count]);
+
+
 
     React.useEffect(() => {
         setPkmn({ ...pkmn, baseInfo: base });
@@ -102,7 +104,6 @@ function TestCharles() {
             <button onClick={() => setCount(count + 1)}>Click me</button>
             <br></br>
             <TextField name="name" label="Pokedex Number" type="number" onChange={handleInputChange} value={count} />
-            <p>{JSON.stringify(base)}</p>
             <PokemonCard pk_id={count}> </PokemonCard>
         </div>
     );

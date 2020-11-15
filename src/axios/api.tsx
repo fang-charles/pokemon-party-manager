@@ -81,6 +81,10 @@ export function getAllMoves() {
     return axios.post<Move[]>(apiUrl + 'move.php', { fname: 'getAllMoves', dataPacket: {} });
 }
 
+export function getLearnedMoves(pk_id:number) {
+    return axios.post<Move[]>(apiUrl + 'move.php', { fname: 'getLearnedMoves', dataPacket: {pk_id: pk_id} });
+}
+
 export function learnMove(pokemonID: number, moveA: String, moveB: String, moveC: String, moveD: String) {
     return axios.post<Move>(apiUrl + 'move.php', {
         fname: 'learnMove',

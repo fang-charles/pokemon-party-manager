@@ -29,6 +29,8 @@ switch ($fname) {
 	case "gainItem":
 		$pk_id = $dataPacket['pk_id'];
 		$itemName = $dataPacket['name77'];
+		gainItem($pk_id, $itemName);
+		break;
 	case "loseItem":
 		$itemName = $dataPacket['name77'];
 		$pk_id = $dataPacket['pk_id'];

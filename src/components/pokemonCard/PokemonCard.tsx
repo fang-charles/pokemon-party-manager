@@ -3,7 +3,7 @@ import { BasePokemon, Item, Move, Pokemon, PokemonPacket } from '../../types/typ
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import MoveViewer from '../moveViewer/MoveViewer';
 import ItemAccordion from '../itemAccordion/ItemAccordion';
-import { getAllMoves, getAllItems, getSpecificPokemon, getHeldItem } from '../../axios/api';
+import { getAllMoves, getAllItems, getSpecificPokemon, getHeldItem, getLearnedMoves, gainItem, loseItem} from '../../axios/api';
 
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         media: {
             height: 0,
-            paddingTop: '56.25%', // 16:9
+            paddingTop: '100.00%', // 16:9
         },
         expand: {
             transform: 'rotate(0deg)',
@@ -59,7 +59,7 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
     let pk_id = props.pk_id;
 
     const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = React.useState(true);
     const [allMoves, setAllMoves] = React.useState<Move[]>([]);
     const [allItems, setAllItems] = React.useState<Item[]>([]);
     const [pkmn, setPkmn] = React.useState<PokemonPacket>({
@@ -80,7 +80,7 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
         moves:[],
     });
     const [item, setItem] = React.useState<Item>();
-    const [moves, setMoves] = React.useState<Move[]>([]);
+    const [learnedMoves, setLearnedMoves] = React.useState<Move[]>([]);
 
     React.useEffect(() => {
         getAllMoves().then((res) => {
@@ -99,17 +99,24 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
             setPkmn(res.data);
         });
         getHeldItem(pk_id).then((res)=>{
-            console.log(res.data);
             setItem(res.data);
         });
+        getLearnedMoves(pk_id).then((res)=>{
+            setLearnedMoves(res.data);
+        });
     }, [pk_id]);
+
+
+    React.useEffect(()=>{
+        setPkmn({ ...pkmn, holding: item });
+    },[item])
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
     const handleSave = () => {
-        alert("saved");
+        gainItem(pk_id, pkmn.holding.item_name);
     }
 
     const handleSetItem = (item:Item) => {
@@ -117,6 +124,7 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
     }
 
     return (
+        <>
         <Card className={classes.root}>
             <CardHeader
                 avatar={
@@ -142,6 +150,7 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
                         Special Attack: {pkmn.special_attack} <br />
                         Special Defense: {pkmn.special_defense} <br />
                         Speed: {pkmn.speed} <br />
+                        
                     </Typography>
                 )}
             </CardContent>
@@ -171,7 +180,7 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
                     </ItemAccordion>
                     <br></br>
                     <Typography paragraph>Moves:</Typography>
-                    <MoveViewer moves={moves} allMoves={allMoves}></MoveViewer>
+                    <MoveViewer moves={learnedMoves} allMoves={allMoves}></MoveViewer>
                     <Button
         variant="contained"
         color="primary"
@@ -182,9 +191,12 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
       >
         Save
       </Button>
+      
                 </CardContent>
             </Collapse>
         </Card>
+        {JSON.stringify(pkmn)}
+        </>
     );
 };
 
