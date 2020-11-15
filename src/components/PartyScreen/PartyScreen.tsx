@@ -67,15 +67,15 @@ const PartyScreen: React.FC<WelcomeProps> = (props) => {
 
     return (
         <Grid container className={classes.root} spacing={2}>
-            <Grid item xs={12}>
                 <Grid container justify="center" spacing={spacing}>
                     {partyIDs.map((res) => (
+                        <Grid item xs={2}>
                         <PokemonCard pk_id={res.pk_id}> </PokemonCard>
+                        </Grid>
                     ))}
-                    <Grid item>
-                    <AddPokemon party_id = {partyID}></AddPokemon >
+                    <Grid item xs={2}>
+                    {partyIDs.length < 6 && <AddPokemon party_id = {partyID}></AddPokemon >}
                     </Grid>
-                </Grid>
             </Grid>
         </Grid>
     );
