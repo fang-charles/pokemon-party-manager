@@ -133,7 +133,7 @@ function TestCharles() {
                     <button onClick={() => setCount(count + 1)}>Click me</button>
                     <br></br>
                     <TextField name="name" label="PK_ID" type="number" onChange={handleInputChange} value={count} />
-                    {count > 3 && <PokemonCard pk_id={count}> </PokemonCard>}
+                    <PokemonCard pk_id={count}> </PokemonCard>
                     <div>hello</div>
                     {arr.map((num) => makeButton(num))}
                     {genParty(4 - arr.length)}
