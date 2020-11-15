@@ -64,6 +64,10 @@ export function addParty(userID: number) {
     return axios.post<Party>(apiUrl + 'party.php', { fname: 'addParty', dataPacket: { id77: userID } });
 } // Jammie
 
+export function getPartyGivenUsername(username: String) {
+    return axios.post<number>(apiUrl + 'party.php', { fname: 'getPartyGivenUsername', dataPacket: { id77: username } });
+}
+
 //User
 export function getUser(userID: number) {
     return axios.post<User>(apiUrl + 'user.php', { fname: 'getUser', dataPacket: { id77: userID } });

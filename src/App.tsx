@@ -23,7 +23,7 @@ class App extends Component {
                 <Switch>
                     {' '}
                     {/* The Switch decides which component to show based on the current URL.*/}
-                    <Route exact path="/" component={Example}></Route>
+                    <Route exact path="/" component={Login}></Route>
                     <Route exact path="/test/charles" component={TestCharles}></Route>
                     <Route exact path="/test/larry" component={TestLarry}></Route>
                     <Route exact path="/test/eldon" component={TestEldon}></Route>

@@ -66,6 +66,7 @@ export type User = {
     user_id: number;
     username: string;
     party: Party[];
+    //party: number[]; array of partyID
 };
 
 export type Move = {
