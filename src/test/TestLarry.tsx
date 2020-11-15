@@ -166,18 +166,21 @@ function TestLarry() {
     const [moves, setMoves] = React.useState<Move[]>([]);
 
     const [member, setMember] = React.useState<Pokemon[]>([]);
-    const [party_id, setID] = React.useState<number[]>([1]);
+    //const [party_id, setID] = React.useState<number[]>([1]);
 
     /*const [pary, setPary] = React.useState<Party>({
         party_id: party_id,
         member: member,
     });*/
 
+    /*
     React.useEffect(() => {
         getPartyGivenUsername(username).then((res) => {
             setID(res.data);
         });
     }, [party_id]);
+
+    */
 
     return (
         <div>
@@ -190,15 +193,13 @@ function TestLarry() {
             <TextField name="nickname" label="Nickname" onChange={handleInputChange} value={nickname} />
             <TextField name="party id" label="Party id" onChange={handleInputChange} value={partyid} />
             <TextField name="username" label="Username" onChange={handleInputUsername} value={username} />
-            <p>{JSON.stringify(party_id)}</p>
+        
+
             <PartySelectScreen partyID={2}>
                 {' '}
             </PartySelectScreen>
-            <PartySelectScreen partyID={3}>
-                {' '}
-            </PartySelectScreen>
 
-            <AddParty userID={2}></AddParty>
+            <AddParty userID={3}></AddParty>
         </div>
     );
 }

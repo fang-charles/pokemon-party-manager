@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2020 at 02:21 AM
+-- Generation Time: Nov 15, 2020 at 11:46 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.13
 
@@ -26,7 +26,7 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE  PROCEDURE `addPokemon` (IN `pokedex_number` INT, IN `level` INT, IN `nickname` VARCHAR(255), IN `party_id` INT, OUT `pk_id` INT)  BEGIN
+CREATE PROCEDURE `addPokemon` (IN `pokedex_number` INT, IN `level` INT, IN `nickname` VARCHAR(255), IN `party_id` INT, OUT `pk_id` INT)  BEGIN
 INSERT INTO member (party_id) VALUES (party_id);
 SELECT @@IDENTITY INTO pk_id;
 INSERT INTO specific_pokemon (pk_id, level, nickname) VALUES (pk_id, level, nickname);
@@ -78,19 +78,25 @@ CREATE PROCEDURE `getUserID` (IN `username` VARCHAR(255))  BEGIN
 SELECT user_id FROM user WHERE username = username;
 END$$
 
-CREATE PROCEDURE `loseItem` (IN `pk_id` INT, IN `itemName` VARCHAR(255))  NO SQL
+CREATE PROCEDURE `loseItem` (IN `pkid` INT, IN `itemName` VARCHAR(255))  NO SQL
 BEGIN
-DELETE FROM holding WHERE pk_id = pk_id AND item_name = itemName;
+DELETE FROM holding WHERE pk_id = pkid AND item_name = itemName;
 END$$
 
+<<<<<<< HEAD:src/php/database.sql
 CREATE PROCEDURE `removePokemon` (IN `pk_id` INT)  NO SQL
-BEGIN
-DELETE FROM member WHERE pk_id = pk_id;
-DELETE FROM specific_pokemon WHERE pk_id = pk_id;
-END$$
+=======
+CREATE PROCEDURE `removePokemon` (IN `pkid` INT)  NO SQL
+DELETE FROM specific_pokemon WHERE pk_id = pkid;
 
+<<<<<<< HEAD:src/php/database.sql
 CREATE PROCEDURE `setitem` (IN `pk_id` INT, IN `item_name` VARCHAR(255))  BEGIN
 INSERT INTO holding (pk_id, item_name) VALUES (pk_id, item_name);
+=======
+CREATE PROCEDURE `setitem` (IN `pkid` INT, IN `itemName` VARCHAR(255))  BEGIN
+DELETE FROM holding WHERE pk_id = pkid;
+INSERT INTO holding (pk_id, item_name) VALUES (pkid, itemName);
+>>>>>>> addPokemonIntegration:src/php/database_definer_removed.sql
 END$$
 
 CREATE PROCEDURE `setmoves` (IN `pk_id` INT, IN `move1` VARCHAR(255), IN `move2` VARCHAR(255), IN `move3` VARCHAR(255), IN `move4` VARCHAR(255))  BEGIN

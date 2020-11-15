@@ -5,10 +5,15 @@ DELETE FROM holding WHERE pk_id = pk_id;
 INSERT INTO holding (pk_id, item_name) VALUES (pk_id, item_name);
 END
 
----------------
+---------------removePokemon
 -----------------------------------
 --------------- 
 
+must change parameter name
+BEGIN
+DELETE FROM member WHERE pk_id = pkid;
+DELETE FROM specific_pokemon WHERE pk_id = pkid;
+END
 
 ---------------
 -----------------------------------

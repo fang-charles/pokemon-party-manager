@@ -12,6 +12,7 @@ import {
     gainItem,
     loseItem,
     learnMove,
+    deletePokemon
 } from '../../axios/api';
 
 import clsx from 'clsx';
@@ -31,6 +32,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 interface WelcomeProps {
     pk_id: number;
@@ -194,6 +196,13 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
         setLearnedMoves(moves);
     };
 
+    const handleDelete = () => {
+        deletePokemon(pk_id).then(()=>{
+            alert("deleted");
+        })
+
+    };
+
     return (
         <>
             <Card className={classes.root}>
@@ -225,8 +234,8 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
                     )}
                 </CardContent>
                 <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
-                        <FavoriteIcon />
+                    <IconButton aria-label="delete" onClick={handleDelete}>
+                        <DeleteIcon />
                     </IconButton>
                     <IconButton aria-label="share">
                         <ShareIcon />
