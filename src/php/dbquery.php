@@ -101,8 +101,7 @@ function addParty($userID)
 
 	$results = $statement->fetch();
 	$statement->closeCursor();
-
-	// results is partyID
+	
 	return $results;
 }
 
