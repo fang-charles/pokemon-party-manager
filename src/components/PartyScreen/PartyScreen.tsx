@@ -4,6 +4,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import PokemonCard from '../pokemonCard/PokemonCard';
 import Grid, { GridSpacing } from '@material-ui/core/Grid';
 import { getPartyIDs} from '../../axios/api';
+import AddPokemon from '../addPokemon/AddPokemon';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -71,6 +72,9 @@ const PartyScreen: React.FC<WelcomeProps> = (props) => {
                     {partyIDs.map((res) => (
                         <PokemonCard pk_id={res.pk_id}> </PokemonCard>
                     ))}
+                    <Grid item>
+                    <AddPokemon party_id = {partyID}></AddPokemon >
+                    </Grid>
                 </Grid>
             </Grid>
         </Grid>
