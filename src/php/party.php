@@ -15,6 +15,10 @@ $fname = $data['fname'];
 
 //Specify the fname in api.tsx
 switch ($fname) {
+	case "getPartyIDs":
+		$partyID = $dataPacket['id77'];
+		echo json_encode(getPartyIDs($partyID));
+		break;
 	case "getImagesURLS":
 		$partyID = $dataPacket['id77'];
 		echo json_encode(getImagesURLS($partyID));

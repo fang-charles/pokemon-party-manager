@@ -136,6 +136,38 @@ function getItem($itemName)
 	return $results;
 }
 
+function getHeldItem($pk_id)
+{
+	global $db;
+
+	$query = "SELECT * FROM holding as h NATURAL JOIN item as i WHERE h.pk_id=:pk_id";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':pk_id', $pk_id);
+	$statement->execute();
+
+	$results = $statement->fetch();
+	$statement->closeCursor();
+
+	return $results;
+}
+
+function getLearnedMoves($pk_id)
+{
+	global $db;
+	$query = "SELECT * FROM learned as l NATURAL JOIN move as m WHERE l.pk_id=:pk_id";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':pk_id', $pk_id);
+	$statement->execute();
+
+	// fetchAll() returns an array for all of the rows in the result set
+	$results = $statement->fetchAll();
+
+	// closes the cursor and frees the connection to the server so other SQL statements may be issued
+	$statement->closecursor();
+
+	return $results;
+}
+
 function getAllItems()
 {
 	global $db;
@@ -236,6 +268,22 @@ function getSpecificPokemon($pkid)
 
 	$results = $statement->fetch();
 	$statement->closeCursor();
+
+	return $results;
+}
+
+function getAllBasePokemon()
+{
+	global $db;
+	$query = "SELECT * FROM base_pokemon";
+	$statement = $db->prepare($query);
+	$statement->execute();
+
+	// fetchAll() returns an array for all of the rows in the result set
+	$results = $statement->fetchAll();
+
+	// closes the cursor and frees the connection to the server so other SQL statements may be issued
+	$statement->closecursor();
 
 	return $results;
 }
@@ -403,9 +451,24 @@ function getImagesURLS($partyID)
 {
 	global $db;
 
-	$query = "SELECT DISTINCT sprite_data FROM member NATURAL JOIN base_info NATURAL JOIN base_pokemon WHERE party_id = :party_id;";
+	$query = "SELECT sprite_data FROM member NATURAL JOIN base_info NATURAL JOIN base_pokemon WHERE party_id = :party_id;";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':party_id', $partyID);
+	$statement->execute();
+
+	$results = $statement->fetchAll();
+	$statement->closeCursor();
+
+	return $results;
+}
+
+function getPartyIDs($partyID)
+{
+	global $db;
+
+	$query = "SELECT pk_id FROM party NATURAL JOIN member WHERE party_id = :partyID;";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':partyID', $partyID);
 	$statement->execute();
 
 	$results = $statement->fetchAll();

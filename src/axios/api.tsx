@@ -11,6 +11,7 @@ import {
     PokemonPacket,
     imageURL,
     partyID,
+    pkids,
 } from '../types/types';
 
 const apiUrl = 'http://localhost/cs4750/pokemon-party-manager/src/php/';
@@ -42,6 +43,10 @@ export function deletePokemon(pokeID: number) {
 //Items
 export function getItem(itemName: String) {
     return axios.post<Item>(apiUrl + 'item.php', { fname: 'getItem', dataPacket: { name77: itemName } });
+}
+
+export function getHeldItem(pk_id: number) {
+    return axios.post<Item>(apiUrl + 'item.php', { fname: 'getHeldItem', dataPacket: { pk_id: pk_id } });
 }
 
 export function gainItem(pokemonID: number, itemName: String) {
@@ -104,6 +109,10 @@ export function getAllMoves() {
     return axios.post<Move[]>(apiUrl + 'move.php', { fname: 'getAllMoves', dataPacket: {} });
 }
 
+export function getLearnedMoves(pk_id: number) {
+    return axios.post<Move[]>(apiUrl + 'move.php', { fname: 'getLearnedMoves', dataPacket: { pk_id: pk_id } });
+}
+
 export function learnMove(pokemonID: number, moveA: String, moveB: String, moveC: String, moveD: String) {
     return axios.post<Move>(apiUrl + 'move.php', {
         fname: 'learnMove',
@@ -145,4 +154,12 @@ export function createAccount(username: String, password: String) {
         fname: 'createAccount',
         dataPacket: { username: username, password: password },
     });
+}
+
+export function getAllBasePokemon() {
+    return axios.post<BasePokemon[]>(apiUrl + 'pokemon.php', { fname: 'getAllBasePokemon', dataPacket: {} });
+}
+
+export function getPartyIDs(partyID: number) {
+    return axios.post<pkids[]>(apiUrl + 'party.php', { fname: 'getPartyIDs', dataPacket: { id77: partyID } });
 }

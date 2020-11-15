@@ -172,13 +172,11 @@ function TestLarry() {
         member: member,
     });*/
 
-    /*
     React.useEffect(() => {
         getPartyGivenUsername(username).then((res) => {
             setID(res.data);
         });
     }, [party_id]);
-    */
 
     return (
         <div>
@@ -192,7 +190,9 @@ function TestLarry() {
             <TextField name="party id" label="Party id" onChange={handleInputChange} value={partyid} />
             <TextField name="username" label="Username" onChange={handleInputUsername} value={username} />
             <p>{JSON.stringify(party_id)}</p>
-            <PartySelectScreen partyID={count}> </PartySelectScreen>
+            <PartyScreen pkids={[11]} partyID={3}>
+                {' '}
+            </PartyScreen>
         </div>
     );
 }

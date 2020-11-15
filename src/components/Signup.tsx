@@ -143,7 +143,7 @@ const Login = () => {
             });
         } else {
             createAccount(state.username, state.password).then((res) => {
-                //console.log(res);
+                console.log(res);
                 if (res.data) {
                     dispatch({
                         type: 'loginSuccess',

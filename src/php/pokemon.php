@@ -19,6 +19,10 @@ switch ($fname) {
 		$pokedexNumber = $dataPacket['pokedexNumber'];
 		echo json_encode(getBasePokemon($pokedexNumber));
 		break;
+
+	case "getAllBasePokemon":
+		echo json_encode(getAllBasePokemon());
+		break;
 	case "deletePokemon":
 		$pokeID = $dataPacket['id77'];
 		echo json_encode(deletePokemon($pokeID));
