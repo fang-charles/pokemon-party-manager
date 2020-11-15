@@ -1,9 +1,10 @@
-import React from 'react'; // we need this to make JSX compile
-import { BasePokemon, Item, Move, Party, Pokemon, User } from '../../types/types';
+import React, { useState }  from 'react'; // we need this to make JSX compile
+import { BasePokemon, Item, Move, Party, Pokemon, User, PokemonPacket, imageURL} from '../../types/types';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import PokemonCard from '../pokemonCard/PokemonCard';
 import Grid, { GridSpacing } from '@material-ui/core/Grid';
 import '../../styles.css';
+import { getAllMoves, getAllItems, getSpecificPokemon, getPartyGivenUsername, getParty, getImagesURLS } from '../../axios/api';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -19,43 +20,62 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface WelcomeProps {
-    user: User;
+    partyID: number;
 }
 
 const PartySelectScreen: React.FC<WelcomeProps> = (props) => {
     const classes = useStyles();
-    let parties: Party[] = props.user.party;
+    let partyID: number = props.partyID;
+    
+    /*
+    let partiesIDs: numbers[] = []];
+    getPartyGivenUsername(props.username).then((res2)=>{
+        partiesIDs = res2.data;
+    })
+    function makeImage(sprite: string){
+        return (<img src ={sprite} className="photo"></img>);
+    }
+    */
+
+    //Grid spacing
     const [spacing, setSpacing] = React.useState<GridSpacing>(2);
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSpacing(Number((event.target as HTMLInputElement).value) as GridSpacing);
     };
 
-    const [expanded, setExpanded] = React.useState(false);
-    const [allMoves, setAllMoves] = React.useState<Move[]>([]);
-    const [allItems, setAllItems] = React.useState<Item[]>([]);
-    const [pkmn, setPkmn] = React.useState<User>({
-        user_id: 1,
-        username: '',
-        party: []
-    });
-    const [item, setItem] = React.useState<Item>();
-    const [moves, setMoves] = React.useState<Move[]>([]);
+    //partyID
+    const [partID, setPartID] = React.useState<number>(partyID);
+
+    //imagesURL array
+    const [imageURLs, setimageURLs] = React.useState<imageURL[]>([]);
+    
+    React.useEffect(() => {
+        getImagesURLS(partID).then((res) => {
+            setimageURLs(res.data);
+            //console.log("ImagesURLS: "+res.data);
+        })
+    }, [partID]);
 
     let width = 'width: 50px';
+
+    /*
+        {imageURLs.map((url) => (
+            <div className="party">
+                <p>{JSON.stringify(url)}</p>
+            </div>
+        ))}
+    */
 
     return (
         <Grid container className={classes.root} spacing={2}>
             <Grid item xs={12}>
                 <Grid container justify="center" spacing={spacing}>
-                    {parties.map((party) => (
-                        <div className="party">
-                            {' '}
-                            <h1 className="inLine">{party.party_id}</h1>
-                            {party.member.map((pokemon) => (
-                                <img src={pokemon.baseInfo.sprite_data} className="photo"></img>
-                            ))}
-                        </div>
+                    <div className="party">
+                        <h1 className="inLine">{partyID}</h1>
+                        {imageURLs.map((url) => (
+                        <img src ={url.sprite_data} className="photo"></img>
                     ))}
+                    </div>
                 </Grid>
             </Grid>
         </Grid>

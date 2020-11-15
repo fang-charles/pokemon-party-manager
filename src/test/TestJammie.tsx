@@ -107,12 +107,6 @@ function TestJammie() {
     }, [count]);
 
     React.useEffect(() => {
-        getParty(count).then((res) => {
-            setBase(res.data);
-        });
-    }, [count]);
-
-    React.useEffect(() => {
         deleteParty(count).then((res) => {
             setPartyDel(res.data);
         });

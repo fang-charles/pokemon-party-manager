@@ -4,7 +4,6 @@ import { BasePokemon, Item, Pokemon, Move, Party, User } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 import PokemonCard from '../components/pokemonCard/PokemonCard';
 import PartySelectScreen from '../components/PartySelectScreen/PartySelectScreen';
-import PartySelectCard from '../components/PartySelectScreen/PartySelectCard';
 import PartyScreen from '../components/PartyScreen/PartyScreen';
 
 function TestLarry() {
@@ -52,7 +51,7 @@ function TestLarry() {
         sprite_data: 'https://img.pokemondb.net/artwork/palkia.jpg',
     };
 
-    const [count, setCount] = useState<number>(1);
+    const [count, setCount] = useState<number>(2);
     const [level, setLevel] = useState<number>(90);
     const [nickname, setNickname] = useState<String>('KI MI NO NA WA');
     const [partyid, setPartyID] = useState<number>(1);
@@ -73,7 +72,7 @@ function TestLarry() {
     React.useEffect(() => {
         getItem('poke-ball').then((res) => {
             setItem(res.data);
-            console.log(res.data);
+            //console.log(res.data);
         });
     }, [count]);
 
@@ -145,11 +144,13 @@ function TestLarry() {
         setPokemon(pkmn);
     }
 
+    /*
     React.useEffect(() => {
         addPokemon(count, level, nickname, partyid).then((res) => {
             console.log(res.data);
         });
     }, [count]);
+    */
 
     let user1: User = {
         user_id: 5,
@@ -164,13 +165,12 @@ function TestLarry() {
     const [moves, setMoves] = React.useState<Move[]>([]);
 
     const [member, setMember] = React.useState<Pokemon[]>([]);
-    const [party_id, setID] = React.useState<number>(1);
+    const [party_id, setID] = React.useState<number[]>([1]);
 
-    const [pary, setPary] = React.useState<Party>({
+    /*const [pary, setPary] = React.useState<Party>({
         party_id: party_id,
         member: member,
-    });
-    
+    });*/
 
     React.useEffect(() => {
         getPartyGivenUsername(username).then((res) => {
@@ -190,12 +190,9 @@ function TestLarry() {
             <TextField name="party id" label="Party id" onChange={handleInputChange} value={partyid} />
             <TextField name="username" label="Username" onChange={handleInputUsername} value={username} />
             <p>{JSON.stringify(party_id)}</p>
-            <p>{JSON.stringify(base)}</p>
-            <p>{JSON.stringify(pokemon)}</p>
-            <PokemonCard pk_id={myBulbasaur.pkID}> </PokemonCard>
-            <PokemonCard pk_id={myIvysaur.pkID}> </PokemonCard>
-            <PartyScreen party={part}></PartyScreen>
-            <PartySelectScreen user={user1}> </PartySelectScreen>
+            <PartyScreen pkids={[136, 137]} partyID={2}>
+                {' '}
+            </PartyScreen>
         </div>
     );
 }
