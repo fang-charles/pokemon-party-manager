@@ -50,6 +50,13 @@ export type Pokemon = {
     baseInfo: BasePokemon;
 };
 
+export type AddPokemonPacket = {
+    nickname: string;
+    level: number;
+    pokedex_number: number;
+    baseInfo: BasePokemon;
+};
+
 export type Item = {
     item_name: string;
     item_description: string;
@@ -93,3 +100,61 @@ export type PokemonPacket = {
     holding?: Item;
     moves: Move[];
 };
+
+export const emptyMoves = () =>
+{
+    return(
+        [
+            {
+                move_name: 'm0',
+                power: 40,
+                accuracy: 100,
+                type: 'Poison',
+                pp: 30,
+                effect: 'e0',
+            },
+            {
+                move_name: 'm1',
+                power: 40,
+                accuracy: 100,
+                type: 'Poison',
+                pp: 30,
+                effect: 'e1',
+            },
+            {
+                move_name: 'm2',
+                power: 40,
+                accuracy: 100,
+                type: 'Poison',
+                pp: 30,
+                effect: 'e2',
+            },
+            {
+                move_name: 'm3',
+                power: 40,
+                accuracy: 100,
+                type: 'Poison',
+                pp: 30,
+                effect: 'e3',
+            },
+        ]
+    )
+} 
+
+export const defaultBasePokemon = ()=>{
+    return(
+        {
+            pokedex_number: 1,
+            name: 'defaultBaseName',
+            type1: 'type1',
+            type2: 'type2',
+            hp: 1,
+            attack: 2,
+            defense: 3,
+            special_attack: 4,
+            special_defense: 5,
+            speed: 6,
+            sprite_data: '',
+        }
+    )
+}

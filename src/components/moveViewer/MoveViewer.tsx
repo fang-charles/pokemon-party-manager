@@ -44,19 +44,18 @@ const MoveViewer: React.FC<WelcomeProps> = (props) => {
         setExpanded(isExpanded ? panel : false);
     };
 
-
     return (
         <div className={classes.root}>
-            <MoveAccordion learnedMoves={moves} index ={0} allMoves={allMoves} setLearnedMoves={setMoves}>
+            <MoveAccordion learnedMoves={moves} index={0} allMoves={allMoves} setLearnedMoves={setMoves}>
                 {' '}
             </MoveAccordion>
-            <MoveAccordion learnedMoves={moves} index ={1} allMoves={allMoves} setLearnedMoves={setMoves}>
+            <MoveAccordion learnedMoves={moves} index={1} allMoves={allMoves} setLearnedMoves={setMoves}>
                 {' '}
             </MoveAccordion>
-            <MoveAccordion learnedMoves={moves} index ={2} allMoves={allMoves} setLearnedMoves={setMoves}>
+            <MoveAccordion learnedMoves={moves} index={2} allMoves={allMoves} setLearnedMoves={setMoves}>
                 {' '}
             </MoveAccordion>
-            <MoveAccordion learnedMoves={moves} index ={3} allMoves={allMoves} setLearnedMoves={setMoves}>
+            <MoveAccordion learnedMoves={moves} index={3} allMoves={allMoves} setLearnedMoves={setMoves}>
                 {' '}
             </MoveAccordion>
         </div>

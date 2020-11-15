@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import { Item } from '../../types/types';
-import {loseItem} from '../../axios/api';
+import { loseItem } from '../../axios/api';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         button: {
             margin: theme.spacing(1),
-          },
+        },
     }),
 );
 
@@ -37,7 +37,7 @@ interface WelcomeProps {
     item: Item;
     allItems: Item[];
     setItem: (item: Item) => void;
-    pk_id:number;
+    pk_id: number;
 }
 
 const ItemAccordion: React.FC<WelcomeProps> = (props) => {
@@ -55,17 +55,21 @@ const ItemAccordion: React.FC<WelcomeProps> = (props) => {
 
     function handleInputChange(event, value) {
         setItem(value);
-      }
+    }
 
-      const handleDrop = () => {
+    const handleDrop = () => {
         loseItem(pk_id, item.item_name);
         setItem(null);
-    }
+    };
 
     return (
         <>
             <Accordion expanded={expanded === 'itemPanel1'} onChange={handleChange('itemPanel1')}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="itemPanel1bh-content" id="itemPanel1bh-header">
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="itemPanel1bh-content"
+                    id="itemPanel1bh-header"
+                >
                     <Typography className={classes.heading}>{item ? item.item_name : 'Empty'}</Typography>
                     <Typography className={classes.secondaryHeading}>{item ? item.item_description : ''}</Typography>
                 </AccordionSummary>
@@ -79,14 +83,13 @@ const ItemAccordion: React.FC<WelcomeProps> = (props) => {
                         renderInput={(params) => <TextField {...params} label="Item Selection" variant="outlined" />}
                     />
 
-<Button
-        variant="contained"
-        color="primary"
-        size="small"
-        startIcon={<DeleteIcon />}
-        onClick={handleDrop}
-      >
-      </Button>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        startIcon={<DeleteIcon />}
+                        onClick={handleDrop}
+                    ></Button>
                 </AccordionDetails>
             </Accordion>
         </>

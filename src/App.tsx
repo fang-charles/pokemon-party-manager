@@ -13,6 +13,7 @@ import TestEldon from './test/TestEldon';
 import TestJammie from './test/TestJammie';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import UserIDSelect from './components/addPokemon/UserIDSelect';
 
 class App extends Component {
     render() {
@@ -29,6 +30,7 @@ class App extends Component {
                     <Route exact path="/test/jammie" component={TestJammie}></Route>
                     <Route exact path="/components/Login" component={Login}></Route>
                     <Route exact path="/components/Signup" component={Signup}></Route>
+                    <Route exact path="/components/AddPokemon" component={UserIDSelect}></Route>
                 </Switch>
             </>
         );

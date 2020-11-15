@@ -1,5 +1,5 @@
 import React from 'react'; // we need this to make JSX compile
-import { BasePokemon, Item, Move, Pokemon, PokemonPacket } from '../../types/types';
+import { BasePokemon, Item, Move, Pokemon, PokemonPacket, AddPokemonPacket, defaultBasePokemon } from '../../types/types';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import MoveViewer from '../moveViewer/MoveViewer';
 import ItemAccordion from '../itemAccordion/ItemAccordion';
@@ -12,6 +12,9 @@ import {
     gainItem,
     loseItem,
     learnMove,
+	addPokemon,
+	getAllBasePokemon,
+	getBasePokemon
 } from '../../axios/api';
 
 import clsx from 'clsx';
@@ -31,9 +34,11 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
+import {TextField} from '@material-ui/core';
+import {Autocomplete} from '@material-ui/lab';
 
 interface WelcomeProps {
-    pk_id: number;
+    user_id: number;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -60,145 +65,107 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         button: {
             margin: theme.spacing(1),
-        },
+		},
+		textField: {
+			marginLeft: theme.spacing(1),
+			marginRight: theme.spacing(1),
+			width: '25ch',
+		  },
     }),
 );
 
-const PokemonCard: React.FC<WelcomeProps> = (props) => {
-    let pk_id = props.pk_id;
-
-    let emptyMoves: Move[] = [
-        {
-            move_name: 'm0',
-            power: 40,
-            accuracy: 100,
-            type: 'Poison',
-            pp: 30,
-            effect: 'e0',
-        },
-        {
-            move_name: 'm1',
-            power: 40,
-            accuracy: 100,
-            type: 'Poison',
-            pp: 30,
-            effect: 'e1',
-        },
-        {
-            move_name: 'm2',
-            power: 40,
-            accuracy: 100,
-            type: 'Poison',
-            pp: 30,
-            effect: 'e2',
-        },
-        {
-            move_name: 'm3',
-            power: 40,
-            accuracy: 100,
-            type: 'Poison',
-            pp: 30,
-            effect: 'e3',
-        },
-    ];
+const AddPokemon: React.FC<WelcomeProps> = (props) => {
+    let user_id = props.user_id;
 
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(true);
-    const [allMoves, setAllMoves] = React.useState<Move[]>([]);
-    const [allItems, setAllItems] = React.useState<Item[]>([]);
-    const [pkmn, setPkmn] = React.useState<PokemonPacket>({
-        pkID: 1,
-        nickname: '',
-        level: 0,
-        pokedex_number: 1,
-        name: '',
-        type1: '',
-        type2: '',
-        hp: 0,
-        attack: 0,
-        defense: 0,
-        special_attack: 0,
-        special_defense: 0,
-        speed: 0,
-        sprite_data: '',
-        moves: emptyMoves,
-    });
-    const [item, setItem] = React.useState<Item>();
-    const [learnedMoves, setLearnedMoves] = React.useState<Move[]>([]);
+    const [pkmn, setPkmn] = React.useState<AddPokemonPacket>({
+		nickname: 'defaultNickname',
+		level: 1,
+		pokedex_number: 151,
+		baseInfo: defaultBasePokemon()
+	});
+	const [allBasePokemon, setAllBasePokemon] = React.useState<BasePokemon[]>([]);
+
 
     React.useEffect(() => {
-        getAllMoves().then((res) => {
-            setAllMoves(res.data);
-        });
+		getAllBasePokemon().then((res)=>{
+			setAllBasePokemon(res.data);
+		})
+		getBasePokemon(151).then((res)=>{
+			setPkmn({...pkmn, baseInfo: res.data});
+		})
     }, []);
 
-    React.useEffect(() => {
-        getAllItems().then((res) => {
-            setAllItems(res.data);
-        });
-    }, []);
-
-    React.useEffect(() => {
-        getSpecificPokemon(pk_id).then((res) => {
-            setPkmn(res.data);
-        });
-        getHeldItem(pk_id).then((res) => {
-            setItem(res.data);
-        });
-        getLearnedMoves(pk_id)
-            .then((res) => {
-                setLearnedMoves(res.data);
-            })
-            .then(() => {
-                console.log(learnedMoves);
-            });
-    }, [pk_id]);
 
     React.useEffect(() => {
         console.log(pkmn);
     }, [pkmn]);
 
-    React.useEffect(() => {
-        setPkmn({ ...pkmn, holding: item });
-    }, [item]);
 
-    React.useEffect(() => {
-        setPkmn({ ...pkmn, moves: learnedMoves });
-    }, [learnedMoves]);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
     const handleSave = () => {
-        if (pkmn.holding) {
-            gainItem(pk_id, pkmn.holding.item_name);
-        }
-        if (pkmn.moves.length == 4) {
-            learnMove(
-                pk_id,
-                pkmn.moves[0].move_name,
-                pkmn.moves[1].move_name,
-                pkmn.moves[2].move_name,
-                pkmn.moves[3].move_name,
-            );
-            alert('Saved!');
-        } else {
-            alert('You must have four moves!');
-        }
+        alert('saved');
     };
 
-    const handleSetItem = (item: Item) => {
-        setItem(item);
-    };
+	function handleInputChangeBasePokemon(event, value) {
+        setPkmn({...pkmn, baseInfo: value});
+    }
 
-    const handleSetLearnedMoves = (moves: Move[]) => {
-        setLearnedMoves(moves);
-    };
+	function handleInputChangeNickname(event) {
+        setPkmn({...pkmn, nickname: event.target.value});
+	}
+	
+	function handleInputChangeLevel(event) {
+		console.log(event)
+        setPkmn({...pkmn, level: event.target.value});
+    }
 
     return (
         <>
+		<br></br>
+		<div> 
+		<Autocomplete
+                        id="combo-box-item"
+                        options={allBasePokemon}
+                        getOptionLabel={(option) => option.name}
+                        onChange={handleInputChangeBasePokemon}
+                        style={{ width: 300 }}
+                        renderInput={(params) => <TextField {...params} label="Pokemon Selection" variant="outlined" />}
+                    />
+		</div>
+<br></br>
+		<div>        <TextField
+          id="standard-full-width"
+          label="Nickname"
+          style={{ margin: 8 }}
+          fullWidth
+		  margin="normal"
+		  value = {pkmn.nickname}
+		  onChange ={handleInputChangeNickname}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        /></div>
+		<div>        <TextField
+          id="standard-full-width"
+          label="Level"
+          style={{ margin: 8 }}
+          helperText="Level is between 1 and 100"
+          fullWidth
+		  margin="normal"
+		  value={pkmn.level}
+		  onChange={handleInputChangeLevel}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        /></div>
             <Card className={classes.root}>
+				
                 <CardHeader
                     avatar={
                         <Avatar aria-label="recipe" className={classes.avatar}>
@@ -210,19 +177,19 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
                             <MoreVertIcon />
                         </IconButton>
                     }
-                    title={pkmn ? pkmn.name : ''}
-                    subheader={pkmn ? pkmn.nickname + ' PK_ID: ' + pk_id : ''}
+                    title={pkmn ? pkmn.baseInfo.name : ''}
+                    subheader={pkmn ? pkmn.nickname : ''}
                 />
-                <CardMedia className={classes.media} image={pkmn.sprite_data} title={pkmn.name} />
+                <CardMedia className={classes.media} image={pkmn.baseInfo.sprite_data} title={pkmn.baseInfo.name} />
                 <CardContent>
-                    {pkmn && (
+                    {pkmn.baseInfo && (
                         <Typography variant="body2" color="textSecondary" component="p" align="right">
-                            HP: {pkmn.hp} <br />
-                            Attack: {pkmn.attack} <br />
-                            Defense: {pkmn.defense} <br />
-                            Special Attack: {pkmn.special_attack} <br />
-                            Special Defense: {pkmn.special_defense} <br />
-                            Speed: {pkmn.speed} <br />
+                            HP: {pkmn.baseInfo.hp} <br />
+                            Attack: {pkmn.baseInfo.attack} <br />
+                            Defense: {pkmn.baseInfo.defense} <br />
+                            Special Attack: {pkmn.baseInfo.special_attack} <br />
+                            Special Defense: {pkmn.baseInfo.special_defense} <br />
+                            Speed: {pkmn.baseInfo.speed} <br />
                         </Typography>
                     )}
                 </CardContent>
@@ -246,17 +213,6 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                        <Typography paragraph>Item:</Typography>
-                        <ItemAccordion item={item} allItems={allItems} setItem={handleSetItem} pk_id={pk_id}>
-                            {' '}
-                        </ItemAccordion>
-                        <br></br>
-                        <Typography paragraph>Moves:</Typography>
-                        <MoveViewer
-                            moves={learnedMoves}
-                            allMoves={allMoves}
-                            setMoves={handleSetLearnedMoves}
-                        ></MoveViewer>
                         <Button
                             variant="contained"
                             color="primary"
@@ -274,4 +230,4 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
     );
 };
 
-export default PokemonCard;
+export default AddPokemon;

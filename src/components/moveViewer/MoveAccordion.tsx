@@ -49,13 +49,12 @@ const MoveAccordion: React.FC<WelcomeProps> = (props) => {
     };
 
     function handleInputChange(event, value) {
-        let newMoves:Move[] = []
-        learnedMoves.forEach(val => newMoves.push(Object.assign({}, val)));
+        let newMoves: Move[] = [];
+        learnedMoves.forEach((val) => newMoves.push(Object.assign({}, val)));
         newMoves[index] = value;
         console.log(newMoves);
         setLearnedMoves(newMoves);
-        
-      }
+    }
 
     return (
         <>
@@ -66,7 +65,7 @@ const MoveAccordion: React.FC<WelcomeProps> = (props) => {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Autocomplete
-                        id={"combo-box-demo"}
+                        id={'combo-box-demo'}
                         options={allMoves}
                         getOptionLabel={(option) => option.move_name}
                         style={{ width: 300 }}

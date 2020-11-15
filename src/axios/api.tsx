@@ -82,8 +82,8 @@ export function getAllMoves() {
     return axios.post<Move[]>(apiUrl + 'move.php', { fname: 'getAllMoves', dataPacket: {} });
 }
 
-export function getLearnedMoves(pk_id:number) {
-    return axios.post<Move[]>(apiUrl + 'move.php', { fname: 'getLearnedMoves', dataPacket: {pk_id: pk_id} });
+export function getLearnedMoves(pk_id: number) {
+    return axios.post<Move[]>(apiUrl + 'move.php', { fname: 'getLearnedMoves', dataPacket: { pk_id: pk_id } });
 }
 
 export function learnMove(pokemonID: number, moveA: String, moveB: String, moveC: String, moveD: String) {
@@ -127,4 +127,8 @@ export function createAccount(username: String, password: String) {
         fname: 'createAccount',
         dataPacket: { username: username, password: password },
     });
+}
+
+export function getAllBasePokemon() {
+    return axios.post<BasePokemon[]>(apiUrl + 'pokemon.php', { fname: 'getAllBasePokemon', dataPacket: {} });
 }
