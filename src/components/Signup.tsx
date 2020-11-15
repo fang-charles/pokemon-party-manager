@@ -186,32 +186,32 @@ const Login = () => {
         });
     };
 
-    let partyArr: number[];
-    getPartyGivenUsername(state.username).then((res) => {
-        partyArr = res.data;
-    });
-
     function makeParty(num: number) {
         return (
             <>
-                <PartySelectScreen partyID={number}></PartySelectScreen>
+                <PartySelectScreen partyID={num}></PartySelectScreen>
                 <br></br>
             </>
         );
     }
 
     function genParty(num: number) {
-        <a>Placeholder for genParty</a>
+        return <a>Placeholder for genParty</a>;
     }
 
-    if (state.loggedIn) {
-        return (
-            <div>
-                {partyArr.map((num) => makeParty(num))}
-                {genParty(4 - partyArr.length)}
-            </div>
-        );
-    }
+    let partyArr: any[] = [];
+    getPartyGivenUsername(state.username).then((res) => {
+        partyArr = res.data;
+        if (state.loggedIn) {
+            return (
+                <div>
+                    {partyArr.map((num) => makeParty(num))}
+                    {genParty(4 - partyArr.length)}
+                </div>
+            );
+        }
+    });
+
     return (
         <form className={classes.container} noValidate autoComplete="off">
             <Card className={classes.card}>

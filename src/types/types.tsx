@@ -95,4 +95,4 @@ export type PokemonPacket = {
 
 export type imageURL = {
     sprite_data: string;
-}
+};

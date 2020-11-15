@@ -104,6 +104,7 @@ const reducer = (state: State, action: Action): State => {
 const Login = () => {
     const classes = useStyles();
     const [state, dispatch] = useReducer(reducer, initialState);
+    const [logedin, setlogedin] = React.useState<boolean>(false); 
 
     //sets button to only enable if something is typed
     useEffect(() => {
@@ -132,6 +133,7 @@ const Login = () => {
                     payload: 'Incorrect password!',
                 });
             } else {
+                setlogedin(true);
                 dispatch({
                     type: 'loginSuccess',
                     payload: 'Login Successfully',
@@ -160,34 +162,35 @@ const Login = () => {
         });
     };
 
-    let partyArr: number[];
-    getPartyGivenUsername(state.username).then((res) => {
-        partyArr = res.data;
-    });
-
     function makeParty(num: number) {
         return (
             <>
-                <PartySelectScreen partyID={number}></PartySelectScreen>
+                <PartySelectScreen partyID={num}></PartySelectScreen>
                 <br></br>
             </>
         );
     }
 
     function genParty(num: number) {
-        <a>Placeholder for genParty</a>
+        return <a>Placeholder for genParty</a>;
     }
 
-    if (state.loggedIn) {
-        return (
-            <div>
-                {partyArr.map((num) => makeParty(num))}
-                {genParty(4 - partyArr.length)}
-            </div>
-        );
-    }
+    let partyArr: any[] = [];
+    getPartyGivenUsername(state.username).then((res) => {
+        partyArr = res.data;
+        if (state.loggedIn) {
+            console.log(partyArr);
+            /* return (
+                <div>
+                    {partyArr.map((num) => makeParty(num))}
+                    {genParty(4 - partyArr.length)}
+                </div>
+            ); */
+        }
+    });
+
     return (
-        <form className={classes.container} noValidate autoComplete="off">
+            <form className={classes.container} noValidate autoComplete="off">
             <Card className={classes.card}>
                 <CardHeader className={classes.header} title="Login to play Pokemon!" />
                 <CardContent>
