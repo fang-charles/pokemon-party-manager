@@ -38,9 +38,7 @@ interface WelcomeProps {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {
-            maxWidth: 345,
-        },
+        root: {},
         media: {
             height: 0,
             paddingTop: '100.00%', // 16:9

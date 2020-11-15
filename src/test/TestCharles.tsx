@@ -3,6 +3,7 @@ import { getBasePokemon, getItem, addPokemon, getSpecificPokemon, getLearnedMove
 import { BasePokemon, Item, Pokemon, Move } from '../types/types';
 import TextField from '@material-ui/core/TextField';
 import PokemonCard from '../components/pokemonCard/PokemonCard';
+import { Grid } from '@material-ui/core';
 
 function TestCharles() {
     // Declare a new state variable, which we'll call "count"
@@ -123,17 +124,22 @@ function TestCharles() {
     }
 
     return (
-        <div>
-            Charles's Testing Room
-            {makeImage('https://img.pokemondb.net/artwork/bulbasaur.jpg')}
-            <p>You clicked {count} times</p>
-            <button onClick={() => setCount(count + 1)}>Click me</button>
-            <br></br>
-            <TextField name="name" label="PK_ID" type="number" onChange={handleInputChange} value={count} />
-            <PokemonCard pk_id={count}> </PokemonCard>
-            {arr.map((num) => makeButton(num))}
-            {genParty(4 - arr.length)}
-        </div>
+        <Grid container spacing={3} justify="center">
+            <Grid item xs={4}>
+                <div>
+                    Charles's Testing Room
+                    {makeImage('https://img.pokemondb.net/artwork/bulbasaur.jpg')}
+                    <p>You clicked {count} times</p>
+                    <button onClick={() => setCount(count + 1)}>Click me</button>
+                    <br></br>
+                    <TextField name="name" label="PK_ID" type="number" onChange={handleInputChange} value={count} />
+                    {count > 3 && <PokemonCard pk_id={count}> </PokemonCard>}
+                    <div>hello</div>
+                    {arr.map((num) => makeButton(num))}
+                    {genParty(4 - arr.length)}
+                </div>
+            </Grid>
+        </Grid>
     );
 }
 export default TestCharles;
