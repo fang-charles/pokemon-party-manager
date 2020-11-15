@@ -8,7 +8,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
 
-import { verifyPassword, createAccount } from '../axios/api';
+import { createAccount, getPartyGivenUsername } from '../axios/api';
 import { Loginer } from '../types/types';
 import PartySelectScreen from './PartySelectScreen/PartySelectScreen';
 
@@ -185,9 +185,33 @@ const Login = () => {
             payload: event.target.value,
         });
     };
-/*     if (state.loggedIn) {
-        return <PartySelectScreen user={state.username}></PartySelectScreen>;
-    } */
+
+    let partyArr: number[];
+    getPartyGivenUsername(state.username).then((res) => {
+        partyArr = res.data;
+    });
+
+    function makeParty(num: number) {
+        return (
+            <>
+                <PartySelectScreen partyID={number}></PartySelectScreen>
+                <br></br>
+            </>
+        );
+    }
+
+    function genParty(num: number) {
+        <a>Placeholder for genParty</a>
+    }
+
+    if (state.loggedIn) {
+        return (
+            <div>
+                {partyArr.map((num) => makeParty(num))}
+                {genParty(4 - partyArr.length)}
+            </div>
+        );
+    }
     return (
         <form className={classes.container} noValidate autoComplete="off">
             <Card className={classes.card}>
