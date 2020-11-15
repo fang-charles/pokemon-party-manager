@@ -244,7 +244,7 @@ function getUserID($username)
 {
 	global $db;
 
-	$query = "SELECT * FROM user WHERE username = :username;";
+	$query = "SELECT User_id FROM user WHERE username = :username;";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':username', $username);
 	$statement->execute();
@@ -308,15 +308,6 @@ function addPokemon($pokedex_number, $lev, $nickname, $party_id)
 
 	return $results;
 }
-/**
- * $query = "CALL countBoats(@p0)";
-         	echo ": prepare ";
-         	$statement = $db->prepare($query);
-         	echo ": execute"; 
-         	$statement->execute();
-         	$counter = $statement->setFetchMode(PDO::FETCH_ASSOC);
-
- */
 
 function deletePokemon($pokeID)
 {
