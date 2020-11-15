@@ -31,6 +31,10 @@ export function getItem(itemName: String) {
     return axios.post<Item>(apiUrl + 'item.php', { fname: 'getItem', dataPacket: { name77: itemName } });
 }
 
+export function getHeldItem(pk_id: number) {
+    return axios.post<Item>(apiUrl + 'item.php', { fname: 'getHeldItem', dataPacket: { pk_id: pk_id } });
+}
+
 export function gainItem(pokemonID: number, itemName: String) {
     return axios.post<Item>(apiUrl + 'item.php', {
         fname: 'gainItem',

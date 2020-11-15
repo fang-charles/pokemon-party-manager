@@ -52,7 +52,7 @@ const MoveAccordion: React.FC<WelcomeProps> = (props) => {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Autocomplete
-                        id="combo-box-demo"
+                        id={"combo-box-demo"}
                         options={allMoves}
                         getOptionLabel={(option) => option.move_name}
                         style={{ width: 300 }}

@@ -3,7 +3,7 @@ import { BasePokemon, Item, Move, Pokemon, PokemonPacket } from '../../types/typ
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import MoveViewer from '../moveViewer/MoveViewer';
 import ItemAccordion from '../itemAccordion/ItemAccordion';
-import { getAllMoves, getAllItems, getSpecificPokemon } from '../../axios/api';
+import { getAllMoves, getAllItems, getSpecificPokemon, getHeldItem } from '../../axios/api';
 
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -97,6 +97,10 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
     React.useEffect(() => {
         getSpecificPokemon(pk_id).then((res) => {
             setPkmn(res.data);
+        });
+        getHeldItem(pk_id).then((res)=>{
+            console.log(res.data);
+            setItem(res.data);
         });
     }, [pk_id]);
 

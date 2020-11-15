@@ -51,14 +51,14 @@ const ItemAccordion: React.FC<WelcomeProps> = (props) => {
 
     return (
         <>
-            <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+            <Accordion expanded={expanded === 'itemPanel1'} onChange={handleChange('itemPanel1')}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="itemPanel1bh-content" id="itemPanel1bh-header">
                     <Typography className={classes.heading}>{item ? item.item_name : 'Empty'}</Typography>
                     <Typography className={classes.secondaryHeading}>{item ? item.item_description : ''}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Autocomplete
-                        id="combo-box-demo"
+                        id="combo-box-item"
                         options={allItems}
                         getOptionLabel={(option) => option.item_name}
                         onChange={handleInputChange}
