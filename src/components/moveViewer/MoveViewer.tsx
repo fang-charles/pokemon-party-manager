@@ -29,11 +29,13 @@ const useStyles = makeStyles((theme: Theme) =>
 interface WelcomeProps {
     moves: Move[];
     allMoves: Move[];
+    setMoves: (moves: Move[]) => void;
 }
 
 const MoveViewer: React.FC<WelcomeProps> = (props) => {
     let moves: Move[] = props.moves;
     let allMoves: Move[] = props.allMoves;
+    let setMoves = props.setMoves;
 
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState<string | false>(false);
@@ -42,18 +44,19 @@ const MoveViewer: React.FC<WelcomeProps> = (props) => {
         setExpanded(isExpanded ? panel : false);
     };
 
+
     return (
         <div className={classes.root}>
-            <MoveAccordion move={moves[0]} allMoves={allMoves}>
+            <MoveAccordion learnedMoves={moves} index ={0} allMoves={allMoves} setLearnedMoves={setMoves}>
                 {' '}
             </MoveAccordion>
-            <MoveAccordion move={moves[1]} allMoves={allMoves}>
+            <MoveAccordion learnedMoves={moves} index ={1} allMoves={allMoves} setLearnedMoves={setMoves}>
                 {' '}
             </MoveAccordion>
-            <MoveAccordion move={moves[2]} allMoves={allMoves}>
+            <MoveAccordion learnedMoves={moves} index ={2} allMoves={allMoves} setLearnedMoves={setMoves}>
                 {' '}
             </MoveAccordion>
-            <MoveAccordion move={moves[3]} allMoves={allMoves}>
+            <MoveAccordion learnedMoves={moves} index ={3} allMoves={allMoves} setLearnedMoves={setMoves}>
                 {' '}
             </MoveAccordion>
         </div>

@@ -3,7 +3,7 @@ import { BasePokemon, Item, Move, Pokemon, PokemonPacket } from '../../types/typ
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import MoveViewer from '../moveViewer/MoveViewer';
 import ItemAccordion from '../itemAccordion/ItemAccordion';
-import { getAllMoves, getAllItems, getSpecificPokemon, getHeldItem, getLearnedMoves, gainItem, loseItem} from '../../axios/api';
+import { getAllMoves, getAllItems, getSpecificPokemon, getHeldItem, getLearnedMoves, gainItem, loseItem, learnMove} from '../../axios/api';
 
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -58,6 +58,40 @@ const useStyles = makeStyles((theme: Theme) =>
 const PokemonCard: React.FC<WelcomeProps> = (props) => {
     let pk_id = props.pk_id;
 
+
+    let emptyMoves:Move[] = [    {
+        move_name: 'm0',
+        power: 40,
+        accuracy: 100,
+        type: 'Poison',
+        pp: 30,
+        effect: "e0",
+    },
+    {
+        move_name: 'm1',
+        power: 40,
+        accuracy: 100,
+        type: 'Poison',
+        pp: 30,
+        effect: "e1",
+    },
+    {
+        move_name: 'm2',
+        power: 40,
+        accuracy: 100,
+        type: 'Poison',
+        pp: 30,
+        effect: "e2",
+    },
+    {
+        move_name: 'm3',
+        power: 40,
+        accuracy: 100,
+        type: 'Poison',
+        pp: 30,
+        effect: "e3",
+    }];
+
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(true);
     const [allMoves, setAllMoves] = React.useState<Move[]>([]);
@@ -77,7 +111,7 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
         special_defense: 0,
         speed: 0,
         sprite_data: '',
-        moves:[],
+        moves:emptyMoves,
     });
     const [item, setItem] = React.useState<Item>();
     const [learnedMoves, setLearnedMoves] = React.useState<Move[]>([]);
@@ -103,25 +137,49 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
         });
         getLearnedMoves(pk_id).then((res)=>{
             setLearnedMoves(res.data);
+        }).then(()=>{
+            console.log(learnedMoves);
         });
     }, [pk_id]);
+
+    React.useEffect(() => {
+        console.log(pkmn);
+    }, [pkmn]);
 
 
     React.useEffect(()=>{
         setPkmn({ ...pkmn, holding: item });
     },[item])
 
+    React.useEffect(()=>{
+        setPkmn({ ...pkmn, moves: learnedMoves });
+    },[learnedMoves])
+
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
     const handleSave = () => {
-        gainItem(pk_id, pkmn.holding.item_name);
-        alert("Saved!");
+        if(pkmn.holding){
+            gainItem(pk_id, pkmn.holding.item_name);
+        }
+        if(pkmn.moves.length == 4){
+            learnMove(pk_id, pkmn.moves[0].move_name, pkmn.moves[1].move_name, pkmn.moves[2].move_name,pkmn.moves[3].move_name);
+            alert("Saved!");
+        }
+        else{
+            alert("You must have four moves!");
+        }
+        
     }
 
     const handleSetItem = (item:Item) => {
         setItem(item);
+    }
+
+    
+    const handleSetLearnedMoves = (moves:Move[]) => {
+        setLearnedMoves(moves);
     }
 
     return (
@@ -181,7 +239,7 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
                     </ItemAccordion>
                     <br></br>
                     <Typography paragraph>Moves:</Typography>
-                    <MoveViewer moves={learnedMoves} allMoves={allMoves}></MoveViewer>
+                    <MoveViewer moves={learnedMoves} allMoves={allMoves} setMoves={handleSetLearnedMoves}></MoveViewer>
                     <Button
         variant="contained"
         color="primary"

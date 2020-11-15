@@ -28,13 +28,18 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface WelcomeProps {
-    move: Move;
+    learnedMoves: Move[];
+    index: number;
     allMoves: Move[];
+    setLearnedMoves: (moves: Move[]) => void;
 }
 
 const MoveAccordion: React.FC<WelcomeProps> = (props) => {
-    let move: Move = props.move;
+    let learnedMoves: Move[] = props.learnedMoves;
+    let index: number = props.index;
+    let move = learnedMoves[index];
     let allMoves = props.allMoves;
+    let setLearnedMoves = props.setLearnedMoves;
 
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState<string | false>(false);
@@ -42,6 +47,15 @@ const MoveAccordion: React.FC<WelcomeProps> = (props) => {
     const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
         setExpanded(isExpanded ? panel : false);
     };
+
+    function handleInputChange(event, value) {
+        let newMoves:Move[] = []
+        learnedMoves.forEach(val => newMoves.push(Object.assign({}, val)));
+        newMoves[index] = value;
+        console.log(newMoves);
+        setLearnedMoves(newMoves);
+        
+      }
 
     return (
         <>
@@ -56,6 +70,7 @@ const MoveAccordion: React.FC<WelcomeProps> = (props) => {
                         options={allMoves}
                         getOptionLabel={(option) => option.move_name}
                         style={{ width: 300 }}
+                        onChange={handleInputChange}
                         renderInput={(params) => <TextField {...params} label="Move Selection" variant="outlined" />}
                     />
                 </AccordionDetails>

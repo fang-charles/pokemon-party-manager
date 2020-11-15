@@ -375,10 +375,11 @@ function deletePokemon($pokeID)
 function verifyPassword($username, $password)
 {
 	global $db;
-	$query = "SELECT * FROM user WHERE username = :username AND password = PASSWORD(:password)";
+	$hash = hash('md5', $password);
+	$query = "SELECT * FROM user WHERE username = :username AND password = :hash";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':username', $username);
-	$statement->bindValue(':password', $password);
+	$statement->bindValue(':hash', $hash);
 	$statement->execute();
 
 	$results = $statement->fetch();
@@ -390,10 +391,11 @@ function verifyPassword($username, $password)
 function createAccount($username, $password)
 {
 	global $db;
-	$query = "INSERT INTO user (username, password) VALUES (:username, PASSWORD(:password));";
+	$hash = hash('md5', $password);
+	$query = "INSERT INTO user (username, password) VALUES (:username, :hash);";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':username', $username);
-	$statement->bindValue(':password', $password);
+	$statement->bindValue(':hash', $hash);
 	try {
 		$statement->execute();
 	} catch (Exception $exception) {
