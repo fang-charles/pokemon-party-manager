@@ -1,21 +1,13 @@
 import React, { useState } from 'react';
 import {
-    getBasePokemon,
-    getItem,
-    getParty,
-    getUser,
     getMove,
-    getUserID,
     deleteParty,
     deletePokemon,
-    gainItem,
     addParty,
     learnMove,
-    forgetMove,
 } from '../axios/api';
 import { BasePokemon, Item, Pokemon, Move, Party, User } from '../types/types';
 import TextField from '@material-ui/core/TextField';
-import PokemonCard from '../components/pokemonCard/PokemonCard';
 
 function TestJammie() {
     // Declare a new state variable, which we'll call "count"
@@ -36,14 +28,6 @@ function TestJammie() {
     };
     let move1: Move = {
         move_name: 'jump',
-        power: 40,
-        accuracy: 100,
-        type: 'poison',
-        pp: 3,
-        effect: 'jumps',
-    };
-    let move2: Move = {
-        move_name: 'jump2',
         power: 40,
         accuracy: 100,
         type: 'poison',
@@ -87,7 +71,6 @@ function TestJammie() {
     };
 
     const [count, setCount] = useState(1);
-    const [base, setBase] = useState<Party>(party1);
     const [partyDel, setPartyDel] = useState<Party>(party1);
     const [move, setMove] = useState<Move>(move1);
     const [pokeDel, setPokeDel] = useState<Pokemon>(poki1);

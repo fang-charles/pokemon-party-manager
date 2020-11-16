@@ -1,17 +1,12 @@
-import React, { useState } from 'react'; // we need this to make JSX compile
-import { BasePokemon, Item, Move, Party, Pokemon, User, PokemonPacket, imageURL } from '../../types/types';
+import React from 'react'; // we need this to make JSX compile
+import { imageURL } from '../../types/types';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import PokemonCard from '../pokemonCard/PokemonCard';
 import Grid, { GridSpacing } from '@material-ui/core/Grid';
 import '../../styles.css';
 import {
-    getAllMoves,
-    getAllItems,
-    getSpecificPokemon,
-    getPartyGivenUsername,
-    getParty,
     getImagesURLS,
 } from '../../axios/api';
+import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

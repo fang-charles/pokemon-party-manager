@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { getBasePokemon, getItem, getSpecificPokemon, addPokemon, getPartyGivenUsername } from '../axios/api';
 import { BasePokemon, Item, Pokemon, Move, Party, User } from '../types/types';
 import TextField from '@material-ui/core/TextField';
-import PokemonCard from '../components/pokemonCard/PokemonCard';
 import PartySelectScreen from '../components/PartySelectScreen/PartySelectScreen';
-import PartyScreen from '../components/PartyScreen/PartyScreen';
 import AddParty from '../components/PartySelectScreen/AddParty';
 
 function TestLarry() {
@@ -60,7 +58,6 @@ function TestLarry() {
     const [base2, setBase2] = useState<BasePokemon>(ivysaur);
     const [base3, setBase3] = useState<BasePokemon>(palkia);
     const [item, setItem] = useState<Item>();
-    const [party, getParty] = useState<Party>();
 
     const [username, setUsername] = useState<String>('admin1');
 
@@ -159,13 +156,6 @@ function TestLarry() {
         party: [part, part, part, part, part, part],
     };
 
-    const [expanded, setExpanded] = React.useState(false);
-    const [allMoves, setAllMoves] = React.useState<Move[]>([]);
-    const [allItems, setAllItems] = React.useState<Item[]>([]);
-
-    const [moves, setMoves] = React.useState<Move[]>([]);
-
-    const [member, setMember] = React.useState<Pokemon[]>([]);
     //const [party_id, setID] = React.useState<number[]>([1]);
 
     /*const [pary, setPary] = React.useState<Party>({

@@ -1,5 +1,5 @@
 import React from 'react'; // we need this to make JSX compile
-import { BasePokemon, Item, Move, Pokemon, PokemonPacket } from '../../types/types';
+import { Item, Move, PokemonPacket } from '../../types/types';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import MoveViewer from '../moveViewer/MoveViewer';
 import ItemAccordion from '../itemAccordion/ItemAccordion';
@@ -10,7 +10,6 @@ import {
     getHeldItem,
     getLearnedMoves,
     gainItem,
-    loseItem,
     learnMove,
     deletePokemon,
 } from '../../axios/api';
@@ -26,8 +25,6 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';

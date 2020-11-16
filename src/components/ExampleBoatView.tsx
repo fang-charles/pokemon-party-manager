@@ -1,7 +1,6 @@
 import React from 'react'; // we need this to make JSX compile
 import { Boat } from '../types/types';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';

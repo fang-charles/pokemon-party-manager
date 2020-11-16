@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { getBasePokemon, getItem, addPokemon, getSpecificPokemon, getLearnedMoves, getPartyGivenUserId } from '../../axios/api';
-import { BasePokemon, Item, Pokemon, Move , partyID} from '../../types/types';
+import React from 'react';
+import { getPartyGivenUserId } from '../../axios/api';
+import { partyID} from '../../types/types';
 import TextField from '@material-ui/core/TextField';
-import PokemonCard from '../pokemonCard/PokemonCard';
 import PartySelectScreen from '../PartySelectScreen/PartySelectScreen';
 import PartyScreen from '../PartyScreen/PartyScreen';
 import AddParty from '../PartySelectScreen/AddParty';

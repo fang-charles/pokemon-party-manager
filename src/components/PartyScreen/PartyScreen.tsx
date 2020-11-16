@@ -1,5 +1,5 @@
 import React from 'react'; // we need this to make JSX compile
-import { BasePokemon, Item, Move, Pokemon, Party, pkids } from '../../types/types';
+import { pkids } from '../../types/types';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import PokemonCard from '../pokemonCard/PokemonCard';
 import Grid, { GridSpacing } from '@material-ui/core/Grid';
