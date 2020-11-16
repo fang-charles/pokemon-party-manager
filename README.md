@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## See Project Report for Instructions
 
-In the project directory, you can run:
+In the project report, we have more detailed instructions on how to view this project
 
 ### `yarn start`
 
