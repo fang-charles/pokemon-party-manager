@@ -33,6 +33,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
+import GetAppIcon from '@material-ui/icons/GetApp';
 
 interface WelcomeProps {
     pk_id: number;
@@ -154,9 +155,7 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
             });
     }, [pk_id]);
 
-    React.useEffect(() => {
-        console.log(pkmn);
-    }, [pkmn]);
+
 
     React.useEffect(() => {
         setPkmn({ ...pkmn, holding: item });
@@ -203,6 +202,8 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
 
     };
 
+  
+
     return (
         <>
             <Card className={classes.root}>
@@ -237,8 +238,16 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
                     <IconButton aria-label="delete" onClick={handleDelete}>
                         <DeleteIcon />
                     </IconButton>
-                    <IconButton aria-label="share">
-                        <ShareIcon />
+                    <IconButton aria-label="share" onClick={()=>{
+                            var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(pkmn));
+                            var downloadAnchorNode = document.createElement('a');
+                            downloadAnchorNode.setAttribute("href",     dataStr);
+                            downloadAnchorNode.setAttribute("download", "pkmn.json");
+                            document.body.appendChild(downloadAnchorNode); // required for firefox
+                            downloadAnchorNode.click();
+                            downloadAnchorNode.remove();
+                    }}>
+                        <GetAppIcon />
                     </IconButton>
                     <IconButton
                         className={clsx(classes.expand, {
