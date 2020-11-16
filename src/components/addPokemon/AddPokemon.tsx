@@ -107,7 +107,9 @@ const AddPokemon: React.FC<WelcomeProps> = (props) => {
     };
 
     const handleSave = () => {
-        addPokemon(pkmn.pokedex_number, pkmn.level, pkmn.nickname, party_Id)
+        let validLevel: boolean = (pkmn.level >= 1) && (pkmn.level <= 100);
+        if(validLevel){
+            addPokemon(pkmn.pokedex_number, pkmn.level, pkmn.nickname, party_Id)
             .then((res) => {
                 console.log(res.data);
                 alert('Successfully Added! PK_ID: ' + res.data['pk_id']);
@@ -115,6 +117,10 @@ const AddPokemon: React.FC<WelcomeProps> = (props) => {
             .catch(() => {
                 alert('Exception Caught');
             });
+        }
+        else{
+            alert("Invalid Level");
+        }
     };
 
     function handleInputChangeBasePokemon(event, value) {
