@@ -194,7 +194,7 @@ const Login = () => {
     }
 
     function genParty(num: number) {
-        return <a>Placeholder for genParty</a>;
+        return <h1>You Successfully Signed-up!</h1>;
     }
 
     const [partyArr, setPartyArr] = React.useState<partyID[]>([]);

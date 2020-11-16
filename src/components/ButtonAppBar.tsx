@@ -29,11 +29,9 @@ export default function ButtonAppBar() {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
+  
                     <Typography variant="h6" className={classes.title}>
-                        News
+                        Pokemon Party Manager
                     </Typography>
 
                     {/* <Link to="/test/charles">
@@ -57,15 +55,10 @@ export default function ButtonAppBar() {
                     <Link to="/components/Signup">
                         <Button>Signup</Button>
                     </Link>
-                    <Link to="/components/AddPokemon">
-                        <Button>Add PKMN</Button>
-                    </Link>
-                    <Link to="/components/AdminView">
-                        <Button>Admin</Button>
-                    </Link>
-                    <Link to="/">
+                    <Link to="/components/HomeView">
                         <Button>Home</Button>
                     </Link>
+
                 </Toolbar>
             </AppBar>
         </div>

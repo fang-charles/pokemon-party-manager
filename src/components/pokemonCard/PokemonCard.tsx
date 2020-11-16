@@ -191,9 +191,8 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
     };
 
     const handleDelete = () => {
-        deletePokemon(pk_id).then(() => {
-            alert('deleted');
-        });
+        deletePokemon(pk_id);
+        alert('You deleted PK_ID: ' + pk_id);
     };
 
     return (

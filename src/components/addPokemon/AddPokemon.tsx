@@ -116,7 +116,7 @@ const AddPokemon: React.FC<WelcomeProps> = (props) => {
 
     return (
         <div>
-            <Card className={classes.root}>
+            <Card className={classes.root} style={{backgroundColor: '#e6e5d3'}}>
                 <CardHeader
                     avatar={
                         <Avatar aria-label="recipe" className={classes.avatar}>

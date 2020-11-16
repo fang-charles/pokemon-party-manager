@@ -29,7 +29,7 @@ class App extends Component {
                     <Route exact path="/components/Login" component={Login}></Route>
                     <Route exact path="/components/Signup" component={Signup}></Route>
                     <Route exact path="/components/AddPokemon" component={UserIDSelect}></Route>
-                    <Route exact path="/components/AdminView" component={AdminView}></Route>
+                    <Route exact path="/components/HomeView" component={AdminView}></Route>
                 </Switch>
             </>
         );
