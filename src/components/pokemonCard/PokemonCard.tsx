@@ -12,7 +12,7 @@ import {
     gainItem,
     loseItem,
     learnMove,
-    deletePokemon
+    deletePokemon,
 } from '../../axios/api';
 
 import clsx from 'clsx';
@@ -109,7 +109,7 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
     const [allItems, setAllItems] = React.useState<Item[]>([]);
     const [pkmn, setPkmn] = React.useState<PokemonPacket>({
         pkID: 1,
-        nickname: '',
+        nickname: 'Loading',
         level: 0,
         pokedex_number: 1,
         name: '',
@@ -155,8 +155,6 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
             });
     }, [pk_id]);
 
-
-
     React.useEffect(() => {
         setPkmn({ ...pkmn, holding: item });
     }, [item]);
@@ -196,13 +194,10 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
     };
 
     const handleDelete = () => {
-        deletePokemon(pk_id).then(()=>{
-            alert("deleted");
-        })
-
+        deletePokemon(pk_id).then(() => {
+            alert('deleted');
+        });
     };
-
-  
 
     return (
         <>
@@ -238,15 +233,18 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
                     <IconButton aria-label="delete" onClick={handleDelete}>
                         <DeleteIcon />
                     </IconButton>
-                    <IconButton aria-label="share" onClick={()=>{
-                            var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(pkmn));
+                    <IconButton
+                        aria-label="share"
+                        onClick={() => {
+                            var dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(pkmn));
                             var downloadAnchorNode = document.createElement('a');
-                            downloadAnchorNode.setAttribute("href",     dataStr);
-                            downloadAnchorNode.setAttribute("download", "pkmn.json");
+                            downloadAnchorNode.setAttribute('href', dataStr);
+                            downloadAnchorNode.setAttribute('download', 'pkmn.json');
                             document.body.appendChild(downloadAnchorNode); // required for firefox
                             downloadAnchorNode.click();
                             downloadAnchorNode.remove();
-                    }}>
+                        }}
+                    >
                         <GetAppIcon />
                     </IconButton>
                     <IconButton

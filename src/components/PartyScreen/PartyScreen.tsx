@@ -3,7 +3,7 @@ import { BasePokemon, Item, Move, Pokemon, Party, pkids } from '../../types/type
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import PokemonCard from '../pokemonCard/PokemonCard';
 import Grid, { GridSpacing } from '@material-ui/core/Grid';
-import { getPartyIDs} from '../../axios/api';
+import { getPartyIDs } from '../../axios/api';
 import AddPokemon from '../addPokemon/AddPokemon';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -45,14 +45,13 @@ const PartyScreen: React.FC<WelcomeProps> = (props) => {
 
     //pk_id of pokemon in Party
     const [partyIDs, setPartyIDs] = React.useState<pkids[]>([]);
-    
+
     React.useEffect(() => {
-            getPartyIDs(thispartyID).then((res) => {
-                
-                setPartyIDs(res.data);
-                console.log("PartyIDs: "+res.data);
-        })
-    }, [thispartyID]);
+        getPartyIDs(partyID).then((res) => {
+            setPartyIDs(res.data);
+            console.log('PartyIDs: ' + res.data);
+        });
+    }, [thispartyID, partyID]);
 
     /*Party Screen given pkid's
     {pkids.map((pkid, index) => {
@@ -68,15 +67,15 @@ const PartyScreen: React.FC<WelcomeProps> = (props) => {
 
     return (
         <Grid container className={classes.root} spacing={2}>
-                <Grid container justify="center" spacing={spacing}>
-                    {partyIDs.map((res) => (
-                        <Grid item xs={2}>
-                        <PokemonCard pk_id={res.pk_id}> </PokemonCard>
-                        </Grid>
-                    ))}
+            <Grid container justify="center" spacing={spacing}>
+                {partyIDs.map((res) => (
                     <Grid item xs={2}>
-                    {partyIDs.length < 6 && <AddPokemon party_id = {partyID}></AddPokemon >}
+                        <PokemonCard pk_id={res.pk_id}> </PokemonCard>
                     </Grid>
+                ))}
+                <Grid item xs={2}>
+                    {partyIDs.length < 6 && <AddPokemon party_id={partyID}></AddPokemon>}
+                </Grid>
             </Grid>
         </Grid>
     );

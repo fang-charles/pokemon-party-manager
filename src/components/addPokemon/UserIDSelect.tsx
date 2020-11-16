@@ -8,7 +8,7 @@ import { Grid } from '@material-ui/core';
 function UserIDSelect() {
     const [pid, setPid] = React.useState<number>(1);
 
-    const handleInputChange = (e) => {
+    const handleInputChangePid = (e) => {
         setPid(e.target.value);
     };
 
@@ -30,7 +30,7 @@ function UserIDSelect() {
                         name="name"
                         label="Party_ID"
                         type="number"
-                        onChange={handleInputChange}
+                        onChange={handleInputChangePid}
                         value={pid}
                         fullWidth
                     />

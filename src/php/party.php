@@ -27,6 +27,10 @@ switch ($fname) {
 		$partyID = $dataPacket['id77'];
 		echo json_encode(getPartyGivenUsername($partyID));
 		break;
+	case "getPartyGivenUserId":
+		$uid = $dataPacket['uid'];
+		echo json_encode(getPartyGivenUserId($uid));
+		break;
 	case "getParty":
 		$partyID = $dataPacket['id77'];
 		echo json_encode(getParty($partyID));

@@ -1,5 +1,5 @@
-import React, { useState }  from 'react'; // we need this to make JSX compile
-import { BasePokemon, imageURL} from '../../types/types';
+import React, { useState } from 'react'; // we need this to make JSX compile
+import { BasePokemon, imageURL } from '../../types/types';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import '../../styles.css';
 import { getImagesURLS, addParty } from '../../axios/api';
@@ -59,49 +59,49 @@ const AddParty: React.FC<WelcomeProps> = (props) => {
 
     //imagesURL array
     const [imageURLs, setimageURLs] = React.useState<imageURL[]>([]);
-    
+
     React.useEffect(() => {
         getImagesURLS(user_ID).then((res) => {
             setimageURLs(res.data);
             //console.log("ImagesURLS: "+res.data);
-        })
+        });
     }, [user_ID]);
 
     let width = 'width: 50px';
 
-   const [expanded, setExpanded] = React.useState(true);
-   const [allBasePokemon, setAllBasePokemon] = React.useState<BasePokemon[]>([]);
+    const [expanded, setExpanded] = React.useState(true);
+    const [allBasePokemon, setAllBasePokemon] = React.useState<BasePokemon[]>([]);
 
-   const handleExpandClick = () => {
-       setExpanded(!expanded);
-   };
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
 
     const handleSave = () => {
-        addParty(user_ID)
+        addParty(userID)
             .then((res) => {
                 //console.log(user_ID);
                 console.log(res.data);
-                alert('Successfully Added! party_id: ' + res.data['party_id']);
+                alert('Successfully Added To User: ' + userID +'! party_id: ' + res.data['party_id']);
             })
             .catch(() => {
                 alert('Exception Caught');
             });
     };
 
-   return (
-       <>
-           <br></br>
-           <Button
-               variant="contained"
-               color="primary"
-               className={classes.button}
-               startIcon={<Icon className="fa fa-plus-circle" style={{ fontSize: 30 }} />}
-               onClick={handleSave}
-               fullWidth
-           >
-               Add Party
-           </Button>
-       </>
+    return (
+        <>
+            <br></br>
+            <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                startIcon={<Icon className="fa fa-plus-circle" style={{ fontSize: 30 }} />}
+                onClick={handleSave}
+                fullWidth
+            >
+                Add Party
+            </Button>
+        </>
     );
 };
 export default AddParty;

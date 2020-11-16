@@ -193,12 +193,7 @@ function TestLarry() {
             <TextField name="nickname" label="Nickname" onChange={handleInputChange} value={nickname} />
             <TextField name="party id" label="Party id" onChange={handleInputChange} value={partyid} />
             <TextField name="username" label="Username" onChange={handleInputUsername} value={username} />
-        
-
-            <PartySelectScreen partyID={2}>
-                {' '}
-            </PartySelectScreen>
-
+            <PartySelectScreen partyID={2}> </PartySelectScreen>
             <AddParty userID={3}></AddParty>
         </div>
     );
