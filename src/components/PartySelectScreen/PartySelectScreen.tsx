@@ -1,10 +1,17 @@
-import React, { useState }  from 'react'; // we need this to make JSX compile
-import { BasePokemon, Item, Move, Party, Pokemon, User, PokemonPacket, imageURL} from '../../types/types';
+import React, { useState } from 'react'; // we need this to make JSX compile
+import { BasePokemon, Item, Move, Party, Pokemon, User, PokemonPacket, imageURL } from '../../types/types';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import PokemonCard from '../pokemonCard/PokemonCard';
 import Grid, { GridSpacing } from '@material-ui/core/Grid';
 import '../../styles.css';
-import { getAllMoves, getAllItems, getSpecificPokemon, getPartyGivenUsername, getParty, getImagesURLS } from '../../axios/api';
+import {
+    getAllMoves,
+    getAllItems,
+    getSpecificPokemon,
+    getPartyGivenUsername,
+    getParty,
+    getImagesURLS,
+} from '../../axios/api';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -26,7 +33,7 @@ interface WelcomeProps {
 const PartySelectScreen: React.FC<WelcomeProps> = (props) => {
     const classes = useStyles();
     let partyID: number = props.partyID;
-    
+
     /*
     let partiesIDs: numbers[] = []];
     getPartyGivenUsername(props.username).then((res2)=>{
@@ -48,13 +55,13 @@ const PartySelectScreen: React.FC<WelcomeProps> = (props) => {
 
     //imagesURL array
     const [imageURLs, setimageURLs] = React.useState<imageURL[]>([]);
-    
+
     React.useEffect(() => {
-        getImagesURLS(partID).then((res) => {
+        getImagesURLS(partyID).then((res) => {
             setimageURLs(res.data);
             //console.log("ImagesURLS: "+res.data);
-        })
-    }, [partID]);
+        });
+    }, [partID, partyID]);
 
     let width = 'width: 50px';
 
@@ -73,8 +80,8 @@ const PartySelectScreen: React.FC<WelcomeProps> = (props) => {
                     <div className="party">
                         <h1 className="inLine">{partyID}</h1>
                         {imageURLs.map((url) => (
-                        <img src ={url.sprite_data} className="photo"></img>
-                    ))}
+                            <img src={url.sprite_data} className="photo"></img>
+                        ))}
                     </div>
                 </Grid>
             </Grid>

@@ -107,24 +107,23 @@ const AddPokemon: React.FC<WelcomeProps> = (props) => {
     };
 
     const handleSave = () => {
-        let validLevel: boolean = (pkmn.level >= 1) && (pkmn.level <= 100);
-        if(validLevel){
+        let validLevel: boolean = pkmn.level >= 1 && pkmn.level <= 100;
+        if (validLevel) {
             addPokemon(pkmn.pokedex_number, pkmn.level, pkmn.nickname, party_Id)
-            .then((res) => {
-                console.log(res.data);
-                alert('Successfully Added! PK_ID: ' + res.data['pk_id']);
-            })
-            .catch(() => {
-                alert('Exception Caught');
-            });
-        }
-        else{
-            alert("Invalid Level");
+                .then((res) => {
+                    console.log(res.data);
+                    alert('Successfully Added! PK_ID: ' + res.data['pk_id']);
+                })
+                .catch(() => {
+                    alert('Exception Caught');
+                });
+        } else {
+            alert('Invalid Level');
         }
     };
 
     function handleInputChangeBasePokemon(event, value) {
-		setPkmn({ ...pkmn, baseInfo: value, pokedex_number: value.pokedex_number });
+        setPkmn({ ...pkmn, baseInfo: value, pokedex_number: value.pokedex_number });
     }
 
     function handleInputChangeNickname(event) {
@@ -138,50 +137,6 @@ const AddPokemon: React.FC<WelcomeProps> = (props) => {
 
     return (
         <div>
-            <div>
-                <Autocomplete
-                    id="combo-box-item"
-                    options={allBasePokemon}
-                    getOptionLabel={(option) => option.name}
-                    onChange={handleInputChangeBasePokemon}
-                    style={{ width: 300 }}
-                    renderInput={(params) => (
-                        <TextField {...params} fullWidth label="Pokemon Selection" variant="outlined" />
-                    )}
-                />
-            </div>
-            <br></br>
-            <div>
-                {' '}
-                <TextField
-                    id="standard-full-width"
-                    label="Nickname"
-                    style={{ margin: 8 }}
-                    fullWidth
-                    margin="normal"
-                    value={pkmn.nickname}
-                    onChange={handleInputChangeNickname}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                />
-            </div>
-            <div>
-                {' '}
-                <TextField
-                    id="standard-full-width"
-                    label="Level"
-                    style={{ margin: 8 }}
-                    helperText="Level is between 1 and 100"
-                    fullWidth
-                    margin="normal"
-                    value={pkmn.level}
-                    onChange={handleInputChangeLevel}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                />
-            </div>
             <Card className={classes.root}>
                 <CardHeader
                     avatar={
@@ -199,40 +154,50 @@ const AddPokemon: React.FC<WelcomeProps> = (props) => {
                 />
                 <CardMedia className={classes.media} image={pkmn.baseInfo.sprite_data} title={pkmn.baseInfo.name} />
                 <CardContent>
-                    {pkmn.baseInfo && (
-                        <Typography variant="body2" color="textSecondary" component="p" align="right">
-                            HP: {pkmn.baseInfo.hp} <br />
-                            Attack: {pkmn.baseInfo.attack} <br />
-                            Defense: {pkmn.baseInfo.defense} <br />
-                            Special Attack: {pkmn.baseInfo.special_attack} <br />
-                            Special Defense: {pkmn.baseInfo.special_defense} <br />
-                            Speed: {pkmn.baseInfo.speed} <br />
-                        </Typography>
+                <div>
+                <Autocomplete
+                    id="combo-box-item"
+                    options={allBasePokemon}
+                    getOptionLabel={(option) => option.name}
+                    onChange={handleInputChangeBasePokemon}
+                    renderInput={(params) => (
+                        <TextField {...params} label="Pokemon Selection"  />
                     )}
+                />
+            </div>
+            <br></br>
+            <div>
+                {' '}
+                <TextField
+                    id="standard-full-width"
+                    label="Nickname"
+                    style={{ margin: 8 }}
+                    margin="normal"
+                    value={pkmn.nickname}
+                    onChange={handleInputChangeNickname}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                />
+            </div>
+            <div>
+                {' '}
+                <TextField
+                    id="standard-full-width"
+                    label="Level"
+                    style={{ margin: 8 }}
+                    helperText="Level is between 1 and 100"
+                    margin="normal"
+                    value={pkmn.level}
+                    onChange={handleInputChangeLevel}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                />
+            </div>
                 </CardContent>
-                <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
-                        <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                        <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                        className={clsx(classes.expand, {
-                            [classes.expandOpen]: expanded,
-                        })}
-                        onClick={handleExpandClick}
-                        aria-expanded={expanded}
-                        aria-label="show more"
-                    >
-                        <ExpandMoreIcon />
-                    </IconButton>
-                </CardActions>
-                <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <CardContent></CardContent>
-                </Collapse>
-            </Card>
-            <Button
+
+                <Button
                 variant="contained"
                 color="primary"
                 className={classes.button}
@@ -242,7 +207,8 @@ const AddPokemon: React.FC<WelcomeProps> = (props) => {
             >
                 Add Pokemon
             </Button>
-            <p>{JSON.stringify(pkmn)} </p>
+            </Card>
+            
         </div>
     );
 };

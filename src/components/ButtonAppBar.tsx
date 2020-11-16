@@ -60,6 +60,9 @@ export default function ButtonAppBar() {
                     <Link to="/components/AddPokemon">
                         <Button>Add PKMN</Button>
                     </Link>
+                    <Link to="/components/AdminView">
+                        <Button>Admin</Button>
+                    </Link>
                     <Link to="/">
                         <Button>Home</Button>
                     </Link>

@@ -14,6 +14,7 @@ import TestJammie from './test/TestJammie';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import UserIDSelect from './components/addPokemon/UserIDSelect';
+import AdminView from './components/adminView/AdminView';
 
 class App extends Component {
     render() {
@@ -31,6 +32,7 @@ class App extends Component {
                     <Route exact path="/components/Login" component={Login}></Route>
                     <Route exact path="/components/Signup" component={Signup}></Route>
                     <Route exact path="/components/AddPokemon" component={UserIDSelect}></Route>
+                    <Route exact path="/components/AdminView" component={AdminView}></Route>
                 </Switch>
             </>
         );
