@@ -81,7 +81,7 @@ const AddParty: React.FC<WelcomeProps> = (props) => {
             .then((res) => {
                 //console.log(user_ID);
                 console.log(res.data);
-                alert('Successfully Added To User: ' + userID +'! party_id: ' + res.data['party_id']);
+                alert('Successfully Added To User: ' + userID + '! party_id: ' + res.data['party_id']);
             })
             .catch(() => {
                 alert('Exception Caught');

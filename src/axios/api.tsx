@@ -164,7 +164,6 @@ export function getPartyIDs(partyID: number) {
     return axios.post<pkids[]>(apiUrl + 'party.php', { fname: 'getPartyIDs', dataPacket: { id77: partyID } });
 }
 
-
 export function getPartyGivenUserId(uid: number) {
     return axios.post<partyID[]>(apiUrl + 'party.php', { fname: 'getPartyGivenUserId', dataPacket: { uid: uid } });
 }

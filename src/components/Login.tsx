@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import PartySelectScreen from './PartySelectScreen/PartySelectScreen';
 import { Divider } from '@material-ui/core';
 import { partyID } from '../types/types';
+import reducer from '../reducer';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -37,8 +38,6 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-//state type
-
 type State = {
     username: string;
     password: string;
@@ -57,55 +56,15 @@ const initialState: State = {
     loggedIn: false,
 };
 
-type Action =
-    | { type: 'setUsername'; payload: string }
-    | { type: 'setPassword'; payload: string }
-    | { type: 'setIsButtonDisabled'; payload: boolean }
-    | { type: 'loginSuccess'; payload: string }
-    | { type: 'loginFailed'; payload: string }
-    | { type: 'setIsError'; payload: boolean };
+interface WelcomeProps {
+    auth: () => void
+}
 
-const reducer = (state: State, action: Action): State => {
-    switch (action.type) {
-        case 'setUsername':
-            return {
-                ...state,
-                username: action.payload,
-            };
-        case 'setPassword':
-            return {
-                ...state,
-                password: action.payload,
-            };
-        case 'setIsButtonDisabled':
-            return {
-                ...state,
-                isButtonDisabled: action.payload,
-            };
-        case 'loginSuccess':
-            return {
-                ...state,
-                helperText: action.payload,
-                isError: false,
-                loggedIn: true,
-            };
-        case 'loginFailed':
-            return {
-                ...state,
-                helperText: action.payload,
-                isError: true,
-            };
-        case 'setIsError':
-            return {
-                ...state,
-                isError: action.payload,
-            };
-    }
-};
 
-const Login = () => {
-    const classes = useStyles();
+const Login: React.FC<WelcomeProps> = (props) => {
+    let auth = props.auth;
     const [state, dispatch] = useReducer(reducer, initialState);
+    const classes = useStyles();
 
     //sets button to only enable if something is typed
     useEffect(() => {
@@ -128,18 +87,23 @@ const Login = () => {
         verifyPassword(state.username, state.password).then((res) => {
             //pw = res.data;
             //pass = pw.password;
+
+            //loginFailed
             if (!res.data) {
                 dispatch({
                     type: 'loginFailed',
                     payload: 'Incorrect password!',
                 });
+
+                //SUCCESS
             } else {
                 dispatch({
                     type: 'loginSuccess',
                     payload: 'Login Successfully',
                 });
+                
             }
-        });
+        }).then(()=>auth());
     };
 
     const handleKeyPress = (event: React.KeyboardEvent) => {
@@ -188,6 +152,8 @@ const Login = () => {
 
     }); */
 
+
+    console.log("-------------------------------------------")
     if (state.loggedIn) {
         return (
             <div>

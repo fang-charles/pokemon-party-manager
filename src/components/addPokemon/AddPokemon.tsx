@@ -154,61 +154,58 @@ const AddPokemon: React.FC<WelcomeProps> = (props) => {
                 />
                 <CardMedia className={classes.media} image={pkmn.baseInfo.sprite_data} title={pkmn.baseInfo.name} />
                 <CardContent>
-                <div>
-                <Autocomplete
-                    id="combo-box-item"
-                    options={allBasePokemon}
-                    getOptionLabel={(option) => option.name}
-                    onChange={handleInputChangeBasePokemon}
-                    renderInput={(params) => (
-                        <TextField {...params} label="Pokemon Selection"  />
-                    )}
-                />
-            </div>
-            <br></br>
-            <div>
-                {' '}
-                <TextField
-                    id="standard-full-width"
-                    label="Nickname"
-                    style={{ margin: 8 }}
-                    margin="normal"
-                    value={pkmn.nickname}
-                    onChange={handleInputChangeNickname}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                />
-            </div>
-            <div>
-                {' '}
-                <TextField
-                    id="standard-full-width"
-                    label="Level"
-                    style={{ margin: 8 }}
-                    helperText="Level is between 1 and 100"
-                    margin="normal"
-                    value={pkmn.level}
-                    onChange={handleInputChangeLevel}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                />
-            </div>
+                    <div>
+                        <Autocomplete
+                            id="combo-box-item"
+                            options={allBasePokemon}
+                            getOptionLabel={(option) => option.name}
+                            onChange={handleInputChangeBasePokemon}
+                            renderInput={(params) => <TextField {...params} label="Pokemon Selection" />}
+                        />
+                    </div>
+                    <br></br>
+                    <div>
+                        {' '}
+                        <TextField
+                            id="standard-full-width"
+                            label="Nickname"
+                            style={{ margin: 8 }}
+                            margin="normal"
+                            value={pkmn.nickname}
+                            onChange={handleInputChangeNickname}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                    </div>
+                    <div>
+                        {' '}
+                        <TextField
+                            id="standard-full-width"
+                            label="Level"
+                            style={{ margin: 8 }}
+                            helperText="Level is between 1 and 100"
+                            margin="normal"
+                            value={pkmn.level}
+                            onChange={handleInputChangeLevel}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                    </div>
                 </CardContent>
 
                 <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                startIcon={<SaveIcon />}
-                onClick={handleSave}
-                fullWidth
-            >
-                Add Pokemon
-            </Button>
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    startIcon={<SaveIcon />}
+                    onClick={handleSave}
+                    fullWidth
+                >
+                    Add Pokemon
+                </Button>
             </Card>
-            
         </div>
     );
 };
