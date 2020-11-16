@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { getBasePokemon, getItem, addPokemon, getSpecificPokemon, getLearnedMoves } from '../../axios/api';
-import { BasePokemon, Item, Pokemon, Move } from '../../types/types';
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import AddPokemon from './AddPokemon';
 import { Grid } from '@material-ui/core';

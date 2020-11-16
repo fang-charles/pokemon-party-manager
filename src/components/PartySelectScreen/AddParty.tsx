@@ -1,14 +1,8 @@
-import React, { useState } from 'react'; // we need this to make JSX compile
-import { BasePokemon, imageURL } from '../../types/types';
+import React from 'react'; // we need this to make JSX compile
+import { imageURL } from '../../types/types';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import '../../styles.css';
 import { getImagesURLS, addParty } from '../../axios/api';
-import SaveIcon from '@material-ui/icons/Save';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
 import { red } from '@material-ui/core/colors';
 import Icon from '@material-ui/core/Icon';
@@ -67,14 +61,7 @@ const AddParty: React.FC<WelcomeProps> = (props) => {
         });
     }, [user_ID]);
 
-    let width = 'width: 50px';
-
     const [expanded, setExpanded] = React.useState(true);
-    const [allBasePokemon, setAllBasePokemon] = React.useState<BasePokemon[]>([]);
-
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
 
     const handleSave = () => {
         addParty(userID)
