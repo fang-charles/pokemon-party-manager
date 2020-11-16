@@ -101,7 +101,7 @@ function addParty($userID)
 
 	$results = $statement->fetch();
 	$statement->closeCursor();
-	
+
 	return $results;
 }
 
@@ -243,17 +243,32 @@ function getParty($partyID)
 
 function getPartyGivenUsername($username)
 {
-    global $db;
+	global $db;
 
-    $query = "SELECT DISTINCT party_id FROM user NATURAL JOIN team WHERE username = :username;";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':username', $username);
-    $statement->execute();
+	$query = "SELECT DISTINCT party_id FROM user NATURAL JOIN team WHERE username = :username;";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':username', $username);
+	$statement->execute();
 
-    $results = $statement->fetchAll();
-    $statement->closeCursor();
+	$results = $statement->fetchAll();
+	$statement->closeCursor();
 
-    return $results;
+	return $results;
+}
+
+function getPartyGivenUserId($user_id)
+{
+	global $db;
+
+	$query = "SELECT DISTINCT party_id FROM user NATURAL JOIN team WHERE user_id = :uid;";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':uid', $user_id);
+	$statement->execute();
+
+	$results = $statement->fetchAll();
+	$statement->closeCursor();
+
+	return $results;
 }
 
 function getSpecificPokemon($pkid)
@@ -399,46 +414,46 @@ function deletePokemon($pokeID)
 //login related queries
 function verifyPassword($username, $password)
 {
-    global $db;
-    $hash = hash('md5', $password);
-    $query = "SELECT * FROM user WHERE username = :username AND password = :hash";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':username', $username);
-    $statement->bindValue(':hash', $hash);
-    $statement->execute();
+	global $db;
+	$hash = hash('md5', $password);
+	$query = "SELECT * FROM user WHERE username = :username AND password = :hash";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':username', $username);
+	$statement->bindValue(':hash', $hash);
+	$statement->execute();
 
-    $results = $statement->fetch();
-    $statement->closeCursor();
+	$results = $statement->fetch();
+	$statement->closeCursor();
 
-    return $results;
+	return $results;
 }
 
 function createAccount($username, $password)
 {
-    global $db;
-    $hash = hash('md5', $password);
-    $query = "INSERT INTO user (username, password) VALUES (:username, :hash);";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':username', $username);
-    $statement->bindValue(':hash', $hash);
-    try {
-        $statement->execute();
-    } catch (Exception $exception) {
+	global $db;
+	$hash = hash('md5', $password);
+	$query = "INSERT INTO user (username, password) VALUES (:username, :hash);";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':username', $username);
+	$statement->bindValue(':hash', $hash);
+	try {
+		$statement->execute();
+	} catch (Exception $exception) {
 		$statement->closeCursor();
-        return false;
-    }
+		return false;
+	}
 
-    $results = $statement->fetch();
-    $statement->closeCursor();
+	$results = $statement->fetch();
+	$statement->closeCursor();
 
-    $q1 = "SELECT * FROM user WHERE username = :username;";
-    $statement1 = $db->prepare($q1);
-    $statement1->bindValue(':username', $username);
-    $statement1->execute();
-    $ret = $statement1->fetch();
-    $statement1->closeCursor();
+	$q1 = "SELECT * FROM user WHERE username = :username;";
+	$statement1 = $db->prepare($q1);
+	$statement1->bindValue(':username', $username);
+	$statement1->execute();
+	$ret = $statement1->fetch();
+	$statement1->closeCursor();
 
-    return $ret;
+	return $ret;
 }
 
 function getImagesURLS($partyID)

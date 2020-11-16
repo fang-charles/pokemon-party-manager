@@ -77,11 +77,11 @@ const AddParty: React.FC<WelcomeProps> = (props) => {
     };
 
     const handleSave = () => {
-        addParty(user_ID)
+        addParty(userID)
             .then((res) => {
                 //console.log(user_ID);
                 console.log(res.data);
-                alert('Successfully Added! party_id: ' + res.data['party_id']);
+                alert('Successfully Added To User: ' + userID +'! party_id: ' + res.data['party_id']);
             })
             .catch(() => {
                 alert('Exception Caught');

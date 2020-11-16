@@ -109,7 +109,7 @@ const PokemonCard: React.FC<WelcomeProps> = (props) => {
     const [allItems, setAllItems] = React.useState<Item[]>([]);
     const [pkmn, setPkmn] = React.useState<PokemonPacket>({
         pkID: 1,
-        nickname: '',
+        nickname: 'Loading',
         level: 0,
         pokedex_number: 1,
         name: '',
