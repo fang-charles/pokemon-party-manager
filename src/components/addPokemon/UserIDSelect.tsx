@@ -22,7 +22,6 @@ function UserIDSelect() {
             <Grid item xs={4}>
                 <div style={{ width: '100%' }}>
                     <p>Party ID: {pid} </p>
-                    <button onClick={() => setPid(pid + 1)}>Click me</button>
                     <br></br>
                     <TextField
                         name="name"

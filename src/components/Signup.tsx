@@ -130,8 +130,6 @@ const Login = () => {
     }, [state.username, state.password, state.confirm]);
 
     const handleSignup = () => {
-        //need to check with database
-        //JSON.stringify(itemDel)
         let pw: Loginer = {
             user: 'cats',
             password: 'string',
@@ -144,7 +142,6 @@ const Login = () => {
             });
         } else {
             createAccount(state.username, state.password).then((res) => {
-                console.log(res);
                 if (res.data) {
                     dispatch({
                         type: 'loginSuccess',
@@ -200,18 +197,12 @@ const Login = () => {
         return <a>Placeholder for genParty</a>;
     }
 
-    //let partyArr: any[] = [];
     const [partyArr, setPartyArr] = React.useState<partyID[]>([]);
     React.useEffect(() => {
         getPartyGivenUsername(state.username).then((res) => {
             setPartyArr(res.data);
         });
     }, [state.username]);
-    /*     getPartyGivenUsername(state.username).then((res) => {
-        React.useEffect(() =>)
-        partyArr = res.data;
-
-    }); */
 
     if (state.loggedIn) {
         return (

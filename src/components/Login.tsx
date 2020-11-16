@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, useState } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import TextField from '@material-ui/core/TextField';
@@ -11,7 +11,6 @@ import Button from '@material-ui/core/Button';
 import { verifyPassword, getPartyGivenUsername } from '../axios/api';
 import { Link } from 'react-router-dom';
 import PartySelectScreen from './PartySelectScreen/PartySelectScreen';
-import { Divider } from '@material-ui/core';
 import { partyID } from '../types/types';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -175,18 +174,12 @@ const Login = () => {
         return <a>Placeholder for genParty</a>;
     }
 
-    //let partyArr: any[] = [];
     const [partyArr, setPartyArr] = React.useState<partyID[]>([]);
     React.useEffect(() => {
         getPartyGivenUsername(state.username).then((res) => {
             setPartyArr(res.data);
         });
     }, [state.username]);
-    /*     getPartyGivenUsername(state.username).then((res) => {
-        React.useEffect(() =>)
-        partyArr = res.data;
-
-    }); */
 
     if (state.loggedIn) {
         return (

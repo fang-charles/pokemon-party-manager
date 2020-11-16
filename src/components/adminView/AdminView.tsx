@@ -42,18 +42,18 @@ function AdminView() {
 			<p>{"My Parties: " +JSON.stringify(partyNumbers)}</p>
 				<h5>User ID: {userId}</h5>
 				<TextField name="name" label="User ID" type="number" onChange={handleInputChangeUserId} value={userId} />
-				
-				<h5>Party ID: {partyId}</h5>
-				<TextField name="name" label="Party ID" type="number" onChange={handleInputChangePartyId} value={partyId} />
 			</Grid>
             <Grid item xs={3}>
-
+				<div>
+					<h5>Party ID: {partyId}</h5> 
+					<TextField name="name" label="Party ID" type="number" onChange={handleInputChangePartyId} value={partyId} />
+				</div>
+				<br></br>
 				<PartySelectScreen partyID={partyId}> </PartySelectScreen>
             	<AddParty userID={userId}></AddParty>
-				
             </Grid>
 			<Grid item xs={12}>
-			<PartyScreen pkids={[]}  partyID={partyId}></PartyScreen>
+				<PartyScreen pkids={[]}  partyID={partyId}></PartyScreen>
 			</Grid>
         </Grid>
     );

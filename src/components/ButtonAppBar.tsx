@@ -36,7 +36,7 @@ export default function ButtonAppBar() {
                         News
                     </Typography>
 
-                    <Link to="/test/charles">
+                    {/* <Link to="/test/charles">
                         <Button>Charles</Button>
                     </Link>
 
@@ -50,7 +50,7 @@ export default function ButtonAppBar() {
 
                     <Link to="/test/jammie">
                         <Button>Jammie</Button>
-                    </Link>
+                    </Link> */}
                     <Link to="/components/Login">
                         <Button>Login</Button>
                     </Link>

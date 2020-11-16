@@ -1,10 +1,7 @@
 import React, { Component, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
 
-import Example from './components/Example';
-import ExampleBoatView from './components/ExampleBoatView';
 import ButtonAppBar from './components/ButtonAppBar';
 
 import TestCharles from './test/TestCharles';
