@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/pokemon-party-manager/static/css/main.cf1bf63c.chunk.css",
+    "main.js": "/pokemon-party-manager/static/js/main.2ef41aa3.chunk.js",
+    "main.js.map": "/pokemon-party-manager/static/js/main.2ef41aa3.chunk.js.map",
+    "runtime-main.js": "/pokemon-party-manager/static/js/runtime-main.151ada69.js",
+    "runtime-main.js.map": "/pokemon-party-manager/static/js/runtime-main.151ada69.js.map",
+    "static/js/2.68b8742f.chunk.js": "/pokemon-party-manager/static/js/2.68b8742f.chunk.js",
+    "static/js/2.68b8742f.chunk.js.map": "/pokemon-party-manager/static/js/2.68b8742f.chunk.js.map",
+    "index.html": "/pokemon-party-manager/index.html",
+    "precache-manifest.2dce40e9dac2b7e4171dc70cf88825b3.js": "/pokemon-party-manager/precache-manifest.2dce40e9dac2b7e4171dc70cf88825b3.js",
+    "service-worker.js": "/pokemon-party-manager/service-worker.js",
+    "static/css/main.cf1bf63c.chunk.css.map": "/pokemon-party-manager/static/css/main.cf1bf63c.chunk.css.map",
+    "static/js/2.68b8742f.chunk.js.LICENSE.txt": "/pokemon-party-manager/static/js/2.68b8742f.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.151ada69.js",
+    "static/js/2.68b8742f.chunk.js",
+    "static/css/main.cf1bf63c.chunk.css",
+    "static/js/main.2ef41aa3.chunk.js"
+  ]
+}
